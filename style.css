@@ -70,7 +70,7 @@ body {
 }
 
 .conteudo-principal-escrito-botao {
-  background-color: #ECD6C4;
+  background-color: #ffffff;
   width: 180px;
   height: 120px;
   border: none;
@@ -79,7 +79,7 @@ body {
   font-family: 'Sarala', sans-serif;
   font-weight: 400;
   font-size: 24px;
-  color: #2F2325;
+  color: #000000;
 }
 
 .conteudo-principal-escrito-botao:hover {
