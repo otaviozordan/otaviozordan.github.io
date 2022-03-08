@@ -66,7 +66,7 @@ body {
   font-family: 'Sarala', sans-serif;
   font-weight: 400;
   font-size: 24px;
-  color: #ECD6C4;
+  color: #f7f2ee;
 }
 
 .conteudo-principal-escrito-botao {
@@ -104,7 +104,7 @@ body {
   font-family: 'Righteous', cursive;
   font-weight: 400;
   font-size: 24px;
-  color: #FFF2EF;
+  color: #f8f3f2;
   margin-bottom: 16px;
 }
 
@@ -112,10 +112,10 @@ body {
   font-family: 'Sarala', sans-serif;
   font-weight: 300;
   font-size: 18px;
-  color: #ECD6C4;
+  color: #f8f3ee;
 }
 
-.rodape {
+.rodape {  
     padding: 32px;
     border-top: 0.4px solid #FFF2E7;
     background-color: white;
