@@ -1,54 +1,178 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-  <script>
-    function redirecionarGitHub() {
-       window.location.href = "https://github.com/otaviozordan/";
-    }
- </script>
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Minha pagina pessoal">
-  <title> Otávio Zordan - Meu portifólio</title>
-  <link rel="icon" type="imagem/png" href="/img/profile_git.png" />
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenhando um Coração</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            margin: 0;
+        }
+        #canvas {
+            border: 2px solid #ffcccc;
+            background-color: #fff;
+        }
+        .photo {
+            position: absolute;
+            width: 200px; /* Aumenta a largura da foto */
+            height: 200px; /* Aumenta a altura da foto */
+            border-radius: 50%; /* Mantém a foto como círculo */
+            border: 2px solid #ff6666;
+        }
+        .hidden-photo {
+            display: none;
+        }
+        #equation {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border: 1px solid #ff6666;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+        #message {
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            text-align: center;
+            color: #ff6666;
+        }
+        #buttons {
+            margin-top: 10px;
+        }
+        .love-button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
-  <header class="cabecalho">
-    <img class="cabecalho-imagem" src="./img/Developer.gif" alt="Foto da ETE FMC">
-    <nav class="cabecalho-menu">
-      <a class="cabecalho-menu-item" href="https://www.linkedin.com/in/ot%C3%A1vio-zordan-alves-b88160211/">Meu LinkedIn</a>
-      <a class="cabecalho-menu-item" href="https://www.instagram.com/otaviozordan/">Instagram</a>
-      <a class="cabecalho-menu-item" href="./pages/ainda_nao.html">Portfólio</a>
-      <a class="cabecalho-menu-item" href="./pages/ainda_nao.html">Contato</a>
-    </nav>
-  </header>
+    <canvas id="canvas" width="650" height="650"></canvas>
+    <div id="equation">Equação: x = 0, y = 0</div>
+    <img src="./assets/1.jpeg" class="photo hidden-photo" id="photo1">
+    <img src="./assets/2.jpeg" class="photo hidden-photo" id="photo2">
+    <div id="message">Eu te amo muito muito muito</div>
+    <div id="buttons">
+        <button class="love-button" id="loveButton1">Também te amo</button>
+        <button class="love-button" id="loveButton2">Eu amo mais</button>
+    </div>
+    <audio id="backgroundMusic" src="path_to_your_music.mp3" autoplay loop></audio>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const equationDiv = document.getElementById('equation');
+        const photo1 = document.getElementById('photo1');
+        const photo2 = document.getElementById('photo2');
+        const loveButton1 = document.getElementById('loveButton1');
+        const loveButton2 = document.getElementById('loveButton2');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 20;
+        let t = 0;
 
-  <main class="conteudo">
-    <section class="conteudo-principal">
-      <div class="conteudo-principal-escrito">
-        <h1 class="conteudo-principal-escrito-titulo">Otávio Zordan</h1>
-        <h2 class="conteudo-principal-escrito-subtitulo">Essa é a minha LandingPage</h2>
-        <button class="conteudo-principal-escrito-botao" onclick="redirecionarGitHub()">
-          Me siga no GitHub!
-        </button>
-      </div>
-      <img class="conteudo-principal-imagem"src=".\img\profile_git.png" alt="Minha imagem">
-    </section>
+        function drawGrid() {
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
 
-    <section class="conteudo-secundario">
-      <h3 class="conteudo-secundario-titulo">Sobre Mim:</h3>
-      <p class="conteudo-secundario-paragrafo">Aluno da ETE FMC em Santa Rita do Sapucaí</p>
-      <p class="conteudo-secundario-paragrafo">Cursando Técnico em [...]</p>
-    </section>
-  </main>
+            // Desenha linhas verticais
+            for (let x = 0; x <= canvas.width; x += scale) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
 
-  <footer class="rodape">
-    <img class="rodape-imagem" src="./img/logo-ete-fmc-1.png">
-  </footer>
+            // Desenha linhas horizontais
+            for (let y = 0; y <= canvas.height; y += scale) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+
+            // Desenha os eixos X e Y
+            ctx.strokeStyle = '#aaa';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+        }
+
+        function drawHeart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            ctx.beginPath();
+            for (let i = 0; i <= t; i++) {
+                const angle = i * Math.PI / 180;
+                const x = 16 * Math.sin(angle) ** 3;
+                const y = 13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle);
+                ctx.lineTo(centerX + x * scale, centerY - y * scale);
+                
+                if (i === t) {
+                    equationDiv.innerText = `Equação: x = ${x.toFixed(2)}, y = ${y.toFixed(2)}`;
+                }
+            }
+            ctx.strokeStyle = '#ff6666';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            if (t < 360) {
+                t++;
+                requestAnimationFrame(drawHeart);
+            } else {
+                positionPhotos();
+            }
+        }
+
+        function positionPhotos() {
+            photo1.style.left = `${centerX - 50}px`;
+            photo1.style.top = `${centerY - 200}px`;
+            photo2.style.left = `${centerX - 50}px`;
+            photo2.style.top = `${centerY + 150}px`;
+        }
+
+        function teleportButton() {
+            const randomX = Math.random() * (window.innerWidth - loveButton2.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - loveButton2.offsetHeight);
+            loveButton2.style.position = 'absolute';
+            loveButton2.style.left = `${randomX}px`;
+            loveButton2.style.top = `${randomY}px`;
+        }
+
+        function showPhotos() {
+            photo1.classList.remove('hidden-photo');
+            photo2.classList.remove('hidden-photo');
+            photo1.style.left = `${centerX - 150}px`;
+            photo1.style.top = `${centerY - 250}px`;
+            photo2.style.left = `${centerX - 150}px`;
+            photo2.style.top = `${centerY + 50}px`;
+        }
+
+        loveButton2.addEventListener('mouseover', teleportButton);
+        loveButton1.addEventListener('click', showPhotos);
+
+        drawHeart();
+    </script>
 </body>
-
 </html>
