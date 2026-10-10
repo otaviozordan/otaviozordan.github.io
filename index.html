@@ -173,6 +173,39 @@ h2{font-size:clamp(2.1rem,5vw,3.4rem);margin:12px 0 18px}
 footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:.85rem;position:relative;z-index:2;background:var(--bg)}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
+/* 3D interaction: the hero lets pointer events through to the canvas */
+.hero{pointer-events:none}
+.hero .wrap>div:first-child,.hero a,.hero button,.qr-card{pointer-events:auto}
+#scene{cursor:grab;touch-action:pan-y}
+body.grabbing #scene{cursor:grabbing}
+.hint3d{position:absolute;right:max(16px,calc((100vw - 1120px)/2));bottom:28px;display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--muted);padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(11,7,6,.55);backdrop-filter:blur(8px);transition:opacity .6s}
+.hint3d svg{width:18px;height:18px;flex:none}
+body.grabbing .hint3d{opacity:0}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38vh;pointer-events:none;background:radial-gradient(ellipse 70% 100% at 50% 100%,rgba(255,90,20,.28),rgba(194,38,27,.08) 55%,transparent 75%);animation:flick 2.4s infinite alternate;z-index:-1}
+@keyframes flick{0%{opacity:.75}30%{opacity:1}55%{opacity:.82}80%{opacity:.97}100%{opacity:.86}}
+.hero{position:relative}
+
+/* QR */
+.qr-card{color:var(--text);font:inherit;text-align:left;display:flex;align-items:center;gap:14px;margin-top:28px;padding:12px 16px 12px 12px;width:max-content;max-width:100%;border:1px solid var(--line);border-radius:16px;background:rgba(20,12,10,.7);backdrop-filter:blur(8px);cursor:zoom-in;transition:border-color .2s,transform .2s}
+.qr-card:hover{border-color:var(--fire);transform:translateY(-2px)}
+.qr-box{background:#fff;padding:8px;border-radius:10px;line-height:0}
+.qr-box svg{width:92px;height:92px}
+.qr-card b{display:block;font-family:"Space Grotesk";font-size:1rem}
+.qr-card span{font-size:.82rem;color:var(--muted)}
+.qr-fab{position:fixed;right:18px;bottom:18px;z-index:30;width:56px;height:56px;border-radius:16px;border:1px solid var(--line);background:rgba(20,12,10,.85);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(20px);pointer-events:none;transition:all .3s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.qr-fab.show{opacity:1;transform:none;pointer-events:auto}
+.qr-fab:hover{border-color:var(--fire)}
+.qr-fab .qr-box{padding:5px;border-radius:7px}
+.qr-fab svg{width:34px;height:34px}
+#qrFull{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:radial-gradient(ellipse at 50% 110%,rgba(255,90,20,.35),rgba(5,3,2,.96) 60%);backdrop-filter:blur(8px);cursor:zoom-out;text-align:center;padding:24px}
+#qrFull.on{display:grid}
+#qrFull .qr-box{padding:clamp(14px,2vw,26px);border-radius:24px;box-shadow:0 0 0 6px rgba(255,90,31,.35),0 0 120px rgba(255,90,31,.45)}
+#qrFull svg{width:min(62vh,80vw);height:min(62vh,80vw)}
+#qrFull h3{font-size:clamp(1.6rem,3.5vw,2.6rem);margin-bottom:22px;background:linear-gradient(180deg,#fff3d6,var(--ember) 50%,var(--fire));-webkit-background-clip:text;background-clip:text;color:transparent}
+#qrFull p{margin-top:20px;color:var(--muted);font-size:clamp(1rem,1.8vw,1.3rem)}
+#qrFull p b{color:var(--text)}
+@media (max-width:860px){.qr-card,.hint3d{display:none}.qr-fab{display:none}}
+
 /* mobile menu */
 .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:1.2rem;cursor:pointer}
 @media (max-width:760px){
@@ -263,10 +296,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <a class="btn primary" href="#diario">Abrir o diário →</a>
         <a class="btn ghost" href="#projeto">Conhecer o projeto</a>
       </div>
+      <button class="qr-card" type="button" data-qr aria-label="Mostrar QR code em tela cheia">
+        <div class="qr-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div>
+        <div style="text-align:left"><b>Acompanhe no celular</b><span>Aponte a câmera · otaviozordan.github.io</span></div>
+      </button>
     </div>
     <div class="spacer"></div>
   </div>
   <div class="scroll-hint">role<span></span></div>
+  <div class="hint3d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 11V6a1.5 1.5 0 0 1 3 0v4m0-1V4.5a1.5 1.5 0 0 1 3 0V10m0-3.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 14a1.5 1.5 0 0 1 2.4-1.8L9 15"/></svg>Arraste para girar · role para zoom</div>
 </header>
 
 <!-- PROJETO -->
@@ -405,6 +443,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </div></footer>
 
 <div id="lb"><img alt=""></div>
+<button class="qr-fab" id="qrFab" type="button" data-qr aria-label="Mostrar QR code"><div class="qr-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div></button>
+<div id="qrFull" role="dialog" aria-label="QR code do site"><div>
+  <h3>Aeris · Diário de Bordo</h3>
+  <div class="qr-box" style="display:inline-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div>
+  <p>Aponte a câmera do celular · <b>otaviozordan.github.io</b></p>
+</div></div>
 
 <script>
 const A = id => `assets/aeris/${id}.webp`;
@@ -531,7 +575,15 @@ document.addEventListener('click',ev=>{
   if(img){lb.querySelector('img').src=img.src;lb.querySelector('img').alt=img.alt;lb.classList.add('on')}
   else if(ev.target.closest('#lb')) lb.classList.remove('on');
 });
-addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+const qrFull = document.getElementById('qrFull'), qrFab = document.getElementById('qrFab');
+document.querySelectorAll('[data-qr]').forEach(b=>b.addEventListener('click',()=>qrFull.classList.add('on')));
+qrFull.addEventListener('click',()=>qrFull.classList.remove('on'));
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){lb.classList.remove('on');qrFull.classList.remove('on')}
+  if((e.key==='q'||e.key==='Q')&&!e.ctrlKey&&!e.metaKey) qrFull.classList.toggle('on');
+});
+addEventListener('scroll',()=>qrFab.classList.toggle('show',scrollY>innerHeight*.7),{passive:true});
+if(location.hash==='#qr') qrFull.classList.add('on');
 
 /* nav */
 const nav = document.getElementById('nav'), mb = document.getElementById('menuBtn');
@@ -540,67 +592,81 @@ document.getElementById('menu').addEventListener('click',e=>{if(e.target.closest
 addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40),{passive:true});
 </script>
 
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const canvas = document.getElementById('scene');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
 const mobile = innerWidth < 760;
+const coarse = matchMedia('(pointer: coarse)').matches;
+const renderer = new THREE.WebGLRenderer({canvas, antialias:!mobile, powerPreference:'high-performance'});
 renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.5:2));
-renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = .95;
 renderer.shadowMap.enabled = !mobile;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x0b0706, 0.045);
+scene.background = new THREE.Color(0x0b0706);
+scene.fog = new THREE.FogExp2(0x0b0706, 0.035);
 const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-camera.position.set(0, 1.2, 9);
+camera.position.set(0, 3.4, 10);
 
-/* lights */
-scene.add(new THREE.HemisphereLight(0xffd2b0, 0x1a0805, 0.6));
-const key = new THREE.DirectionalLight(0xfff0e0, 2.2); key.position.set(4,6,5); key.castShadow = true; key.shadow.mapSize.set(1024,1024); scene.add(key);
-const rim = new THREE.PointLight(0xff5a1f, 40, 20); rim.position.set(-3,1,-3); scene.add(rim);
-const under = new THREE.PointLight(0xff8a3d, 18, 10); under.position.set(0,-2,2); scene.add(under);
+/* ---------- controls: drag to orbit, wheel/pinch to zoom, auto-rotate ---------- */
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, .7, 0);
+controls.enableDamping = true; controls.dampingFactor = .06;
+controls.enablePan = false;
+controls.minDistance = 4; controls.maxDistance = 16;
+controls.minPolarAngle = .25; controls.maxPolarAngle = 1.62;
+controls.autoRotate = !reduce; controls.autoRotateSpeed = 1.1;
+controls.rotateSpeed = .7; controls.zoomSpeed = .8;
+if (coarse) { controls.enableZoom = false; canvas.style.touchAction = 'pan-y'; } // horizontal swipe rotates, vertical swipe scrolls the page
+let idleTimer;
+controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idleTimer); document.body.classList.add('grabbing'); });
+controls.addEventListener('end', () => { document.body.classList.remove('grabbing'); idleTimer = setTimeout(() => controls.autoRotate = !reduce, 4000); });
+controls.update();
 
-/* station */
-const station = new THREE.Group();
-scene.add(station);
+/* ---------- lights ---------- */
+scene.add(new THREE.HemisphereLight(0xffd2b0, 0x1a0805, 0.45));
+const key = new THREE.DirectionalLight(0xfff0e0, 1.6); key.position.set(4,7,5); key.castShadow = true; key.shadow.mapSize.set(1024,1024); scene.add(key);
+const fireLights = [];
+for (let i=0;i<4;i++){ const l = new THREE.PointLight(0xff6a20, 10, 9, 1.6); const a=i/4*Math.PI*2; l.position.set(Math.cos(a)*2.6, .2, Math.sin(a)*2.6); scene.add(l); fireLights.push(l); }
+const under = new THREE.PointLight(0xff3c00, 20, 8); under.position.set(0,-.4,0); scene.add(under);
+
+/* ---------- station ---------- */
+const world = new THREE.Group(); scene.add(world);
+const station = new THREE.Group(); world.add(station);
 const mat = (c,o={}) => new THREE.MeshStandardMaterial({color:c, roughness:.55, metalness:.05, ...o});
 
-// body (red painted wooden box)
 const body = new THREE.Mesh(new THREE.BoxGeometry(2.4,1.6,1.6), mat(0xb8321f,{roughness:.8}));
 body.castShadow = body.receiveShadow = true; station.add(body);
-const lid = new THREE.Mesh(new THREE.BoxGeometry(2.5,.08,1.7), mat(0x9a2716,{roughness:.8})); lid.position.y=.84; station.add(lid);
+const lid = new THREE.Mesh(new THREE.BoxGeometry(2.5,.08,1.7), mat(0x9a2716,{roughness:.8})); lid.position.y=.84; lid.castShadow=true; station.add(lid);
 
-// LCD screen with canvas texture
 const lcdCanvas = document.createElement('canvas'); lcdCanvas.width=512; lcdCanvas.height=200;
 const lctx = lcdCanvas.getContext('2d');
 const lcdTex = new THREE.CanvasTexture(lcdCanvas); lcdTex.colorSpace = THREE.SRGBColorSpace;
 const bezel = new THREE.Mesh(new THREE.BoxGeometry(1.5,.62,.06), mat(0x111111)); bezel.position.set(0,.22,.81); station.add(bezel);
-const lcd = new THREE.Mesh(new THREE.PlaneGeometry(1.36,.5), new THREE.MeshBasicMaterial({map:lcdTex})); lcd.position.set(0,.22,.842); station.add(lcd);
-const lcdGlow = new THREE.PointLight(0x4f8cff, 3, 3); lcdGlow.position.set(0,.22,1.4); station.add(lcdGlow);
+const lcd = new THREE.Mesh(new THREE.PlaneGeometry(1.36,.5), new THREE.MeshBasicMaterial({map:lcdTex, toneMapped:false, color:0xb8c8ff})); lcd.position.set(0,.22,.842); station.add(lcd);
 
-// button + LED on front
 const btn = new THREE.Mesh(new THREE.CylinderGeometry(.08,.08,.08,24), mat(0x222222)); btn.rotation.x=Math.PI/2; btn.position.set(-.5,-.4,.82); station.add(btn);
 const ledMat = new THREE.MeshStandardMaterial({color:0xff2a10, emissive:0xff2a10, emissiveIntensity:2});
 const led = new THREE.Mesh(new THREE.SphereGeometry(.06,16,16), ledMat); led.position.set(-.2,-.4,.83); station.add(led);
-const ledLight = new THREE.PointLight(0xff2a10, 2, 2); ledLight.position.set(-.2,-.4,1.1); station.add(ledLight);
-// buzzer
 const buzz = new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.1,32), mat(0x161616)); buzz.rotation.x=Math.PI/2; buzz.position.set(.5,-.4,.83); station.add(buzz);
 
-// DHT22 on the side (white grill)
 const dht = new THREE.Group();
-const dhtBody = new THREE.Mesh(new THREE.BoxGeometry(.06,.5,.38), mat(0xeeeeea,{roughness:.4})); dht.add(dhtBody);
+dht.add(new THREE.Mesh(new THREE.BoxGeometry(.06,.5,.38), mat(0xeeeeea,{roughness:.4})));
 for(let r=0;r<5;r++)for(let c=0;c<3;c++){const h=new THREE.Mesh(new THREE.BoxGeometry(.02,.05,.07),mat(0x333333));h.position.set(.035,.18-r*.09,-.1+c*.1);dht.add(h)}
 dht.position.set(1.23,-.15,.2); station.add(dht);
-// logo disc on side
 const logoTex = new THREE.TextureLoader().load('assets/aeris/6ac13c05.webp'); logoTex.colorSpace = THREE.SRGBColorSpace;
 const logo = new THREE.Mesh(new THREE.CircleGeometry(.42,48), new THREE.MeshStandardMaterial({map:logoTex, roughness:.6}));
 logo.rotation.y = -Math.PI/2; logo.position.set(-1.205,.1,0); station.add(logo);
 
-// mast + anemometer
 const mast = new THREE.Mesh(new THREE.CylinderGeometry(.06,.08,1.3,20), mat(0xe8e8e4,{roughness:.35})); mast.position.y=1.5; mast.castShadow=true; station.add(mast);
 const anemo = new THREE.Group(); anemo.position.y=2.2; station.add(anemo);
 anemo.add(new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.16,24), mat(0xf2f2ee,{roughness:.3})));
@@ -611,36 +677,118 @@ for(let i=0;i<3;i++){
   const cup = new THREE.Mesh(cupGeo, mat(0xf5f5f0,{side:THREE.DoubleSide,roughness:.3})); cup.position.x=.82; cup.rotation.x=Math.PI/2; cup.castShadow=true; arm.add(cup);
   anemo.add(arm);
 }
-// soil probe (FC-28) going down
 const probe = new THREE.Group();
 [-.07,.07].forEach(x=>{const p=new THREE.Mesh(new THREE.BoxGeometry(.05,.7,.015),mat(0xc9c9c9,{metalness:.8,roughness:.25}));p.position.set(x,0,0);probe.add(p)});
 probe.position.set(.9,-1.15,.6); station.add(probe);
 
-// ground disc (grass/maquete hint) + shadow catcher
-const ground = new THREE.Mesh(new THREE.CircleGeometry(3.2,64), new THREE.MeshStandardMaterial({color:0x1d140f, roughness:1}));
-ground.rotation.x=-Math.PI/2; ground.position.y=-.8; ground.receiveShadow=true; station.add(ground);
-const ring = new THREE.Mesh(new THREE.RingGeometry(3.15,3.22,96), new THREE.MeshBasicMaterial({color:0xff5a1f, transparent:true, opacity:.5}));
-ring.rotation.x=-Math.PI/2; ring.position.y=-.79; station.add(ring);
+/* scorched ground with glowing embers bed */
+const groundTex = (()=>{const c=document.createElement('canvas');c.width=c.height=512;const g=c.getContext('2d');
+  const gr=g.createRadialGradient(256,256,0,256,256,256);gr.addColorStop(0,'#2a1a12');gr.addColorStop(.72,'#160c08');gr.addColorStop(.86,'#ff5a1f');gr.addColorStop(.9,'#7a1a06');gr.addColorStop(1,'#0b0706');
+  g.fillStyle=gr;g.fillRect(0,0,512,512);
+  for(let i=0;i<900;i++){const a=Math.random()*6.283,r=200+Math.random()*60;g.fillStyle=`rgba(255,${120+Math.random()*120|0},40,${Math.random()*.8})`;g.fillRect(256+Math.cos(a)*r,256+Math.sin(a)*r,2,2)}
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t})();
+const ground = new THREE.Mesh(new THREE.CircleGeometry(4.3,96), new THREE.MeshStandardMaterial({map:groundTex, emissiveMap:groundTex, emissive:0xffffff, emissiveIntensity:.3, roughness:1}));
+ground.rotation.x=-Math.PI/2; ground.position.y=-.8; ground.receiveShadow=true; world.add(ground);
 
-/* embers */
-const N = mobile ? 450 : 1200;
-const pos = new Float32Array(N*3), spd = new Float32Array(N), sway = new Float32Array(N);
+/* ---------- flames: noise-driven billboard shader, instanced around a ring ---------- */
+const NOISE = `
+vec2 hash(vec2 p){p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));return -1.+2.*fract(sin(p)*43758.5453);}
+float noise(vec2 p){const float K1=.366025404;const float K2=.211324865;vec2 i=floor(p+(p.x+p.y)*K1);vec2 a=p-i+(i.x+i.y)*K2;vec2 o=(a.x>a.y)?vec2(1.,0.):vec2(0.,1.);vec2 b=a-o+K2;vec2 c=a-1.+2.*K2;vec3 h=max(.5-vec3(dot(a,a),dot(b,b),dot(c,c)),0.);vec3 n=h*h*h*h*vec3(dot(a,hash(i)),dot(b,hash(i+o)),dot(c,hash(i+1.)));return dot(n,vec3(70.));}
+float fbm(vec2 p){float f=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){f+=a*noise(p);p=m*p;a*=.5;}return f;}`;
+const flameMat = new THREE.ShaderMaterial({
+  uniforms:{uTime:{value:0}, uHeat:{value:1}},
+  transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.DoubleSide,
+  vertexShader:`
+    attribute float aSeed; varying vec2 vUv; varying float vSeed;
+    void main(){
+      vUv=uv; vSeed=aSeed;
+      vec4 c = modelMatrix * instanceMatrix * vec4(0.,0.,0.,1.);
+      float sx = length(instanceMatrix[0].xyz), sy = length(instanceMatrix[1].xyz);
+      vec3 right = normalize(vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]));
+      vec3 wp = c.xyz + right*position.x*sx + vec3(0.,1.,0.)*position.y*sy;
+      gl_Position = projectionMatrix * viewMatrix * vec4(wp,1.);
+    }`,
+  fragmentShader:`
+    uniform float uTime; uniform float uHeat; varying vec2 vUv; varying float vSeed;
+    ${NOISE}
+    void main(){
+      vec2 p = vec2((vUv.x-.5)*2., vUv.y);
+      float t = uTime*(1.4+vSeed*.6);
+      float n  = fbm(vec2(p.x*1.4+vSeed*13., p.y*1.8 - t)*1.9);
+      float n2 = fbm(vec2(p.x*3.2-vSeed*7., p.y*3.5 - t*1.7)*1.3);
+      float width = mix(.95, .04, pow(p.y, .75));
+      float x = p.x + n*.85*p.y + sin(t*1.3+vSeed*20.)*.08*p.y;
+      float body = 1. - abs(x)/width;
+      body *= smoothstep(1.02, .2, p.y + n2*.55);
+      body *= smoothstep(0., .1, p.y);
+      float I = smoothstep(.08, .75, body*1.25*uHeat + n2*.12);
+      vec3 col = mix(vec3(.45,.02,0.), vec3(.95,.2,0.), smoothstep(.0,.35,I));
+      col = mix(col, vec3(1.,.48,.03), smoothstep(.35,.7,I));
+      col = mix(col, vec3(1.,.8,.35), smoothstep(.82,1.,I));
+      col *= .8;
+      gl_FragColor = vec4(col, pow(I,1.5)*.8);
+    }`
+});
+const NF = mobile ? 26 : 44;
+const flameGeo = new THREE.PlaneGeometry(1,1); flameGeo.translate(0,.5,0);
+const seeds = new Float32Array(NF);
+const flames = new THREE.InstancedMesh(flameGeo, flameMat, NF);
+const dummy = new THREE.Object3D();
+const flameBase = [];
+for(let i=0;i<NF;i++){
+  const a = i/NF*Math.PI*2 + Math.random()*.1, r = 3.05 + Math.random()*.5;
+  const h = .9 + Math.random()*1.3, w = .55 + Math.random()*.4;
+  dummy.position.set(Math.cos(a)*r, -.82, Math.sin(a)*r); dummy.scale.set(w,h,1); dummy.updateMatrix();
+  flames.setMatrixAt(i, dummy.matrix); seeds[i]=Math.random(); flameBase.push({a,r,h,w});
+}
+flameGeo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(seeds,1));
+flames.frustumCulled = false; world.add(flames);
+
+/* small licking flames on the box edges (the station is "at risk") */
+const NS = 10;
+const smallSeeds = new Float32Array(NS);
+const smallGeo = flameGeo.clone(); const small = new THREE.InstancedMesh(smallGeo, flameMat, NS);
+for(let i=0;i<NS;i++){ const a=Math.random()*6.283; dummy.position.set(Math.cos(a)*1.9, -.82, Math.sin(a)*1.5); dummy.scale.set(.4,.4+Math.random()*.45,1); dummy.updateMatrix(); small.setMatrixAt(i,dummy.matrix); smallSeeds[i]=Math.random(); }
+smallGeo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(smallSeeds,1));
+small.frustumCulled=false; world.add(small);
+
+/* ---------- embers & sparks: per-particle size, color by age, turbulence ---------- */
+const N = mobile ? 700 : 2200;
+const pos = new Float32Array(N*3), vel = new Float32Array(N*3), age = new Float32Array(N), life = new Float32Array(N), size = new Float32Array(N);
 const rnd = (a,b)=>a+Math.random()*(b-a);
-for(let i=0;i<N;i++){pos[i*3]=rnd(-14,14);pos[i*3+1]=rnd(-8,10);pos[i*3+2]=rnd(-10,4);spd[i]=rnd(.4,1.4);sway[i]=rnd(0,6.28)}
-const eg = new THREE.BufferGeometry(); eg.setAttribute('position', new THREE.BufferAttribute(pos,3));
-const sprite = (()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,240,200,1)');gr.addColorStop(.25,'rgba(255,160,60,.9)');gr.addColorStop(1,'rgba(255,60,0,0)');g.fillStyle=gr;g.fillRect(0,0,64,64);const t=new THREE.CanvasTexture(c);return t})();
-const embers = new THREE.Points(eg, new THREE.PointsMaterial({size:.14, map:sprite, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, color:0xffa060}));
-scene.add(embers);
+function spawn(i, initial){
+  const fromFire = Math.random() < .7;
+  if(fromFire){ const a=rnd(0,6.283), r=rnd(2.9,3.7); pos[i*3]=Math.cos(a)*r; pos[i*3+1]=rnd(-.8,.6); pos[i*3+2]=Math.sin(a)*r; vel[i*3]=rnd(-.3,.3); vel[i*3+1]=rnd(1.2,3.2); vel[i*3+2]=rnd(-.3,.3); life[i]=rnd(1.5,4); size[i]=rnd(.6,2.2); }
+  else { pos[i*3]=rnd(-16,16); pos[i*3+1]=rnd(-7,-2); pos[i*3+2]=rnd(-12,4); vel[i*3]=rnd(-.1,.3); vel[i*3+1]=rnd(.5,1.3); vel[i*3+2]=0; life[i]=rnd(6,14); size[i]=rnd(.5,1.6); }
+  age[i] = initial ? Math.random()*life[i] : 0;
+  if(initial){ pos[i*3]+=vel[i*3]*age[i]; pos[i*3+1]+=vel[i*3+1]*age[i]; pos[i*3+2]+=vel[i*3+2]*age[i]; }
+}
+for(let i=0;i<N;i++) spawn(i,true);
+const eg = new THREE.BufferGeometry();
+eg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+const ageAttr = new THREE.BufferAttribute(new Float32Array(N),1); eg.setAttribute('aAge', ageAttr);
+eg.setAttribute('aSize', new THREE.BufferAttribute(size,1));
+const emberMat = new THREE.ShaderMaterial({
+  uniforms:{uPR:{value:renderer.getPixelRatio()}, uTime:{value:0}},
+  transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+  vertexShader:`attribute float aAge; attribute float aSize; uniform float uPR; uniform float uTime; varying float vAge; varying float vTw;
+    void main(){ vAge=aAge; vec4 mv=modelViewMatrix*vec4(position,1.); vTw=.65+.35*sin(uTime*12.+position.x*7.+position.y*3.);
+      gl_PointSize = aSize*uPR*(1.-aAge*.6)*(26./-mv.z)*2.2; gl_Position=projectionMatrix*mv; }`,
+  fragmentShader:`varying float vAge; varying float vTw;
+    void main(){ float d=length(gl_PointCoord-.5); if(d>.5) discard; float core=smoothstep(.5,.0,d); core=pow(core,1.8);
+      vec3 col=mix(vec3(1.,.95,.7), vec3(1.,.45,.08), smoothstep(0.,.35,vAge)); col=mix(col, vec3(.7,.08,.02), smoothstep(.35,1.,vAge));
+      float a = core*(1.-smoothstep(.7,1.,vAge))*vTw; gl_FragColor=vec4(col, a*.85); }`
+});
+const embers = new THREE.Points(eg, emberMat); embers.frustumCulled=false; world.add(embers);
 
-/* LCD drawing */
+/* ---------- LCD ---------- */
 let tempV=31.4, humV=34, windV=12;
 function drawLCD(t){
-  tempV += (Math.sin(t*.7)*.02); humV += Math.cos(t*.5)*.03; windV = 12+Math.sin(t*1.3)*4;
+  tempV = 31.4 + Math.sin(t*.4)*1.6; humV = 33 + Math.cos(t*.3)*4; windV = 12+Math.sin(t*1.3)*4;
   const risk = humV < 35 ? 'ALTO' : 'MEDIO';
   lctx.fillStyle='#1d4fd8'; lctx.fillRect(0,0,512,200);
   lctx.fillStyle='rgba(255,255,255,.06)'; for(let x=0;x<512;x+=6)lctx.fillRect(x,0,1,200);
-  lctx.fillStyle='#dfe9ff'; lctx.font='bold 34px monospace';
-  lctx.fillText('AERIS 1106',16,40);
+  lctx.fillStyle='#dfe9ff'; lctx.font='bold 34px monospace'; lctx.fillText('AERIS 1106',16,40);
   lctx.font='30px monospace';
   lctx.fillText(`T:${tempV.toFixed(1)}C  U:${humV.toFixed(0)}%`,16,86);
   lctx.fillText(`VENTO:${windV.toFixed(1)}km/h`,16,128);
@@ -649,54 +797,69 @@ function drawLCD(t){
   lcdTex.needsUpdate = true;
 }
 
-/* sizing / layout */
-let baseX = 0;
+/* ---------- post-processing (bloom) on desktop ---------- */
+let composer = null, bloom;
+if(!mobile){
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .6, .45, .8);
+  composer.addPass(bloom);
+  composer.addPass(new OutputPass());
+}
+
+/* ---------- layout: shift the view so the station sits to the right (desktop) or top (mobile) ---------- */
 function resize(){
-  const w=innerWidth,h=innerHeight;
-  renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
-  const wide = w>860;
-  baseX = wide ? 2.3 : 0;
-  station.scale.setScalar(wide ? 1 : Math.min(.8, w/520));
+  const w=innerWidth, h=innerHeight;
+  renderer.setSize(w,h,false); camera.aspect=w/h;
+  if(w>860) camera.setViewOffset(w,h,-w*.2,0,w,h);
+  else camera.setViewOffset(w,h,0,h*.2,w,h);
+  camera.updateProjectionMatrix();
+  world.scale.setScalar(w>860 ? 1 : Math.min(.85, w/470));
+  if(composer){ composer.setSize(w,h); }
 }
 addEventListener('resize',resize); resize();
 
-let mx=0,my=0; addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
-
 const clock = new THREE.Clock();
-let lastLcd = 0;
+let lastLcd = -1;
 function tick(){
-  const dt = Math.min(clock.getDelta(),.05), t = clock.elapsedTime;
-  const sp = reduce ? .25 : 1;
-  const prog = Math.min(1, scrollY / innerHeight);           // 0 in hero → 1 after first screen
+  const dt = Math.min(clock.getDelta(),.05), t = clock.elapsedTime, sp = reduce ? .25 : 1;
+  const prog = Math.min(1, scrollY / innerHeight);
   const deep = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
 
-  // station: centered on right in hero, drifts back & dims as you scroll
-  const mobileY = innerWidth>860 ? 0 : 1.55;
-  station.position.x = THREE.MathUtils.lerp(station.position.x, baseX*(1-prog*.4), .08);
-  station.position.y = THREE.MathUtils.lerp(station.position.y, -.2 + mobileY + Math.sin(t*.8)*.06 + prog*1.2, .08);
-  station.position.z = THREE.MathUtils.lerp(station.position.z, -prog*(mobile?16:5), .08);
-  station.visible = !(mobile && prog>=1 && station.position.z<-15);
-  station.rotation.y = -.55 + t*.12*sp + deep*Math.PI*2 + mx*.5;
-  station.rotation.x = .08 + my*.15;
+  // after the hero, the station rises out of the way (along the orbit axis, so orbiting stays centered)
+  world.position.y = THREE.MathUtils.lerp(world.position.y, prog*(mobile?6:3.2), .08);
+  station.rotation.y = deep*Math.PI*2;
+  station.position.y = Math.sin(t*.8)*.05;
+  controls.enabled = prog < .6;
 
   anemo.rotation.y += dt * (2.2 + windV*.25) * sp;
-  const blink = (Math.sin(t*5)+1)/2;
-  ledMat.emissiveIntensity = .6 + blink*2.4; ledLight.intensity = .5 + blink*2.5;
-  rim.intensity = 30 + Math.sin(t*3.1)*8 + Math.sin(t*7.3)*4;
+  const blink = (Math.sin(t*5)+1)/2; ledMat.emissiveIntensity = .6 + blink*3;
 
-  if(t-lastLcd>.25){drawLCD(t); lastLcd=t}
+  // fire: breathing heat + flicker
+  const heat = 1 + Math.sin(t*1.7)*.08 + Math.sin(t*4.3)*.05;
+  flameMat.uniforms.uTime.value = t*sp; flameMat.uniforms.uHeat.value = heat;
+  emberMat.uniforms.uTime.value = t;
+  fireLights.forEach((l,i)=>{ l.intensity = 9 + 6*Math.abs(Math.sin(t*(5.1+i)+i*2.)) + 3*Math.sin(t*13.7+i); });
+  under.intensity = 6 + Math.sin(t*9.3)*2;
+  if(bloom) bloom.strength = .55 + Math.sin(t*2.3)*.1;
 
-  const p = eg.attributes.position.array;
+  if(t-lastLcd>.25){ drawLCD(t); lastLcd=t; }
+
+  const wind = windV*.02;
   for(let i=0;i<N;i++){
-    p[i*3+1] += spd[i]*dt*sp;
-    p[i*3]   += Math.sin(t*.8+sway[i])*.004*sp + windV*.0004*sp;
-    if(p[i*3+1]>10){p[i*3+1]=-8;p[i*3]=rnd(-14,14)}
+    age[i] += dt*sp;
+    if(age[i] >= life[i]) { spawn(i,false); }
+    const k=i*3, y=pos[k+1];
+    vel[k]   += (Math.sin(y*1.3 + t*1.7 + i) * .9 + wind) * dt;
+    vel[k+2] += Math.cos(y*1.1 + t*1.3 + i*.7) * .9 * dt;
+    vel[k]*=.985; vel[k+2]*=.985;
+    pos[k]+=vel[k]*dt*sp; pos[k+1]+=vel[k+1]*dt*sp; pos[k+2]+=vel[k+2]*dt*sp;
+    ageAttr.array[i] = age[i]/life[i];
   }
-  eg.attributes.position.needsUpdate = true;
+  eg.attributes.position.needsUpdate = true; ageAttr.needsUpdate = true;
 
-  camera.position.x = mx*.6; camera.position.y = 1.2 - my*.4;
-  camera.lookAt(0,.6,0);
-  renderer.render(scene,camera);
+  controls.update();
+  composer ? composer.render() : renderer.render(scene,camera);
   requestAnimationFrame(tick);
 }
 drawLCD(0); tick();
