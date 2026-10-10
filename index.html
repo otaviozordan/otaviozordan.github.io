@@ -1,178 +1,705 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desenhando um Coração</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffe6e6;
-            margin: 0;
-        }
-        #canvas {
-            border: 2px solid #ffcccc;
-            background-color: #fff;
-        }
-        .photo {
-            position: absolute;
-            width: 200px; /* Aumenta a largura da foto */
-            height: 200px; /* Aumenta a altura da foto */
-            border-radius: 50%; /* Mantém a foto como círculo */
-            border: 2px solid #ff6666;
-        }
-        .hidden-photo {
-            display: none;
-        }
-        #equation {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 5px;
-            border: 1px solid #ff6666;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-        }
-        #message {
-            margin-top: 20px;
-            font-family: Arial, sans-serif;
-            font-size: 20px;
-            text-align: center;
-            color: #ff6666;
-        }
-        #buttons {
-            margin-top: 10px;
-        }
-        .love-button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #ff6666;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aeris · Diário de Bordo</title>
+<meta name="description" content="Diário de bordo do projeto Aeris (Análise Eletrônica de Riscos e Indicadores Socioambientais), turma 11MT, inscrição 1106 — PROJETE ETE FMC 2026.">
+<meta property="og:title" content="Aeris · Diário de Bordo MT1106">
+<meta property="og:description" content="A estação que lê o ar para prever o risco de queimadas. 25 encontros, 5 integrantes, 1 protótipo.">
+<meta property="og:image" content="assets/aeris/6ac13c05.webp">
+<link rel="icon" href="assets/aeris/6ac13c05.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0706; --bg2:#140c0a; --card:rgba(30,18,14,.72); --line:rgba(255,140,80,.16);
+  --text:#f5ebe4; --muted:#b8a49a; --dim:#7d6a60;
+  --fire:#ff5a1f; --ember:#ffb347; --blood:#c2261b; --sky:#4f8cff;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.display{font-family:"Space Grotesk",sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:var(--ember)}
+img{max-width:100%;display:block}
+#scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 120%,rgba(255,90,31,.18),transparent 60%)}
+main{position:relative;z-index:2}
+.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:20;transition:background .3s,backdrop-filter .3s}
+nav.solid{background:rgba(11,7,6,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;color:var(--text);text-decoration:none;letter-spacing:.06em}
+.brand img{width:34px;height:34px;border-radius:50%}
+nav ul{display:flex;gap:26px;list-style:none}
+nav ul a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+nav ul a:hover{color:var(--text)}
+@media (max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:100px 0 60px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);border-radius:99px;font-size:.8rem;color:var(--ember);background:rgba(255,90,31,.06);letter-spacing:.04em}
+.tag i{width:7px;height:7px;border-radius:50%;background:var(--fire);box-shadow:0 0 12px var(--fire);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.hero h1{font-size:clamp(4rem,13vw,9.5rem);font-weight:700;margin:18px 0 8px;background:linear-gradient(180deg,#fff3d6 0%,var(--ember) 35%,var(--fire) 65%,var(--blood) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 40px rgba(255,90,31,.35))}
+.hero .acr{font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--muted);max-width:30ch}
+.hero .acr b{color:var(--text);font-weight:600}
+.hero p.lead{margin-top:22px;font-size:1.05rem;color:var(--muted);max-width:46ch}
+.cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:.95rem;transition:transform .2s,box-shadow .2s,background .2s}
+.btn.primary{background:linear-gradient(135deg,var(--fire),var(--blood));color:#fff;box-shadow:0 10px 30px -8px rgba(255,90,31,.6)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px rgba(255,90,31,.7)}
+.btn.ghost{border:1px solid var(--line);color:var(--text);background:rgba(255,255,255,.03)}
+.btn.ghost:hover{background:rgba(255,255,255,.07)}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:var(--dim);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint span{width:1px;height:40px;background:linear-gradient(var(--fire),transparent);animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{align-items:flex-end;padding-bottom:110px}.hero .spacer{display:none}}
+
+/* sections */
+section{padding:110px 0;position:relative}
+.eyebrow{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);font-weight:600}
+h2{font-size:clamp(2.1rem,5vw,3.4rem);margin:12px 0 18px}
+.sub{color:var(--muted);max-width:62ch;font-size:1.05rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px)}
+.solidbg{background:linear-gradient(180deg,transparent,rgba(11,7,6,.88) 120px,rgba(11,7,6,.88) calc(100% - 120px),transparent)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:46px}
+.stat{padding:26px 22px}
+.stat .n{font-family:"Space Grotesk";font-size:clamp(2.2rem,4vw,3rem);font-weight:700;color:var(--ember)}
+.stat .l{color:var(--muted);font-size:.9rem}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about .pics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about .pics img{border-radius:14px;aspect-ratio:1;object-fit:cover;border:1px solid var(--line);cursor:zoom-in;transition:transform .4s}
+.about .pics img:hover{transform:scale(1.03) rotate(-1deg)}
+.about .pics img:first-child{grid-row:span 2;aspect-ratio:auto;height:100%}
+.feats{display:grid;gap:12px;margin-top:26px}
+.feat{display:flex;gap:14px;padding:16px 18px;align-items:flex-start}
+.feat .ic{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,90,31,.12);color:var(--ember);font-size:1.1rem}
+.feat h3{font-size:1rem;margin-bottom:2px}
+.feat p{color:var(--muted);font-size:.92rem}
+@media (max-width:860px){.about{grid-template-columns:1fr}}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+.member{padding:24px 18px;text-align:center;transition:transform .3s,border-color .3s}
+.member:hover{transform:translateY(-6px);border-color:rgba(255,140,80,.45)}
+.avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;font-family:"Space Grotesk";font-weight:700;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--fire),var(--blood));box-shadow:0 0 0 4px rgba(255,90,31,.12)}
+.member h3{font-size:1rem}
+.member p{font-size:.82rem;color:var(--muted);margin-top:4px}
+.group-photo{margin-top:22px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);cursor:zoom-in}
+.group-photo img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:center 30%}
+@media (max-width:900px){.team{grid-template-columns:repeat(2,1fr)}.member:last-child{grid-column:span 2}}
+
+/* journey (phases) */
+.journey{display:flex;gap:10px;margin:36px 0 10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.journey::-webkit-scrollbar{display:none}
+.phase-chip{flex:none;padding:10px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:.85rem;cursor:pointer;transition:all .2s;white-space:nowrap}
+.phase-chip b{color:var(--text);font-weight:600}
+.phase-chip:hover,.phase-chip.on{border-color:var(--fire);color:var(--text);background:rgba(255,90,31,.1)}
+
+/* timeline */
+.timeline{position:relative;margin-top:30px}
+.timeline::before{content:"";position:absolute;left:23px;top:0;bottom:0;width:2px;background:linear-gradient(var(--fire),var(--blood) 70%,transparent)}
+.phase-head{position:relative;padding:34px 0 14px 70px}
+.phase-head .k{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);font-weight:600}
+.phase-head h3{font-size:1.6rem;margin-top:4px}
+.phase-head p{color:var(--muted);font-size:.95rem;max-width:60ch;margin-top:4px}
+.phase-head::before{content:"";position:absolute;left:14px;top:40px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--fire);box-shadow:0 0 18px var(--fire)}
+.entry{position:relative;padding-left:70px;margin:14px 0;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.entry.in{opacity:1;transform:none}
+.entry .dot{position:absolute;left:12px;top:22px;width:24px;height:24px;border-radius:50%;background:var(--bg2);border:1px solid var(--line);display:grid;place-items:center;font-size:.62rem;font-weight:700;color:var(--ember);font-family:"Space Grotesk"}
+.entry.pivot .dot{background:var(--fire);color:#fff;border-color:var(--fire);box-shadow:0 0 16px var(--fire)}
+.entry .panel{padding:22px 24px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.82rem;color:var(--dim);margin-bottom:10px}
+.meta .num{font-family:"Space Grotesk";font-weight:700;color:var(--text);font-size:1.05rem}
+.meta .badge{padding:2px 10px;border-radius:99px;background:rgba(255,90,31,.14);color:var(--ember);font-weight:600;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase}
+.who{display:flex;margin-left:auto}
+.who span{width:24px;height:24px;border-radius:50%;margin-left:-6px;display:grid;place-items:center;font-size:.6rem;font-weight:700;color:#fff;border:2px solid var(--bg2)}
+.entry .txt{color:#e3d4cb;font-size:.97rem}
+.entry .txt p+p{margin-top:10px}
+.entry ul{margin:10px 0 0 18px;color:var(--muted);font-size:.92rem}
+.entry ul em{color:var(--text);font-style:normal;font-weight:600}
+.media{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
+.media img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;border:1px solid var(--line);transition:transform .3s,filter .3s;filter:saturate(.9)}
+.media img:hover{transform:scale(1.03);filter:saturate(1.1)}
+.media video{grid-column:1/-1;width:100%;max-height:440px;border-radius:12px;background:#000;border:1px solid var(--line)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;border:1px solid var(--line);font-size:.82rem;text-decoration:none;color:var(--text);background:rgba(255,255,255,.03);transition:background .2s}
+.chip:hover{background:rgba(255,90,31,.12)}
+
+/* components */
+.comps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:40px}
+.comp{padding:14px;transition:transform .3s,border-color .3s;perspective:600px}
+.comp:hover{transform:translateY(-5px);border-color:rgba(255,140,80,.45)}
+.comp .img{background:#fff;border-radius:12px;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;margin-bottom:12px}
+.comp .img img{max-height:85%;max-width:85%;object-fit:contain;transition:transform .5s}
+.comp:hover .img img{transform:scale(1.08) rotate(-3deg)}
+.comp h3{font-size:.98rem}
+.comp p{font-size:.84rem;color:var(--muted);margin-top:4px}
+
+/* docs */
+.docs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+.doc{padding:22px;display:flex;flex-direction:column}
+.doc h3{font-size:1.2rem;margin-bottom:6px}
+.doc p{color:var(--muted);font-size:.93rem}
+.doc .media{margin-top:auto;padding-top:16px}
+.doc.wide{grid-column:1/-1}
+@media (max-width:760px){.docs{grid-template-columns:1fr}}
+
+/* logos */
+.logos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.logos img{border-radius:var(--r);border:1px solid var(--line);cursor:zoom-in;transition:transform .4s}
+.logos img:hover{transform:translateY(-6px) scale(1.02)}
+
+/* finale */
+.finale{text-align:center;padding:140px 0 120px}
+.finale blockquote{font-family:"Space Grotesk";font-size:clamp(1.3rem,2.6vw,1.9rem);max-width:30ch;margin:20px auto 0;line-height:1.35}
+.finale blockquote em{color:var(--ember);font-style:normal}
+.finale .pics{display:flex;justify-content:center;gap:14px;margin-top:40px;flex-wrap:wrap}
+.finale .pics img{height:260px;width:auto;border-radius:14px;border:1px solid var(--line);cursor:zoom-in;transform:rotate(var(--r2,0));transition:transform .4s}
+.finale .pics img:hover{transform:rotate(0) scale(1.04)}
+@media (max-width:600px){.finale .pics img{height:180px}}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:.85rem;position:relative;z-index:2;background:var(--bg)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* mobile menu */
+.menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:1.2rem;cursor:pointer}
+@media (max-width:760px){
+  .menu-btn{display:grid;place-items:center}
+  nav ul{display:flex;position:fixed;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(11,7,6,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:6px 16px 14px;transform:translateY(-120%);transition:transform .35s;z-index:-1}
+  nav.open ul{transform:none}
+  nav ul a{display:block;padding:14px 4px;font-size:1.05rem;border-bottom:1px solid rgba(255,140,80,.08)}
+}
+@media (max-width:860px){
+  .hero{min-height:100svh;padding:0 0 84px;align-items:flex-end}
+  .hero .wrap>div:first-child{background:linear-gradient(180deg,transparent,rgba(11,7,6,.85) 22%);padding-top:40px;margin-top:52svh}
+  .hero h1{margin:12px 0 4px}
+  .hero p.lead{font-size:.98rem;margin-top:14px}
+  .cta{gap:10px;margin-top:22px}
+  .cta .btn{flex:1 1 auto;justify-content:center;white-space:nowrap;padding:13px 16px;font-size:.92rem}
+  .scroll-hint{display:none}
+}
+@media (max-width:600px){
+  section{padding:72px 0}
+  h2{font-size:2rem}
+  .sub{font-size:.98rem}
+  .stats{gap:10px;margin-top:30px}
+  .stat{padding:18px 16px}
+  .feat{padding:14px}
+  .about .pics img:first-child{grid-row:auto;grid-column:span 2;aspect-ratio:16/10}
+  .journey{position:sticky;top:64px;z-index:5;margin:24px -16px 0;padding:10px 16px;background:rgba(11,7,6,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .phase-chip{padding:8px 12px;font-size:.8rem}
+  .timeline::before{left:11px}
+  .phase-head{padding:28px 0 10px 34px;scroll-margin-top:130px}
+  .phase-head::before{left:3px;top:33px;width:18px;height:18px}
+  .phase-head h3{font-size:1.35rem}
+  .entry{padding-left:34px}
+  .entry .dot{left:0;top:18px}
+  .entry .panel{padding:16px}
+  .meta{gap:4px 12px}
+  .meta .num{width:100%}
+  .who{margin-left:0;padding-left:6px;width:100%;margin-top:4px}
+  .entry .txt{font-size:.94rem}
+  .media{grid-template-columns:repeat(2,1fr);gap:8px}
+  .media img:only-child{grid-column:1/-1;aspect-ratio:16/10}
+  .comps{grid-template-columns:repeat(2,1fr);gap:10px}
+  .comp{padding:10px}
+  .comp h3{font-size:.9rem}.comp p{font-size:.78rem}
+  .doc{padding:16px}
+  .logos{gap:8px}
+  .group-photo img{aspect-ratio:4/3}
+  .finale{padding:90px 0 80px}
+  .finale .pics img{height:auto;width:calc(50% - 7px);object-fit:cover;aspect-ratio:3/4}
+  #lb{padding:10px}
+}
+.phase-head{scroll-margin-top:90px}
+
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:50;background:rgba(5,3,2,.92);backdrop-filter:blur(6px);display:none;place-items:center;padding:24px;cursor:zoom-out}
+#lb.on{display:grid}
+#lb img{max-height:90vh;max-width:min(1400px,100%);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.entry{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-    <canvas id="canvas" width="650" height="650"></canvas>
-    <div id="equation">Equação: x = 0, y = 0</div>
-    <img src="./assets/1.jpeg" class="photo hidden-photo" id="photo1">
-    <img src="./assets/2.jpeg" class="photo hidden-photo" id="photo2">
-    <div id="message">Eu te amo muito muito muito</div>
-    <div id="buttons">
-        <button class="love-button" id="loveButton1">Também te amo</button>
-        <button class="love-button" id="loveButton2">Eu amo mais</button>
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="veil"></div>
+
+<nav id="nav"><div class="wrap">
+  <a class="brand" href="#top"><img src="assets/aeris/6ac13c05.webp" alt="">AERIS</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  <ul id="menu">
+    <li><a href="#projeto">Projeto</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#diario">Diário</a></li>
+    <li><a href="#componentes">Componentes</a></li>
+    <li><a href="#documentacao">Documentação</a></li>
+  </ul>
+</div></nav>
+
+<main id="top">
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag"><i></i>PROJETE 2026 · Turma 11MT · Inscrição 1106</span>
+      <h1>AERIS</h1>
+      <p class="acr"><b>A</b>nálise <b>E</b>letrônica de <b>R</b>iscos e <b>I</b>ndicadores <b>S</b>ocioambientais</p>
+      <p class="lead">Uma estação que lê o ar — temperatura, umidade, vento e solo — para alertar sobre o risco de queimadas. Este é o diário de bordo de como ela nasceu, encontro a encontro.</p>
+      <div class="cta">
+        <a class="btn primary" href="#diario">Abrir o diário →</a>
+        <a class="btn ghost" href="#projeto">Conhecer o projeto</a>
+      </div>
     </div>
-    <audio id="backgroundMusic" src="path_to_your_music.mp3" autoplay loop></audio>
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        const equationDiv = document.getElementById('equation');
-        const photo1 = document.getElementById('photo1');
-        const photo2 = document.getElementById('photo2');
-        const loveButton1 = document.getElementById('loveButton1');
-        const loveButton2 = document.getElementById('loveButton2');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const scale = 20;
-        let t = 0;
+    <div class="spacer"></div>
+  </div>
+  <div class="scroll-hint">role<span></span></div>
+</header>
 
-        function drawGrid() {
-            ctx.strokeStyle = '#ddd';
-            ctx.lineWidth = 1;
+<!-- PROJETO -->
+<section id="projeto" class="solidbg">
+  <div class="wrap">
+    <div class="about">
+      <div class="reveal">
+        <span class="eyebrow">O projeto</span>
+        <h2>Do latim, <em style="color:var(--ember);font-style:normal">“do ar”</em>.</h2>
+        <p class="sub">Aeris é uma estação de monitoramento das condições ambientais com termo-higrômetro, focada em identificar indicadores de risco de incêndio em áreas propícias. Os dados aparecem num display e, quando o risco sobe, a estação avisa com luz e som — pensando também em pessoas com deficiência visual.</p>
+        <div class="feats">
+          <div class="feat panel"><div class="ic">🌡️</div><div><h3>Temperatura e umidade do ar</h3><p>Sensor DHT22 acompanha as condições do ambiente em tempo real.</p></div></div>
+          <div class="feat panel"><div class="ic">🌬️</div><div><h3>Vento e solo</h3><p>Anemômetro mede a ação do vento; o FC-28 mede a umidade do solo.</p></div></div>
+          <div class="feat panel"><div class="ic">🔥</div><div><h3>Alerta de risco</h3><p>Display 20x4 mostra o status; LED RGB e buzzer sinalizam o perigo.</p></div></div>
+        </div>
+      </div>
+      <div class="pics reveal">
+        <img src="assets/aeris/6ac1489f.webp" alt="Aeris instalado na maquete com floresta e cachoeira" data-lb>
+        <img src="assets/aeris/6abdb449.webp" alt="Caixa vermelha do Aeris com display e anemômetro" data-lb>
+        <img src="assets/aeris/6abdb456.webp" alt="Lateral do Aeris com logo e sensor DHT22" data-lb>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat panel reveal"><div class="n" data-count="25">0</div><div class="l">encontros registrados</div></div>
+      <div class="stat panel reveal"><div class="n" data-count="5">0</div><div class="l">integrantes</div></div>
+      <div class="stat panel reveal"><div class="n" data-count="11">0</div><div class="l">componentes eletrônicos</div></div>
+      <div class="stat panel reveal"><div class="n" data-count="3">0</div><div class="l">mudanças de rota</div></div>
+    </div>
+  </div>
+</section>
 
-            // Desenha linhas verticais
-            for (let x = 0; x <= canvas.width; x += scale) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
-            }
+<!-- EQUIPE -->
+<section id="equipe">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Equipe</span>
+      <h2>Quem acendeu essa ideia</h2>
+      <p class="sub">No 8º encontro o grupo se dividiu em pilares, de acordo com a facilidade e disponibilidade de cada integrante.</p>
+    </div>
+    <div class="team" id="team"></div>
+    <div class="group-photo reveal"><img src="assets/aeris/6abc64d4.webp" alt="Foto do grupo" data-lb></div>
+  </div>
+</section>
 
-            // Desenha linhas horizontais
-            for (let y = 0; y <= canvas.height; y += scale) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-            }
+<!-- DIÁRIO -->
+<section id="diario" class="solidbg">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Diário de bordo</span>
+      <h2>25 encontros, de julho a outubro</h2>
+      <p class="sub">Cada reunião registrada pelo grupo — com as ideias que ficaram, as que foram abandonadas e as fotos do caminho. Os pontos acesos marcam as grandes viradas.</p>
+    </div>
+    <div class="journey" id="journey"></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
 
-            // Desenha os eixos X e Y
-            ctx.strokeStyle = '#aaa';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(centerX, 0);
-            ctx.lineTo(centerX, canvas.height);
-            ctx.stroke();
+<!-- COMPONENTES -->
+<section id="componentes">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Hardware</span>
+      <h2>Lista de componentes</h2>
+      <p class="sub">Tudo o que vive dentro (e em cima) da caixa vermelha.</p>
+    </div>
+    <div class="comps" id="comps"></div>
+  </div>
+</section>
 
-            ctx.beginPath();
-            ctx.moveTo(0, centerY);
-            ctx.lineTo(canvas.width, centerY);
-            ctx.stroke();
-        }
+<!-- DOCUMENTAÇÃO -->
+<section id="documentacao" class="solidbg">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Documentação técnica</span>
+      <h2>Por dentro do Aeris</h2>
+    </div>
+    <div class="docs">
+      <div class="doc panel reveal">
+        <h3>Simulação e circuito</h3>
+        <p>Circuito funcional desenvolvido no Tinkercad, com as conexões do Arduino aos componentes. É uma imagem ilustrativa do funcionamento — não literalmente a montagem real.</p>
+        <div class="links"><a class="chip" target="_blank" rel="noopener" href="https://www.tinkercad.com/things/dpGDYUjAGbI-brave-bombul-waasa/editel?sharecode=o8FzG_tOkam1uED563NkHxoQ_e35kdU20z5_wm9omK8">⚡ Abrir no Tinkercad</a></div>
+        <div class="media"><img src="assets/aeris/6a961c3d.webp" alt="Circuito no Tinkercad" data-lb style="aspect-ratio:auto;grid-column:1/-1"></div>
+      </div>
+      <div class="doc panel reveal">
+        <h3>Programação</h3>
+        <p>Código do Arduino que gerencia e controla os sensores e componentes — primeiro testados um a um, depois integrados no código oficial.</p>
+        <div class="links">
+          <a class="chip" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1S2yq6Y2IJW8RGLBn6oasYj6WGL9RfqxO/edit?usp=sharing">🧪 Códigos de teste por componente</a>
+          <a class="chip" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1wYUksdbSHMlhLv9m87rbFhX0rScCqPFFLVwsUbVVig4/edit?usp=sharing">💾 Código oficial do Aeris</a>
+        </div>
+        <div class="media"><img src="assets/aeris/6ac13d32.webp" alt="Testes na protoboard" data-lb style="aspect-ratio:16/9;grid-column:1/-1"></div>
+      </div>
+      <div class="doc panel reveal">
+        <h3>Protótipo sujo</h3>
+        <p>Os primeiros rabiscos: aparência, organização e estrutura da estação.</p>
+        <div class="media">
+          <img src="assets/aeris/6abc5d2b.webp" alt="Protótipo sujo 1" data-lb>
+          <img src="assets/aeris/6abc5d39.webp" alt="Protótipo sujo 2" data-lb>
+          <img src="assets/aeris/6abc5d59.webp" alt="Protótipo sujo 3" data-lb>
+        </div>
+      </div>
+      <div class="doc panel reveal">
+        <h3>Diagrama em blocos</h3>
+        <p>As principais ligações, entradas e saídas de dados do sistema.</p>
+        <div class="media"><img src="assets/aeris/6ac13fbc.webp" alt="Diagrama em blocos" data-lb style="aspect-ratio:16/9;grid-column:1/-1"></div>
+      </div>
+      <div class="doc panel wide reveal">
+        <h3>Identidade do Aeris</h3>
+        <p>As logos foram desenhadas à mão, em referência a <em>Avatar: A Lenda de Aang</em> — o elemento fogo carrega a ambiguidade do projeto: é o que o Aeris vigia e o que dá nome à sua energia.</p>
+        <div class="logos">
+          <img src="assets/aeris/6ac13c05.webp" alt="Logo circular do Aeris" data-lb>
+          <img src="assets/aeris/6ac13c27.webp" alt="Logo 1106 Aeris" data-lb>
+          <img src="assets/aeris/6ac13c39.webp" alt="Logo Aeris em chamas" data-lb>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function drawHeart() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawGrid();
-            ctx.beginPath();
-            for (let i = 0; i <= t; i++) {
-                const angle = i * Math.PI / 180;
-                const x = 16 * Math.sin(angle) ** 3;
-                const y = 13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle);
-                ctx.lineTo(centerX + x * scale, centerY - y * scale);
-                
-                if (i === t) {
-                    equationDiv.innerText = `Equação: x = ${x.toFixed(2)}, y = ${y.toFixed(2)}`;
-                }
-            }
-            ctx.strokeStyle = '#ff6666';
-            ctx.lineWidth = 2;
-            ctx.stroke();
+<!-- FINALE -->
+<section class="finale">
+  <div class="wrap reveal">
+    <span class="eyebrow">Fim de um ciclo</span>
+    <blockquote>“Encerramos um ciclo duradouro de cooperatividade e, principalmente, de <em>amizade verdadeira</em>. Obrigada, ETE FMC — foi uma experiência inesquecível!”</blockquote>
+    <div class="pics">
+      <img src="assets/aeris/6ac6fc3e.webp" alt="Grupo no dia da exposição" data-lb style="--r2:-3deg">
+      <img src="assets/aeris/6ac6fc63.webp" alt="Grupo com gato no dia da exposição" data-lb style="--r2:2deg">
+    </div>
+  </div>
+</section>
+</main>
 
-            if (t < 360) {
-                t++;
-                requestAnimationFrame(drawHeart);
-            } else {
-                positionPhotos();
-            }
-        }
+<footer><div class="wrap">
+  <span>Aeris · MT1106 · PROJETE 2026 · ETE FMC</span>
+  <a href="https://trello.com/b/DE513Oqv/mt1106" target="_blank" rel="noopener">Quadro original no Trello ↗</a>
+</div></footer>
 
-        function positionPhotos() {
-            photo1.style.left = `${centerX - 50}px`;
-            photo1.style.top = `${centerY - 200}px`;
-            photo2.style.left = `${centerX - 50}px`;
-            photo2.style.top = `${centerY + 150}px`;
-        }
+<div id="lb"><img alt=""></div>
 
-        function teleportButton() {
-            const randomX = Math.random() * (window.innerWidth - loveButton2.offsetWidth);
-            const randomY = Math.random() * (window.innerHeight - loveButton2.offsetHeight);
-            loveButton2.style.position = 'absolute';
-            loveButton2.style.left = `${randomX}px`;
-            loveButton2.style.top = `${randomY}px`;
-        }
+<script>
+const A = id => `assets/aeris/${id}.webp`;
+const V = id => `assets/aeris/${id}.mp4`;
 
-        function showPhotos() {
-            photo1.classList.remove('hidden-photo');
-            photo2.classList.remove('hidden-photo');
-            photo1.style.left = `${centerX - 150}px`;
-            photo1.style.top = `${centerY - 250}px`;
-            photo2.style.left = `${centerX - 150}px`;
-            photo2.style.top = `${centerY + 50}px`;
-        }
+const TEAM = [
+  {n:"Izabella Sales Costa", s:"IS", c:"#ff5a1f", r:"Maquete e estrutura mecânica"},
+  {n:"Jade Brandão Rangel", s:"JB", c:"#e8891c", r:"Maquete e estrutura mecânica"},
+  {n:"Maria Laura Silvério Inácio", s:"ML", c:"#c2261b", r:"Programação e análise de códigos"},
+  {n:"Nicoly de Lima Barros Amaral", s:"NA", c:"#d9472b", r:"Montagem e soldagem do circuito"},
+  {n:"Olavo Zordan Alves", s:"OZ", c:"#a8321e", r:"Programação e análise de códigos"},
+];
+const ALL = [0,1,2,3,4];
 
-        loveButton2.addEventListener('mouseover', teleportButton);
-        loveButton1.addEventListener('click', showPhotos);
+const PHASES = [
+  {k:"Fase 1", t:"A largada", d:"Grupo formado e a primeira ideia — uma estação meteorológica portátil — colocada em xeque.", from:1},
+  {k:"Fase 2", t:"O desvio: Aegis", d:"Uma central de segurança a laser ganha nome, componentes e simulação… até o grupo perceber que já existia no mercado.", from:3},
+  {k:"Fase 3", t:"De volta ao ar", d:"Retorno à estação de monitoramento, divisão de tarefas e o nascimento do nome Aeris.", from:7},
+  {k:"Fase 4", t:"Testes e correções", d:"Programação componente a componente, circuito completo e a caça aos maus contatos.", from:12},
+  {k:"Fase 5", t:"Montagem final", d:"Maquete, caixa pintada, soldagem, foco em queimadas e a banca.", from:18},
+  {k:"Fase 6", t:"Exposição", d:"Bancada montada e um ciclo encerrado.", from:25},
+];
 
-        drawHeart();
-    </script>
+const E = [
+ {n:1,d:"10/07/2026",who:ALL,txt:["Formação oficial do grupo: turma <b>11MT</b>, número de inscrição <b>1106</b>."],img:["6aba7110"]},
+ {n:2,d:"03/08/2026",h:"13h30 – 14h00",who:ALL,pivot:"Mudança",txt:["Percebemos que nosso projeto anterior, a <b>Estação meteorológica portátil</b>, não seria viável. Discutimos a mudança e a inovação de um novo protótipo, sempre visando inovação e praticidade, e decidimos reunir as melhores ideias para um encontro posterior."]},
+ {n:3,d:"07/08/2026",h:"14h10 – 15h00",who:ALL,txt:["Discutimos o nome do projeto e os componentes. O protótipo de central de monitoramento de segurança a laser precisaria de:"],list:[["Arduino Uno","processamento do sistema"],["Botão","início e encerramento do alarme"],["Buzzer","alerta sonoro"],["Fonte de 5V","alimentação do circuito"],["Jumpers","ligações entre componentes"],["Laser de 5V","detecção de movimento"],["LDR","detecção de presença luminosa"]],after:"O nome escolhido foi <b>“Aegis”</b>, relacionado à ideia de proteção e luminosidade."},
+ {n:4,d:"12/08/2026",h:"11h00 – 11h30",who:ALL,txt:["Relembramos e esclarecemos pontos do protótipo, pensando em como colocá-lo em prática. Faltava apenas a aprovação e a orientação do professor para começar a montagem física da Central de Segurança a Laser — como ele estava ausente, enviamos nossas ideias por e-mail."]},
+ {n:5,d:"14/08/2026",h:"14h10 – 15h00",who:ALL,txt:["Começamos a montagem no <b>Tinkercad</b>, simulando o circuito e os componentes. Alguns componentes não existiam na plataforma, então adaptamos a Central de Segurança a Laser à simulação."]},
+ {n:6,d:"19/08/2026",h:"11h00 – 11h30",who:ALL,txt:["Elaboramos a parte estética e técnica: primeiro desenhamos o <b>protótipo sujo</b> (aparência, organização e estrutura), depois discutimos o <b>diagrama em blocos</b>, definindo ligações, entradas e saídas de dados."]},
+ {n:7,d:"21/08/2026",h:"14h10 – 15h00",who:ALL,pivot:"Virada",txt:["Conversando com o professor, decidimos <b>retomar a ideia anterior</b>: a Estação para monitoramento das condições diárias e termo-higrômetro. A Central de Segurança a Laser já tinha soluções semelhantes no mercado — não traria utilidade nem originalidade."]},
+ {n:8,d:"25/08/2026",h:"20h00 – 20h40",who:ALL,txt:["Distribuímos os afazeres do projeto, priorizando agilidade e preparação:"],list:[["Programação e análise de códigos","Olavo e Maria Laura"],["Maquete e estrutura mecânica","Jade e Izabella"],["Montagem e soldagem do circuito","Nicoly"]]},
+ {n:9,d:"26/08/2026",h:"11h00 – 11h30",who:ALL,txt:["Atualizamos o diagrama em blocos e o protótipo sujo para a nova realidade do projeto — propostos como resultado final da parte estética e funcional da estação."]},
+ {n:10,d:"28/08/2026",h:"14h10 – 15h00",who:ALL,pivot:"Nasce o Aeris",txt:["Montamos e revisamos o circuito elétrico na simulação do Tinkercad.","Trocamos o nome do projeto para <b>“Aeris”</b> (Análise Eletrônica de Riscos e Indicadores Socioambientais) — do latim, “do ar” ou “atmosfera”. Também fechamos a lista de componentes e a estrutura da programação."],img:["6a961c3d"]},
+ {n:11,d:"07/09/2026",h:"19h00 – 20h00",who:ALL,txt:["Decidimos oficialmente a <b>logo do projeto</b>, organizamos o fluxo de suprimentos (quem finaliza as compras pendentes e o que já foi adquirido) e estabelecemos o cronograma oficial das próximas etapas, para começar a montagem o quanto antes."],img:["6ac13c05","6ac13c27","6ac13c39"]},
+ {n:12,d:"11/09/2026",h:"14h10 – 15h00",who:ALL,txt:["Testamos e aprimoramos a programação de cada componente no Arduino. Confirmamos que todos funcionam como esperado, e o projeto pôde seguir com mais eficiência."],links:[["🧪 Códigos de teste","https://docs.google.com/document/d/1S2yq6Y2IJW8RGLBn6oasYj6WGL9RfqxO/edit?usp=sharing"]]},
+ {n:13,d:"14/09/2026",h:"17h00 – 18h30",who:[2,3,4],txt:["Montamos <b>completamente o circuito do Aeris</b> e o monitoramos junto com a programação. Depois do teste, ajustamos pontos do código e da montagem para otimizar o protótipo — um enorme avanço para a ideia central."],vid:"6abc60bb"},
+ {n:14,d:"16/09/2026",h:"11h00 – 11h40",who:[0,2,3,4],txt:["Analisamos de novo montagem e programação para achar os principais erros: o problema estava na <b>má conexão entre os fios</b>. Corrigido, o projeto rodou corretamente."],img:["6ac13d32"]},
+ {n:15,d:"20/09/2026",h:"13h00 – 17h00",who:[0,1],txt:["As responsáveis pela parte estrutural e estética iniciaram as bases da <b>maquete</b>, depois continuaram o processo e fizeram os ajustes finais."],img:["6aba7988"]},
+ {n:16,d:"21/09/2026",h:"10h50 – 11h40",who:ALL,txt:["Foco na correção da programação. Testamos o código recém-revisado: o funcionamento estava estável, com pequenos ajustes pendentes no buzzer e na organização da fiação na protoboard."]},
+ {n:17,d:"23/09/2026",h:"08h00 – 09h40",who:ALL,txt:["Com o auxílio do professor, descobrimos que o erro estava na <b>polarização do buzzer</b> e no seu pino digital. Corrigido, tudo funcionou como previsto — projeto pronto para a soldagem e para o dimensionamento dentro da caixa."]},
+ {n:18,d:"24/09/2026",h:"16h40 – 17h00",who:ALL,txt:["Dimensionamos a estrutura funcional do circuito: como encaixar o Arduino, os componentes e a fiação. Medimos com régua a distância dos sensores até a maquete e começamos a preparar os slides e as falas de cada membro."]},
+ {n:19,d:"25/09/2026",h:"14h10 – 15h20",who:ALL,txt:["Dividimos as tarefas: metade pintou a caixa, o restante cuidou da soldagem e da ordem das fiações. No fim da aula, a nossa belíssima foto de grupo:"],img:["6abc64d4"]},
+ {n:20,d:"28/09/2026",h:"10h00 – 10h50",who:ALL,txt:["Seguimos organizando a apresentação individual de cada membro nos slides, pesquisando e aprimorando o repertório do projeto."]},
+ {n:21,d:"29/09/2026",h:"Manhã 08h00 – 11h40 · Tarde 13h20 – 14h10",who:ALL,txt:["Dia com grande carga horária dedicada ao PROJETE. Soldamos primeiro os componentes externos — sensores de temperatura, umidade e captação do vento — e depois parte das fiações internas, organizando tudo da melhor forma possível."],img:["6abdb449","6abdb456","6abdb467"]},
+ {n:22,d:"30/09/2026",h:"08h00 – 09h40",who:ALL,txt:["Finalizamos a soldagem dos componentes e ligações na placa. Testamos e <b>aprovamos o funcionamento do Aeris</b>: tudo o que havia sido planejado na programação e na montagem funcionou."],img:["6abdb3bf"],vid:"6abdb398"},
+ {n:23,d:"01/10/2026",h:"16h10 – 17h00",who:ALL,pivot:"Foco em queimadas",txt:["Atualizamos a programação para centralizar a captação de <b>indicadores de queimadas</b>. Antes o Aeris era amplo em condições climáticas, mas desviado do foco fundamental: o risco de incêndios em áreas propícias. Depois da mudança, ele passou a operar adaptado a essas condições."],img:["6ac1449f"]},
+ {n:24,d:"02/10/2026",h:"Manhã 09h40 – 11h40 · Tarde a partir de 13h40",who:ALL,txt:["Grande parte do dia dedicada ao PROJETE: finalizamos o Aeris e estudamos para a banca de avaliação e para o dia oficial da exposição.","Ajustamos algumas ligações mal conectadas e o Aeris voltou a funcionar. Depois da banca, testamos de novo e concluímos que o projeto está coerente com o objetivo. Abaixo, o <b>funcionamento completo e final</b>:"],img:["6ac1489f","6ac14fb1"],vid:"6ac14f3d"},
+ {n:25,d:"07/10/2026",h:"08h00 – 11h40",who:ALL,txt:["Na última reunião encerramos os preparativos para a exposição. Recebemos nossa bancada e organizamos visualmente a apresentação do Aeris, além de revisar a compreensão total do protótipo.","Levaremos conosco os conhecimentos e habilidades adquiridos nesse processo — e a esperança de trabalharmos juntos novamente."],img:["6ac6fc3e","6ac6fc63"]},
+];
+
+const COMPS = [
+  ["6a9626ff","Arduino Uno","Processamento de todo o sistema."],
+  ["6a96270a","Anemômetro","Captação de dados externos pela ação do vento."],
+  ["6a962768","Sensor DHT22","Temperatura e umidade do ambiente."],
+  ["6a962823","Sensor FC-28","Umidade do solo e suas condições."],
+  ["6a9626db","Display 20x4 + I2C","Mostra temperatura, umidade e status de alerta."],
+  ["6a9627e0","LED RGB","Indicação visual do estado de alerta."],
+  ["6a962742","Buzzer","Alerta sonoro, pensado também para deficientes visuais."],
+  ["6a962729","Botão","Liga e desliga o funcionamento da estação."],
+  ["6a962803","Placa perfurada","Base da montagem do circuito."],
+  ["6a9627c2","Jumpers","Ligações entre os componentes."],
+  ["6ac13ae7","Fonte 9V","Alimenta o Arduino e, por consequência, o circuito."],
+];
+
+/* render team */
+document.getElementById('team').innerHTML = TEAM.map(m=>`
+  <div class="member panel reveal"><div class="avatar" style="background:linear-gradient(135deg,${m.c},#2a0f0a)">${m.s}</div>
+  <h3>${m.n}</h3><p>${m.r}</p></div>`).join('');
+
+/* render components */
+document.getElementById('comps').innerHTML = COMPS.map(([id,t,d])=>`
+  <div class="comp panel reveal"><div class="img"><img loading="lazy" src="${A(id)}" alt="${t}"></div><h3>${t}</h3><p>${d}</p></div>`).join('');
+
+/* render timeline */
+const tl = document.getElementById('timeline'), jr = document.getElementById('journey');
+let html = '';
+E.forEach(e=>{
+  const ph = PHASES.find(p=>p.from===e.n);
+  if(ph) html += `<div class="phase-head reveal" id="fase-${ph.from}"><div class="k">${ph.k}</div><h3>${ph.t}</h3><p>${ph.d}</p></div>`;
+  const who = e.who.map(i=>`<span title="${TEAM[i].n}" style="background:${TEAM[i].c}">${TEAM[i].s}</span>`).join('');
+  html += `<article class="entry${e.pivot?' pivot':''}" id="encontro-${e.n}">
+    <div class="dot">${e.n}</div>
+    <div class="panel">
+      <div class="meta"><span class="num">${e.n}º Encontro</span><span>📅 ${e.d}</span>${e.h?`<span>⏱ ${e.h}</span>`:''}${e.pivot?`<span class="badge">${e.pivot}</span>`:''}<span class="who">${who}</span></div>
+      <div class="txt">${e.txt.map(t=>`<p>${t}</p>`).join('')}</div>
+      ${e.list?`<ul>${e.list.map(([a,b])=>`<li><em>${a}</em> — ${b}</li>`).join('')}</ul>`:''}
+      ${e.after?`<div class="txt" style="margin-top:10px"><p>${e.after}</p></div>`:''}
+      ${e.links?`<div class="links">${e.links.map(([t,u])=>`<a class="chip" target="_blank" rel="noopener" href="${u}">${t}</a>`).join('')}</div>`:''}
+      ${(e.img||e.vid)?`<div class="media">${(e.img||[]).map(id=>`<img loading="lazy" src="${A(id)}" alt="Registro do ${e.n}º encontro" data-lb>`).join('')}${e.vid?`<video controls preload="metadata" playsinline src="${V(e.vid)}#t=0.5"></video>`:''}</div>`:''}
+    </div></article>`;
+});
+tl.innerHTML = html;
+jr.innerHTML = PHASES.map(p=>`<button class="phase-chip" data-to="fase-${p.from}"><b>${p.k}</b> · ${p.t}</button>`).join('');
+jr.addEventListener('click',ev=>{const b=ev.target.closest('.phase-chip');if(b)document.getElementById(b.dataset.to).scrollIntoView({behavior:'smooth',block:'start'})});
+
+/* reveal + counters */
+let pending = [...document.querySelectorAll('.reveal,.entry')];
+function show(el){
+  el.classList.add('in');
+  const n = el.querySelector('[data-count]');
+  if(n){const to=+n.dataset.count,t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/1200);n.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+}
+let ticking=false;
+function checkReveal(){
+  ticking=false;
+  const h=innerHeight;
+  pending = pending.filter(el=>{const r=el.getBoundingClientRect();if(r.top<h*.92&&r.bottom>0){show(el);return false}if(r.bottom<=0){el.classList.add('in');return false}return true});
+}
+const onScroll=()=>{if(!ticking){ticking=true;requestAnimationFrame(checkReveal)}};
+addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll); checkReveal();
+setTimeout(checkReveal,300);
+
+/* active phase chip */
+const phaseIO = new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting){jr.querySelectorAll('.phase-chip').forEach(c=>c.classList.toggle('on',c.dataset.to===en.target.id))}
+}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('.phase-head').forEach(h=>phaseIO.observe(h));
+
+/* lightbox */
+const lb = document.getElementById('lb');
+document.addEventListener('click',ev=>{
+  const img = ev.target.closest('img[data-lb]');
+  if(img){lb.querySelector('img').src=img.src;lb.querySelector('img').alt=img.alt;lb.classList.add('on')}
+  else if(ev.target.closest('#lb')) lb.classList.remove('on');
+});
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+/* nav */
+const nav = document.getElementById('nav'), mb = document.getElementById('menuBtn');
+mb.addEventListener('click',()=>{const o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'✕':'☰';if(o)nav.classList.add('solid')});
+document.getElementById('menu').addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');mb.textContent='☰'}});
+addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40),{passive:true});
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('scene');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+const mobile = innerWidth < 760;
+renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.5:2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.shadowMap.enabled = !mobile;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0b0706, 0.045);
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+camera.position.set(0, 1.2, 9);
+
+/* lights */
+scene.add(new THREE.HemisphereLight(0xffd2b0, 0x1a0805, 0.6));
+const key = new THREE.DirectionalLight(0xfff0e0, 2.2); key.position.set(4,6,5); key.castShadow = true; key.shadow.mapSize.set(1024,1024); scene.add(key);
+const rim = new THREE.PointLight(0xff5a1f, 40, 20); rim.position.set(-3,1,-3); scene.add(rim);
+const under = new THREE.PointLight(0xff8a3d, 18, 10); under.position.set(0,-2,2); scene.add(under);
+
+/* station */
+const station = new THREE.Group();
+scene.add(station);
+const mat = (c,o={}) => new THREE.MeshStandardMaterial({color:c, roughness:.55, metalness:.05, ...o});
+
+// body (red painted wooden box)
+const body = new THREE.Mesh(new THREE.BoxGeometry(2.4,1.6,1.6), mat(0xb8321f,{roughness:.8}));
+body.castShadow = body.receiveShadow = true; station.add(body);
+const lid = new THREE.Mesh(new THREE.BoxGeometry(2.5,.08,1.7), mat(0x9a2716,{roughness:.8})); lid.position.y=.84; station.add(lid);
+
+// LCD screen with canvas texture
+const lcdCanvas = document.createElement('canvas'); lcdCanvas.width=512; lcdCanvas.height=200;
+const lctx = lcdCanvas.getContext('2d');
+const lcdTex = new THREE.CanvasTexture(lcdCanvas); lcdTex.colorSpace = THREE.SRGBColorSpace;
+const bezel = new THREE.Mesh(new THREE.BoxGeometry(1.5,.62,.06), mat(0x111111)); bezel.position.set(0,.22,.81); station.add(bezel);
+const lcd = new THREE.Mesh(new THREE.PlaneGeometry(1.36,.5), new THREE.MeshBasicMaterial({map:lcdTex})); lcd.position.set(0,.22,.842); station.add(lcd);
+const lcdGlow = new THREE.PointLight(0x4f8cff, 3, 3); lcdGlow.position.set(0,.22,1.4); station.add(lcdGlow);
+
+// button + LED on front
+const btn = new THREE.Mesh(new THREE.CylinderGeometry(.08,.08,.08,24), mat(0x222222)); btn.rotation.x=Math.PI/2; btn.position.set(-.5,-.4,.82); station.add(btn);
+const ledMat = new THREE.MeshStandardMaterial({color:0xff2a10, emissive:0xff2a10, emissiveIntensity:2});
+const led = new THREE.Mesh(new THREE.SphereGeometry(.06,16,16), ledMat); led.position.set(-.2,-.4,.83); station.add(led);
+const ledLight = new THREE.PointLight(0xff2a10, 2, 2); ledLight.position.set(-.2,-.4,1.1); station.add(ledLight);
+// buzzer
+const buzz = new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.1,32), mat(0x161616)); buzz.rotation.x=Math.PI/2; buzz.position.set(.5,-.4,.83); station.add(buzz);
+
+// DHT22 on the side (white grill)
+const dht = new THREE.Group();
+const dhtBody = new THREE.Mesh(new THREE.BoxGeometry(.06,.5,.38), mat(0xeeeeea,{roughness:.4})); dht.add(dhtBody);
+for(let r=0;r<5;r++)for(let c=0;c<3;c++){const h=new THREE.Mesh(new THREE.BoxGeometry(.02,.05,.07),mat(0x333333));h.position.set(.035,.18-r*.09,-.1+c*.1);dht.add(h)}
+dht.position.set(1.23,-.15,.2); station.add(dht);
+// logo disc on side
+const logoTex = new THREE.TextureLoader().load('assets/aeris/6ac13c05.webp'); logoTex.colorSpace = THREE.SRGBColorSpace;
+const logo = new THREE.Mesh(new THREE.CircleGeometry(.42,48), new THREE.MeshStandardMaterial({map:logoTex, roughness:.6}));
+logo.rotation.y = -Math.PI/2; logo.position.set(-1.205,.1,0); station.add(logo);
+
+// mast + anemometer
+const mast = new THREE.Mesh(new THREE.CylinderGeometry(.06,.08,1.3,20), mat(0xe8e8e4,{roughness:.35})); mast.position.y=1.5; mast.castShadow=true; station.add(mast);
+const anemo = new THREE.Group(); anemo.position.y=2.2; station.add(anemo);
+anemo.add(new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.16,24), mat(0xf2f2ee,{roughness:.3})));
+const cupGeo = new THREE.SphereGeometry(.22,32,16,0,Math.PI*2,0,Math.PI/2);
+for(let i=0;i<3;i++){
+  const arm = new THREE.Group(); arm.rotation.y = i*Math.PI*2/3;
+  const rod = new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.8,8), mat(0xf2f2ee)); rod.rotation.z=Math.PI/2; rod.position.x=.4; arm.add(rod);
+  const cup = new THREE.Mesh(cupGeo, mat(0xf5f5f0,{side:THREE.DoubleSide,roughness:.3})); cup.position.x=.82; cup.rotation.x=Math.PI/2; cup.castShadow=true; arm.add(cup);
+  anemo.add(arm);
+}
+// soil probe (FC-28) going down
+const probe = new THREE.Group();
+[-.07,.07].forEach(x=>{const p=new THREE.Mesh(new THREE.BoxGeometry(.05,.7,.015),mat(0xc9c9c9,{metalness:.8,roughness:.25}));p.position.set(x,0,0);probe.add(p)});
+probe.position.set(.9,-1.15,.6); station.add(probe);
+
+// ground disc (grass/maquete hint) + shadow catcher
+const ground = new THREE.Mesh(new THREE.CircleGeometry(3.2,64), new THREE.MeshStandardMaterial({color:0x1d140f, roughness:1}));
+ground.rotation.x=-Math.PI/2; ground.position.y=-.8; ground.receiveShadow=true; station.add(ground);
+const ring = new THREE.Mesh(new THREE.RingGeometry(3.15,3.22,96), new THREE.MeshBasicMaterial({color:0xff5a1f, transparent:true, opacity:.5}));
+ring.rotation.x=-Math.PI/2; ring.position.y=-.79; station.add(ring);
+
+/* embers */
+const N = mobile ? 450 : 1200;
+const pos = new Float32Array(N*3), spd = new Float32Array(N), sway = new Float32Array(N);
+const rnd = (a,b)=>a+Math.random()*(b-a);
+for(let i=0;i<N;i++){pos[i*3]=rnd(-14,14);pos[i*3+1]=rnd(-8,10);pos[i*3+2]=rnd(-10,4);spd[i]=rnd(.4,1.4);sway[i]=rnd(0,6.28)}
+const eg = new THREE.BufferGeometry(); eg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+const sprite = (()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,240,200,1)');gr.addColorStop(.25,'rgba(255,160,60,.9)');gr.addColorStop(1,'rgba(255,60,0,0)');g.fillStyle=gr;g.fillRect(0,0,64,64);const t=new THREE.CanvasTexture(c);return t})();
+const embers = new THREE.Points(eg, new THREE.PointsMaterial({size:.14, map:sprite, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, color:0xffa060}));
+scene.add(embers);
+
+/* LCD drawing */
+let tempV=31.4, humV=34, windV=12;
+function drawLCD(t){
+  tempV += (Math.sin(t*.7)*.02); humV += Math.cos(t*.5)*.03; windV = 12+Math.sin(t*1.3)*4;
+  const risk = humV < 35 ? 'ALTO' : 'MEDIO';
+  lctx.fillStyle='#1d4fd8'; lctx.fillRect(0,0,512,200);
+  lctx.fillStyle='rgba(255,255,255,.06)'; for(let x=0;x<512;x+=6)lctx.fillRect(x,0,1,200);
+  lctx.fillStyle='#dfe9ff'; lctx.font='bold 34px monospace';
+  lctx.fillText('AERIS 1106',16,40);
+  lctx.font='30px monospace';
+  lctx.fillText(`T:${tempV.toFixed(1)}C  U:${humV.toFixed(0)}%`,16,86);
+  lctx.fillText(`VENTO:${windV.toFixed(1)}km/h`,16,128);
+  lctx.fillStyle = Math.floor(t*2)%2 ? '#ffd0c0' : '#ffffff';
+  lctx.fillText(`RISCO: ${risk}`,16,172);
+  lcdTex.needsUpdate = true;
+}
+
+/* sizing / layout */
+let baseX = 0;
+function resize(){
+  const w=innerWidth,h=innerHeight;
+  renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+  const wide = w>860;
+  baseX = wide ? 2.3 : 0;
+  station.scale.setScalar(wide ? 1 : Math.min(.8, w/520));
+}
+addEventListener('resize',resize); resize();
+
+let mx=0,my=0; addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
+
+const clock = new THREE.Clock();
+let lastLcd = 0;
+function tick(){
+  const dt = Math.min(clock.getDelta(),.05), t = clock.elapsedTime;
+  const sp = reduce ? .25 : 1;
+  const prog = Math.min(1, scrollY / innerHeight);           // 0 in hero → 1 after first screen
+  const deep = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
+
+  // station: centered on right in hero, drifts back & dims as you scroll
+  const mobileY = innerWidth>860 ? 0 : 1.55;
+  station.position.x = THREE.MathUtils.lerp(station.position.x, baseX*(1-prog*.4), .08);
+  station.position.y = THREE.MathUtils.lerp(station.position.y, -.2 + mobileY + Math.sin(t*.8)*.06 + prog*1.2, .08);
+  station.position.z = THREE.MathUtils.lerp(station.position.z, -prog*(mobile?16:5), .08);
+  station.visible = !(mobile && prog>=1 && station.position.z<-15);
+  station.rotation.y = -.55 + t*.12*sp + deep*Math.PI*2 + mx*.5;
+  station.rotation.x = .08 + my*.15;
+
+  anemo.rotation.y += dt * (2.2 + windV*.25) * sp;
+  const blink = (Math.sin(t*5)+1)/2;
+  ledMat.emissiveIntensity = .6 + blink*2.4; ledLight.intensity = .5 + blink*2.5;
+  rim.intensity = 30 + Math.sin(t*3.1)*8 + Math.sin(t*7.3)*4;
+
+  if(t-lastLcd>.25){drawLCD(t); lastLcd=t}
+
+  const p = eg.attributes.position.array;
+  for(let i=0;i<N;i++){
+    p[i*3+1] += spd[i]*dt*sp;
+    p[i*3]   += Math.sin(t*.8+sway[i])*.004*sp + windV*.0004*sp;
+    if(p[i*3+1]>10){p[i*3+1]=-8;p[i*3]=rnd(-14,14)}
+  }
+  eg.attributes.position.needsUpdate = true;
+
+  camera.position.x = mx*.6; camera.position.y = 1.2 - my*.4;
+  camera.lookAt(0,.6,0);
+  renderer.render(scene,camera);
+  requestAnimationFrame(tick);
+}
+drawLCD(0); tick();
+</script>
 </body>
 </html>
