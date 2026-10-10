@@ -174,9 +174,12 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 /* 3D interaction: the hero lets pointer events through to the canvas */
-.hero{pointer-events:none}
+main{pointer-events:none}
+main>*{pointer-events:auto}
+main>.hero{pointer-events:none}
 .hero .wrap>div:first-child,.hero a,.hero button,.qr-card{pointer-events:auto}
-#scene{cursor:grab;touch-action:pan-y}
+#scene{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body.grabbing{-webkit-user-select:none;user-select:none}
 body.grabbing #scene{cursor:grabbing}
 .hint3d{position:absolute;right:max(16px,calc((100vw - 1120px)/2));bottom:28px;display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--muted);padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(11,7,6,.55);backdrop-filter:blur(8px);transition:opacity .6s}
 .hint3d svg{width:18px;height:18px;flex:none}
@@ -298,7 +301,7 @@ body.grabbing .hint3d{opacity:0}
       </div>
       <button class="qr-card" type="button" data-qr aria-label="Mostrar QR code em tela cheia">
         <div class="qr-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div>
-        <div style="text-align:left"><b>Acompanhe no celular</b><span>Aponte a câmera · otaviozordan.github.io</span></div>
+        <div style="text-align:left"><b>Acompanhe no celular</b><span>Aponte a câmera do celular</span></div>
       </button>
     </div>
     <div class="spacer"></div>
@@ -447,7 +450,7 @@ body.grabbing .hint3d{opacity:0}
 <div id="qrFull" role="dialog" aria-label="QR code do site"><div>
   <h3>Aeris · Diário de Bordo</h3>
   <div class="qr-box" style="display:inline-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div>
-  <p>Aponte a câmera do celular · <b>otaviozordan.github.io</b></p>
+  <p>Aponte a câmera do celular</p>
 </div></div>
 
 <script>
@@ -624,12 +627,12 @@ controls.enableDamping = true; controls.dampingFactor = .06;
 controls.enablePan = false;
 controls.minDistance = 4; controls.maxDistance = 16;
 controls.minPolarAngle = .25; controls.maxPolarAngle = 1.62;
-controls.autoRotate = !reduce; controls.autoRotateSpeed = 1.1;
+controls.autoRotate = true; controls.autoRotateSpeed = reduce ? .6 : 2.2;
 controls.rotateSpeed = .7; controls.zoomSpeed = .8;
 if (coarse) { controls.enableZoom = false; canvas.style.touchAction = 'pan-y'; } // horizontal swipe rotates, vertical swipe scrolls the page
 let idleTimer;
 controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idleTimer); document.body.classList.add('grabbing'); });
-controls.addEventListener('end', () => { document.body.classList.remove('grabbing'); idleTimer = setTimeout(() => controls.autoRotate = !reduce, 4000); });
+controls.addEventListener('end', () => { document.body.classList.remove('grabbing'); idleTimer = setTimeout(() => controls.autoRotate = true, 3000); });
 controls.update();
 
 /* ---------- lights ---------- */
@@ -858,7 +861,7 @@ function tick(){
   }
   eg.attributes.position.needsUpdate = true; ageAttr.needsUpdate = true;
 
-  controls.update();
+  controls.update(dt);
   composer ? composer.render() : renderer.render(scene,camera);
   requestAnimationFrame(tick);
 }
