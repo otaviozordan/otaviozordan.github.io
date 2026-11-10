@@ -16,7 +16,7 @@ window.IDIOMAS = {
   /* --------------------- textos fixos da página --------------------- */
   ui: {
     pt: {
-      _titulo: "Otávio Zordan · Currículo", cv: "Currículo digital", fale: "Fale comigo", imprimir: "Salvar em PDF", foto: "Foto", n_pesquisa: "Pesquisa", n_profissional: "Experiência", n_academico: "Acadêmico",
+      _titulo: "Otávio Zordan · Currículo", cv: "Currículo digital", fale: "Fale comigo", imprimir: "Salvar em PDF", foto: "Foto", n_pesquisa: "Pesquisa", n_profissional: "Experiência", n_academico: "Acadêmico", gnc_cap: "Simulação em tempo real: guiamento pela linha de visada com compensação da gravidade e controle de atitude em cascata por vetoração de empuxo (gimbal ±8°), sob rajadas de vento.", gnc_alvo: "ALVO", gnc_ok: "ALVO ATINGIDO", gnc_los: "linha de visada",
       resumo: "Resumo", formacao: "Formação", profissional: "Experiência profissional", academico: "Trajetória acadêmica",
       pesquisa: "Pesquisa e publicações", projetos: "Projetos", premios: "Prêmios", competencias: "Competências",
       idiomas: "Idiomas", cursos: "Cursos e certificações", mais_github: "Mais projetos no GitHub ↗", site: "site",
@@ -24,7 +24,7 @@ window.IDIOMAS = {
       rk_l: "COMPRIMENTO · L", rk_coifa: "Coifa", rk_rec: "Recuperação", rk_baia: "Baia GNC", rk_margem: "margem estática", rk_empenas: "Empenas"
     },
     en: {
-      _titulo: "Otávio Zordan · Résumé", cv: "Digital résumé", fale: "Get in touch", imprimir: "Save as PDF", foto: "Photo", n_pesquisa: "Research", n_profissional: "Experience", n_academico: "Academic",
+      _titulo: "Otávio Zordan · Résumé", cv: "Digital résumé", fale: "Get in touch", imprimir: "Save as PDF", foto: "Photo", n_pesquisa: "Research", n_profissional: "Experience", n_academico: "Academic", gnc_cap: "Real-time simulation: line-of-sight guidance with gravity compensation and cascaded attitude control by thrust vectoring (±8° gimbal), under wind gusts.", gnc_alvo: "TARGET", gnc_ok: "TARGET HIT", gnc_los: "line of sight",
       resumo: "Summary", formacao: "Education", profissional: "Professional experience", academico: "Academic background",
       pesquisa: "Research and publications", projetos: "Projects", premios: "Awards", competencias: "Skills",
       idiomas: "Languages", cursos: "Courses and certifications", mais_github: "More projects on GitHub ↗", site: "website",
@@ -32,7 +32,7 @@ window.IDIOMAS = {
       rk_l: "LENGTH · L", rk_coifa: "Nose cone", rk_rec: "Recovery", rk_baia: "GNC bay", rk_margem: "static margin", rk_empenas: "Fins"
     },
     fr: {
-      _titulo: "Otávio Zordan · CV", cv: "CV numérique", fale: "Me contacter", imprimir: "Enregistrer en PDF", foto: "Photo", n_pesquisa: "Recherche", n_profissional: "Expérience", n_academico: "Académique",
+      _titulo: "Otávio Zordan · CV", cv: "CV numérique", fale: "Me contacter", imprimir: "Enregistrer en PDF", foto: "Photo", n_pesquisa: "Recherche", n_profissional: "Expérience", n_academico: "Académique", gnc_cap: "Simulation en temps réel : guidage sur la ligne de visée avec compensation de la gravité et contrôle d'attitude en cascade par poussée vectorielle (cardan ±8°), sous rafales de vent.", gnc_alvo: "CIBLE", gnc_ok: "CIBLE ATTEINTE", gnc_los: "ligne de visée",
       resumo: "Profil", formacao: "Formation", profissional: "Expérience professionnelle", academico: "Parcours académique",
       pesquisa: "Recherche et publications", projetos: "Projets", premios: "Prix", competencias: "Compétences",
       idiomas: "Langues", cursos: "Cours et certifications", mais_github: "Plus de projets sur GitHub ↗", site: "site",
@@ -40,7 +40,7 @@ window.IDIOMAS = {
       rk_l: "LONGUEUR · L", rk_coifa: "Coiffe", rk_rec: "Récupération", rk_baia: "Baie GNC", rk_margem: "marge statique", rk_empenas: "Ailerons"
     },
     it: {
-      _titulo: "Otávio Zordan · Curriculum", cv: "Curriculum digitale", fale: "Contattami", imprimir: "Salva in PDF", foto: "Foto", n_pesquisa: "Ricerca", n_profissional: "Esperienza", n_academico: "Accademico",
+      _titulo: "Otávio Zordan · Curriculum", cv: "Curriculum digitale", fale: "Contattami", imprimir: "Salva in PDF", foto: "Foto", n_pesquisa: "Ricerca", n_profissional: "Esperienza", n_academico: "Accademico", gnc_cap: "Simulazione in tempo reale: guida sulla linea di vista con compensazione della gravità e controllo d'assetto in cascata tramite spinta vettoriale (gimbal ±8°), con raffiche di vento.", gnc_alvo: "BERSAGLIO", gnc_ok: "BERSAGLIO COLPITO", gnc_los: "linea di vista",
       resumo: "Profilo", formacao: "Formazione", profissional: "Esperienza professionale", academico: "Percorso accademico",
       pesquisa: "Ricerca e pubblicazioni", projetos: "Progetti", premios: "Premi", competencias: "Competenze",
       idiomas: "Lingue", cursos: "Corsi e certificazioni", mais_github: "Altri progetti su GitHub ↗", site: "sito",
@@ -64,10 +64,10 @@ window.IDIOMAS = {
       en: "Engineering at the frontier of **flight dynamics**, **control** and **hardware**: from the mathematical model to the firmware that flies.",
       fr: "L'ingénierie à la frontière entre **dynamique du vol**, **contrôle** et **hardware** : du modèle mathématique au firmware qui vole.",
       it: "Ingegneria al confine tra **dinamica del volo**, **controllo** e **hardware**: dal modello matematico al firmware che vola." },
-    "Formação em Engenharia Mecânica Aeronáutica pela **UNIFEI** e técnico em Telecomunicações pela **ETE FMC**. Pesquisa em dinâmica e controle de drones, GNC de foguetes, microeletrônica e engenharia de sistemas.": {
-      en: "Aeronautical Mechanical Engineering at **UNIFEI** and telecommunications technician from **ETE FMC**. Research in drone dynamics and control, rocket GNC, microelectronics and systems engineering.",
-      fr: "Formation en génie mécanique aéronautique à l'**UNIFEI** et technicien en télécommunications de l'**ETE FMC**. Recherche en dynamique et contrôle de drones, GNC de fusées, microélectronique et ingénierie des systèmes.",
-      it: "Formazione in Ingegneria Meccanica Aeronautica presso l'**UNIFEI** e tecnico in Telecomunicazioni presso l'**ETE FMC**. Ricerca in dinamica e controllo di droni, GNC di razzi, microelettronica e ingegneria dei sistemi." },
+    "Comecei pela eletrônica. Fiz o técnico em Telecomunicações na ETE FMC, em Santa Rita do Sapucaí, onde recebi o prêmio de melhor desempenho acadêmico da turma de 2024 e integrei a eletrônica de um CubeSat que voou num balão estratosférico. Na UNIFEI, em Engenharia Mecânica Aeronáutica, levei essa base para a dinâmica de voo e o controle: identifiquei a dinâmica de quadrirrotores com redes neurais, trabalhei no controle de formação de nanodrones, cuidei da telemetria e do GNC de um foguete universitário e projetei em RTL parte de um processador.": {
+      en: "I started in electronics. I trained as a telecommunications technician at ETE FMC, in Santa Rita do Sapucaí, where I received the best academic performance award of the class of 2024 and integrated the electronics of a CubeSat that flew on a stratospheric balloon. At UNIFEI, in Aeronautical Mechanical Engineering, I took that background into flight dynamics and control: I identified quadrotor dynamics with neural networks, worked on formation control of nanodrones, handled telemetry and GNC for a university rocket, and designed part of a processor in RTL.",
+      fr: "J'ai commencé par l'électronique. J'ai suivi la formation de technicien en télécommunications à l'ETE FMC, à Santa Rita do Sapucaí, où j'ai reçu le prix de la meilleure performance académique de la promotion 2024 et intégré l'électronique d'un CubeSat qui a volé sous un ballon stratosphérique. À l'UNIFEI, en génie mécanique aéronautique, j'ai mis cette base au service de la dynamique du vol et du contrôle : identification de quadrirotors par réseaux de neurones, contrôle de formation de nanodrones, télémesure et GNC d'une fusée universitaire, et conception RTL d'une partie d'un processeur.",
+      it: "Ho cominciato dall'elettronica. Ho studiato come tecnico in telecomunicazioni all'ETE FMC, a Santa Rita do Sapucaí, dove ho ricevuto il premio per il miglior rendimento accademico della classe 2024 e ho integrato l'elettronica di un CubeSat che ha volato su un pallone stratosferico. All'UNIFEI, in Ingegneria Meccanica Aeronautica, ho portato questa base nella dinamica del volo e nel controllo: ho identificato la dinamica di quadricotteri con reti neurali, lavorato al controllo di formazione di nanodroni, curato telemetria e GNC di un razzo universitario e progettato in RTL parte di un processore." },
     "Itajubá · MG · Brasil": { en: "Itajubá · MG · Brazil", fr: "Itajubá · MG · Brésil", it: "Itajubá · MG · Brasile" },
     "Curso": { en: "Program", fr: "Cursus", it: "Corso" },
     "Graduação": { en: "Degree", fr: "Diplôme d'ingénieur", it: "Laurea" },
@@ -159,7 +159,7 @@ window.IDIOMAS = {
       en: "Flight dynamics, control and embedded systems applied to drones, rockets and digital hardware, with research at PET, GEMEC and LSA and papers at COBEM and CONEM.",
       fr: "Dynamique du vol, contrôle et systèmes embarqués appliqués aux drones, aux fusées et au matériel numérique, avec de la recherche au PET, au GEMEC et au LSA et des articles au COBEM et au CONEM.",
       it: "Dinamica del volo, controllo e sistemi embedded applicati a droni, razzi e hardware digitale, con ricerca presso PET, GEMEC e LSA e articoli al COBEM e al CONEM." },
-    "Membro de P&D · Beyond Aerospace Department": { en: "R&D Member · Beyond Aerospace Department", fr: "Membre R&D · Beyond Aerospace Department", it: "Membro R&S · Beyond Aerospace Department" },
+    "Membro de P&D · Beyond Aerospace": { en: "R&D Member · Beyond Aerospace", fr: "Membre R&D · Beyond Aerospace", it: "Membro R&S · Beyond Aerospace" },
     "Equipe de foguetemodelismo": { en: "Rocketry team", fr: "Équipe de fuséologie", it: "Squadra di razzomodellismo" },
     "Divisão de pesquisa e desenvolvimento da equipe de foguetes da universidade.": {
       en: "Research and development division of the university rocket team.",

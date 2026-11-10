@@ -26,7 +26,7 @@
 
 <header class="top" id="top">
   <div class="wrap top-in">
-    <a class="brand" href="#inicio">OZA<b>/</b>AERO</a>
+    <a class="brand" href="#inicio"><svg viewBox="0 0 32 16" aria-hidden="true"><path d="M1 9 C5 2.5,14 1.5,31 7.5 C18 9.5,8 11,1 9Z"/></svg><span id="brand-nome"></span></a>
     <nav class="indice" id="indice" aria-label="Seções"></nav>
     <div class="tools">
       <div class="lang" id="lang" role="group" aria-label="Idioma / Language">
@@ -63,40 +63,17 @@
 
 <template id="tpl-foguete">
   <div class="rocket">
-    <div class="rk">
-      <svg viewBox="40 10 260 400" role="img" aria-label="Rocket · CG · CP">
-        <defs>
-          <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".25" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff5a1f" stop-opacity=".55"/><stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/></linearGradient>
-        </defs>
-        <g class="rk-dim"><path d="M58 20V350M52 20h12M52 350h12"/></g>
-        <text x="46" y="190" transform="rotate(-90 46 190)" text-anchor="middle" data-i18n="rk_l"></text>
-        <path class="flame" d="M106 352 Q120 430 134 352Z" fill="url(#fl)"/>
-        <path class="flame" d="M112 352 Q120 392 128 352Z" fill="#fff6d8" opacity=".85"/>
-        <path class="rk-nose" d="M120 20 C132 40,138 68,138 90 L102 90 C102 68,108 40,120 20Z"/>
-        <rect class="rk-hull" x="102" y="90" width="36" height="240"/>
-        <path class="rk-seam" d="M102 132h36M102 172h36M102 236h36"/>
-        <rect class="rk-bay" x="108" y="180" width="24" height="44" rx="2"/>
-        <path class="rk-hull" d="M102 282 L76 330 L76 346 L102 330Z"/>
-        <path class="rk-hull" d="M138 282 L164 330 L164 346 L138 330Z"/>
-        <path class="rk-fin" d="M120 296V346"/>
-        <path class="rk-noz" d="M110 330 L130 330 L134 350 L106 350Z"/>
-        <g transform="translate(120 202)"><circle class="rk-cg" r="7"/><path class="rk-cgf" d="M0 0V-7A7 7 0 0 1 7 0Z M0 0V7A7 7 0 0 1 -7 0Z"/></g>
-        <g transform="translate(120 262)"><circle class="rk-cp" r="7"/><circle class="rk-cpd" r="2.2"/></g>
-        <path class="rk-lead" d="M134 60h44M138 112h40M132 202h46M127 262h51M152 304h26M86 202h14"/>
-        <text x="182" y="63" data-i18n="rk_coifa"></text>
-        <text x="182" y="115" data-i18n="rk_rec"></text>
-        <text class="lbl" x="182" y="199" data-i18n="rk_baia"></text>
-        <text x="182" y="211">IMU · GNSS · OBC</text>
-        <text x="182" y="259">CP</text>
-        <text class="dim" x="182" y="271" data-i18n="rk_margem"></text>
-        <text x="182" y="307" data-i18n="rk_empenas"></text>
-        <text x="82" y="205" text-anchor="end">CG</text>
-      </svg>
+    <div class="rs">
+      <canvas class="gnc" aria-label="Simulação de foguete guiado"></canvas>
+      <div class="hud"></div>
     </div>
-    <div>
-      <span class="kicker" data-i18n="foguetemodelismo"></span>
-      <h4 class="fg-equipe"></h4>
-      <p class="fg-texto"></p>
+    <div class="cap" data-i18n="gnc_cap"></div>
+    <div class="rinfo">
+      <div>
+        <span class="kicker" data-i18n="foguetemodelismo"></span>
+        <h4 class="fg-equipe"></h4>
+        <p class="fg-texto"></p>
+      </div>
       <div class="ranks fg-cargos"></div>
     </div>
   </div>

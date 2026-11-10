@@ -22,13 +22,12 @@ window.DADOS = {
       { rotulo: "Residência", valor: "Microeletrônica · CI Expert" }
     ],
     chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: do modelo matemático ao firmware que voa.",
-    resumo: "Formação em Engenharia Mecânica Aeronáutica pela **UNIFEI** e técnico em Telecomunicações pela **ETE FMC**. Pesquisa em dinâmica e controle de drones, GNC de foguetes, microeletrônica e engenharia de sistemas.",
+    resumo: "Comecei pela eletrônica. Fiz o técnico em Telecomunicações na ETE FMC, em Santa Rita do Sapucaí, onde recebi o prêmio de melhor desempenho acadêmico da turma de 2024 e integrei a eletrônica de um CubeSat que voou num balão estratosférico. Na UNIFEI, em Engenharia Mecânica Aeronáutica, levei essa base para a dinâmica de voo e o controle: identifiquei a dinâmica de quadrirrotores com redes neurais, trabalhei no controle de formação de nanodrones, cuidei da telemetria e do GNC de um foguete universitário e projetei em RTL parte de um processador.",
     // auto: "publicacoes" conta sozinho
     fatos: [
       { rotulo: "Formação",       valor: "Eng. Mecânica Aeronáutica", sub: "UNIFEI · Itajubá" },
       { rotulo: "Técnico",        valor: "Telecomunicações",          sub: "ETE FMC · melhor desempenho 2024" },
-      { rotulo: "Pesquisa",       auto: "publicacoes", sufixo: " publicações", sub: "COBEM 2025 · CONEM 2026" },
-      { rotulo: "Equipe",         valor: "Beyond Aerospace",          sub: "GNC · Telecomunicações" }
+      { rotulo: "Pesquisa",       auto: "publicacoes", sufixo: " publicações", sub: "COBEM 2025 · CONEM 2026" }
     ]
   },
 
@@ -87,7 +86,7 @@ window.DADOS = {
         texto: "Controle de formação de nanodrones com controle robusto e identificação de quadrirrotores com redes neurais; artigos no COBEM 2025 e CONEM 2026." },
       { quando: "jan — dez 2025", logo: "assets/logos/beyond.png", titulo: "Líder de Telecomunicações · Beyond Aerospace", local: "Equipe de foguetemodelismo",
         texto: "Liderou telemetria e radiocomunicação: RF, integração de SDR, enlace com a estação de solo e dados de bordo em tempo real." },
-      { quando: "mar — dez 2024", logo: "assets/logos/beyond.png", titulo: "Membro de P&D · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
+      { quando: "mar — dez 2024", logo: "assets/logos/beyond.png", titulo: "Membro de P&D · Beyond Aerospace", local: "Equipe de foguetemodelismo",
         texto: "Divisão de pesquisa e desenvolvimento da equipe de foguetes da universidade." }
     ] },
     { instituicao: "ETE FMC", itens: [
@@ -102,7 +101,7 @@ window.DADOS = {
 
   /* ----------------------------- FOGUETE ------------------------------ */
   foguete: {
-    equipe: "Beyond Aerospace Department",
+    equipe: "Beyond Aerospace",
     texto: "Na equipe de foguetemodelismo da UNIFEI, passei por P&D, liderei o subsistema de **Telecomunicações** e trabalhei no subsistema de **Navegação, Guiamento e Controle**.",
     cargos: [
       { ano: "2024", cargo: "Membro de P&D" },

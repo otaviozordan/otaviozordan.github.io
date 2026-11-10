@@ -39,11 +39,11 @@ const ui = k => (I.ui[lang] && I.ui[lang][k]) || I.ui.pt[k] || '';
 /* ------------------------------ ÍCONES ------------------------------ */
 const CONTATO = {
   whatsapp: '<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2L4 20z"/><path d="M9.2 8.6c-.4 3 2.9 6.4 6 6l.9-1.4-1.9-1-.9.7c-.9-.4-1.7-1.2-2.1-2.1l.7-.9-1-1.9z"/>',
-  linkedin: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10.5V16M8 7.8v.1M12 16v-5.5M12 13.2a2.4 2.4 0 0 1 4.8 0V16"/>',
+  linkedin: '<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16.5M8 7.6v.2M11.6 16.5v-6M11.6 13.2c0-1.6 1-2.7 2.5-2.7s2.3 1 2.3 2.7v3.3" stroke-width="2"/>',
   email: '<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>',
   github: '<path d="M8.5 8l-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/>',
   lattes: '<path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M9 14h6M9 18h4"/>',
-  researchgate: '<path d="M3 9.5l9-5 9 5-9 5z"/><path d="M7 11.8V16c3 2 7 2 10 0v-4.2"/>'
+  researchgate: '<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><text x="12" y="15.6" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Arial,sans-serif" stroke="none" fill="currentColor">RG</text>'
 };
 const ICW = '20 0 260 145', ICN = '78 4 144 136';
 const ICONS = {
@@ -81,10 +81,10 @@ function render() {
   $('#foto').src = P.foto;
   set('#ficha', (P.ficha || []).map(f => `<div><small>${esc(f.rotulo)}</small><span>${esc(f.valor)}</span></div>`).join(''));
   set('#contatos', D.contatos.map(c => {
-    const cls = [c.icone === 'whatsapp' ? 'wa' : '', c.texto ? '' : 'ico'].join(' ').trim();
+    const cls = ['c-' + c.icone, c.texto ? '' : 'ico'].join(' ').trim();
     const tgt = c.url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
     return `<a class="${cls}" href="${esc(c.url)}"${tgt} title="${esc(c.rotulo)}" aria-label="${esc(c.rotulo)}" data-p="${esc(host(c.url))}">
-      <svg viewBox="0 0 24 24" aria-hidden="true">${CONTATO[c.icone] || CONTATO.lattes}</svg>${c.texto ? `<span>${esc(c.texto)}</span>` : ''}</a>`;
+      <svg viewBox="0 0 24 24" aria-hidden="true">${CONTATO[c.icone] || CONTATO.lattes}</svg>${c.texto ? `<span>${esc(c.texto)}</span>` : `<small>${esc(c.rotulo)}</small>`}</a>`;
   }).join(''));
   set('#ft-nome', esc(P.nome));
   $('#yr').textContent = new Date().getFullYear();
@@ -132,7 +132,120 @@ function render() {
     set('.fg-cargos', F.cargos.map(c => `<div><span>${esc(c.ano)}</span>${esc(c.cargo)}</div>`).join(''));
   }
   document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = ui(el.dataset.i18n); });
+  set('#brand-nome', esc(parts.slice(0, 2).join(' ')));
   espiao();
+  gnc();
+}
+
+/* -------------------- FOGUETE GUIADO (simulação 2D) -----------------
+   Plano vertical, empuxo constante (3 g), arrasto quadrático e vento.
+   Guiamento: aceleração desejada leva o vetor velocidade para a linha
+   de visada (ganho KV) somada à compensação da gravidade → θref.
+   Controle em cascata: θ → taxa comandada (limitada) → gimbal δ (±8°,
+   atuador de 1ª ordem). Perturbação: torque de rajada (Ornstein–Uhlenbeck). */
+let gncId = 0;
+function gnc() {
+  const id = ++gncId, cv = $('.rocket .gnc'); if (!cv) return;
+  const ctx = cv.getContext('2d'), hud = $('.rocket .hud');
+  const AT = 30, G = 9.81, CD = 4e-5, KDEL = 10, DMAX = 0.14, KTH = 1.5, WMAX = 0.45, KW = 1, KV = .5, ESC = 2;
+  const X0 = -250, X1 = 3150, Y1 = 2050;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const gauss = () => Math.sqrt(-2 * Math.log(Math.random() + 1e-12)) * Math.cos(2 * Math.PI * Math.random());
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const AC = css('--ac'), AC2 = css('--ac2'), OK = css('--ok'), MU = css('--muted'), FM = css('--fm');
+  let W, H, S, ox, oy, st, T, wind, trail, hist, fase, tf, puffs, vis = false, last = 0;
+  const X = x => ox + x * S, Y = y => oy - y * S;
+  function size() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    S = Math.min((W - 40) / (X1 - X0), (H - 36) / Y1);
+    ox = (W - (X1 - X0) * S) / 2 - X0 * S; oy = H - 18;
+  }
+  function reset() {
+    T = { x: 900 + Math.random() * 1900, y: 1000 + Math.random() * 900 }; wind = (Math.random() - .5) * 1.5;
+    st = { t: 0, x: 0, y: 0, vx: 0, vy: 0, th: 0, w: 0, d: 0, dist: 0, ref: 0 }; trail = []; hist = []; puffs = []; fase = 'voo'; tf = 0;
+  }
+  function passo(dt) {
+    const a = st, dx = T.x - a.x, dy = T.y - a.y, lam = Math.atan2(dx, dy), v = Math.hypot(a.vx, a.vy);
+    const axd = KV * (v * Math.sin(lam) - a.vx), ayd = KV * (v * Math.cos(lam) - a.vy);
+    a.ref = a.t < 1 ? 0 : clamp(Math.atan2(axd, ayd + G), -1.2, 1.4);
+    const wc = clamp(KTH * (a.ref - a.th), -WMAX, WMAX);
+    const dc = clamp(KW * (wc - a.w), -DMAX, DMAX); a.d += (dc - a.d) * Math.min(1, dt / .05);
+    a.dist += -a.dist / .8 * dt + .6 * Math.sqrt(dt) * gauss();
+    a.w += (KDEL * a.d + a.dist) * dt; a.th += a.w * dt;
+    a.vx += (AT * Math.sin(a.th) - CD * a.vx * v + wind) * dt; a.vy += (AT * Math.cos(a.th) - G - CD * a.vy * v) * dt;
+    a.x += a.vx * dt; a.y += a.vy * dt; a.t += dt;
+    if (Math.hypot(T.x - a.x, T.y - a.y) < 40) { fase = 'ok'; tf = 0; }
+    else if ((a.y < -5 && a.t > 2) || a.t > 40 || a.x > X1) reset();
+  }
+  function foguete() {
+    const a = st, x = X(a.x), y = Y(a.y), L = Math.max(22, Math.min(34, W / 34));
+    ctx.save(); ctx.translate(x, y); ctx.rotate(a.th);
+    if (fase === 'voo') {                       // chama defletida pelo gimbal (exagerada ×3)
+      ctx.save(); ctx.translate(0, L * .5); ctx.rotate(-a.d * 3);
+      const f = L * (.55 + Math.random() * .25), gr = ctx.createLinearGradient(0, 0, 0, f);
+      gr.addColorStop(0, '#fff3c4'); gr.addColorStop(.3, AC); gr.addColorStop(1, 'rgba(255,90,31,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(-L * .11, 0); ctx.quadraticCurveTo(0, f * 1.4, L * .11, 0); ctx.fill(); ctx.restore();
+    }
+    ctx.fillStyle = '#16263f'; ctx.strokeStyle = AC2; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(-L * .12, L * .5); ctx.lineTo(-L * .12, -L * .2); ctx.quadraticCurveTo(-L * .1, -L * .45, 0, -L * .55);
+    ctx.quadraticCurveTo(L * .1, -L * .45, L * .12, -L * .2); ctx.lineTo(L * .12, L * .5); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-L * .12, L * .25); ctx.lineTo(-L * .3, L * .5); ctx.lineTo(-L * .12, L * .5);
+    ctx.moveTo(L * .12, L * .25); ctx.lineTo(L * .3, L * .5); ctx.lineTo(L * .12, L * .5); ctx.stroke();
+    ctx.strokeStyle = AC; ctx.beginPath(); ctx.moveTo(-L * .1, -L * .32); ctx.quadraticCurveTo(0, -L * .6, L * .1, -L * .32); ctx.stroke();
+    ctx.restore();
+  }
+  function grafico() {                           // θ e θref nos últimos 6 s
+    const w = Math.min(220, W * .32), h = 70, x0 = W - w - 14, y0 = 12;
+    ctx.fillStyle = 'rgba(6,16,36,.72)'; ctx.strokeStyle = 'rgba(120,170,220,.2)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x0, y0, w, h, 8) : ctx.rect(x0, y0, w, h); ctx.fill(); ctx.stroke();
+    ctx.font = `10px ${FM}`; ctx.fillStyle = MU; ctx.fillText('θ  ·  θref', x0 + 8, y0 + 13);
+    const py = v => y0 + h - 8 - (v + .2) / 1.7 * (h - 24), n = hist.length;
+    const linha = (k, cor, dash) => { ctx.strokeStyle = cor; ctx.setLineDash(dash); ctx.beginPath();
+      hist.forEach((p, i) => { const px = x0 + 6 + (w - 12) * (i / Math.max(n - 1, 1)); i ? ctx.lineTo(px, py(p[k])) : ctx.moveTo(px, py(p[k])); }); ctx.stroke(); ctx.setLineDash([]); };
+    if (n > 1) { linha(1, AC, [4, 3]); linha(0, AC2, []); }
+  }
+  function desenha() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(120,170,220,.25)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, oy); ctx.lineTo(W, oy); ctx.stroke();
+    ctx.fillStyle = 'rgba(120,170,220,.35)'; ctx.fillRect(X(0) - 10, oy, 20, 3);
+    // alvo
+    const tx = X(T.x), ty = Y(T.y), r = Math.max(9, 40 * S), pul = 1 + .15 * Math.sin(performance.now() / 250);
+    ctx.strokeStyle = fase === 'ok' ? OK : AC; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.arc(tx, ty, r * pul, 0, 7); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(tx - r * 2, ty); ctx.lineTo(tx - r * .5, ty); ctx.moveTo(tx + r * .5, ty); ctx.lineTo(tx + r * 2, ty);
+    ctx.moveTo(tx, ty - r * 2); ctx.lineTo(tx, ty - r * .5); ctx.moveTo(tx, ty + r * .5); ctx.lineTo(tx, ty + r * 2); ctx.stroke();
+    ctx.font = `10px ${FM}`; ctx.fillStyle = fase === 'ok' ? OK : AC;
+    ctx.fillText(fase === 'ok' ? ui('gnc_ok') : ui('gnc_alvo'), tx + r * 2 + 4, ty + 3);
+    if (fase === 'ok') { ctx.strokeStyle = `rgba(76,227,154,${Math.max(0, 1 - tf)})`; ctx.beginPath(); ctx.arc(tx, ty, r + tf * 60, 0, 7); ctx.stroke(); }
+    // linha de visada
+    if (fase === 'voo') { ctx.strokeStyle = 'rgba(255,176,32,.35)'; ctx.setLineDash([5, 6]); ctx.beginPath(); ctx.moveTo(X(st.x), Y(st.y)); ctx.lineTo(tx, ty); ctx.stroke(); ctx.setLineDash([]); }
+    // fumaça
+    puffs.forEach(p => { ctx.fillStyle = `rgba(160,175,200,${p.a})`; ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), p.r, 0, 7); ctx.fill(); });
+    // trajetória
+    ctx.strokeStyle = AC2; ctx.lineWidth = 1.6; ctx.beginPath();
+    trail.forEach((p, i) => i ? ctx.lineTo(X(p[0]), Y(p[1])) : ctx.moveTo(X(p[0]), Y(p[1]))); ctx.stroke();
+    foguete(); grafico();
+    const v = Math.hypot(st.vx, st.vy), g = r2 => (r2 * 57.2958).toFixed(1) + '°';
+    hud.innerHTML = `T+ <b>${st.t.toFixed(1)} s</b><br>h <b>${Math.max(0, st.y).toFixed(0)} m</b><br>V <b>${v.toFixed(0)} m/s</b><br>θ <b>${g(st.th)}</b><br>θref <b>${g(st.ref)}</b><br>δ <b>${g(st.d)}</b>`;
+  }
+  function loop(t) {
+    if (id !== gncId || !vis) return;
+    const dt = Math.min((t - (last || t)) / 1000, .05) * ESC; last = t;
+    if (fase === 'voo') {
+      for (let k = 0, n = Math.ceil(dt / .01); k < n; k++) passo(dt / n);
+      trail.push([st.x, st.y]); if (trail.length > 900) trail.shift();
+      hist.push([st.th, st.ref]); if (hist.length > 180) hist.shift();
+      if (Math.random() < .6) puffs.push({ x: st.x - Math.sin(st.th) * 15, y: st.y - Math.cos(st.th) * 15, r: 2, a: .28 });
+    } else { tf += dt / ESC; if (tf > 1.8) reset(); }
+    puffs = puffs.filter(p => (p.r += .25, p.a -= .004) > 0);
+    desenha(); requestAnimationFrame(loop);
+  }
+  size(); reset(); desenha();
+  new ResizeObserver(() => { if (id === gncId) { size(); desenha(); } }).observe(cv);
+  if (reduce) return;
+  new IntersectionObserver(([e]) => { const was = vis; vis = e.isIntersecting && id === gncId; if (vis && !was) { last = 0; requestAnimationFrame(loop); } }).observe(cv);
 }
 
 /* ------------------------- MENU ATIVO (scroll) ---------------------- */
