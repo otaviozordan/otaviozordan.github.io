@@ -1,169 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-tema="cockpit">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Otávio Zordan · Engenharia Aeronáutica</title>
-<meta name="description" content="Otávio Zordan Alves — Engenharia Mecânica Aeronáutica (UNIFEI) e técnico em Telecomunicações (ETE FMC). Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital.">
-<meta property="og:title" content="Otávio Zordan Alves · Engenharia Aeronáutica">
-<meta property="og:description" content="Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital. UNIFEI · ETE FMC · GEMEC · LSA.">
+<title>Otávio Zordan · Currículo</title>
+<meta name="description" content="Currículo de Otávio Zordan Alves — Engenharia Mecânica Aeronáutica (UNIFEI) e técnico em Telecomunicações (ETE FMC). Dinâmica de voo, controle, GNC e sistemas embarcados.">
+<meta property="og:title" content="Otávio Zordan Alves · Currículo">
+<meta property="og:description" content="Engenharia Mecânica Aeronáutica · GNC · Sistemas Embarcados. UNIFEI · ETE FMC · GEMEC · LSA.">
 <meta property="og:image" content="assets/otavio.jpg">
-<meta name="theme-color" content="#05080d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2305080d'/%3E%3Cpath d='M4 18 Q16 9 28 15 Q16 17 4 18Z' fill='%23ffb020'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#061024">
+<link rel="alternate" hreflang="pt" href="https://otaviozordan.github.io/?lang=pt">
+<link rel="alternate" hreflang="en" href="https://otaviozordan.github.io/?lang=en">
+<link rel="alternate" hreflang="fr" href="https://otaviozordan.github.io/?lang=fr">
+<link rel="alternate" hreflang="it" href="https://otaviozordan.github.io/?lang=it">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23061024'/%3E%3Cpath d='M4 18 Q16 9 28 15 Q16 17 4 18Z' fill='%23ffb020'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link id="fonte" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/estilo.css">
-<!-- Todo o conteúdo do site fica em dados.js -->
+<!-- Conteúdo (em português) e traduções -->
 <script src="dados.js"></script>
-<script>try{var t=new URLSearchParams(location.search).get('tema')||localStorage.getItem('tema');if(t)document.documentElement.dataset.tema=t}catch(e){}</script>
+<script src="idiomas.js"></script>
 </head>
 <body>
+<div class="layout">
 
-<nav id="nav">
-  <div class="wrap">
-    <a class="brand" href="#top">OZA<b>/</b>AERO</a>
-    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><i></i></button>
-    <ul id="menu">
-      <li><a href="#trajetoria"><span>01</span> Trajetória</a></li>
-      <li><a href="#pesquisa"><span>02</span> Pesquisa</a></li>
-      <li><a href="#projetos"><span>03</span> Projetos</a></li>
-      <li><a href="#competencias"><span>04</span> Competências</a></li>
-      <li><a href="#contato"><span>05</span> Contato</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <canvas id="flow" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <div>
-      <h1 id="h-nome"></h1>
-      <div class="role" id="h-titulo"></div>
-      <p class="lead" id="h-chamada"></p>
-      <div class="cta">
-        <a class="btn pri" href="#trajetoria">Ver trajetória →</a>
-        <a class="btn sec" href="#pesquisa">Publicações</a>
-        <a class="btn sec" href="#contato">Contato</a>
-      </div>
-    </div>
-    <aside class="idcard">
-      <div class="ph">
-        <img id="h-foto" alt="Foto de Otávio Zordan Alves" width="768" height="765">
-        <div class="reticle"><i></i><i></i><i></i><i></i></div>
-      </div>
-      <div class="telemetry" id="h-ficha"></div>
-    </aside>
-  </div>
-</header>
-
-<main>
-<section id="resumo" class="tight">
-  <div class="wrap">
-    <p class="resumo reveal" id="resumo-texto"></p>
-    <div class="fatos reveal" id="fatos"></div>
-  </div>
-</section>
-
-<section id="trajetoria">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">01 /</span><h2>Trajetória</h2><span class="rule"></span></div>
-    <p class="sub reveal">Da escola técnica à engenharia aeronáutica, com as trilhas acadêmica e profissional lado a lado.</p>
-    <div id="traj"></div>
-  </div>
-</section>
-
-<section id="pesquisa">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">02 /</span><h2>Pesquisa</h2><span class="rule"></span></div>
-    <p class="sub reveal">Dinâmica e controle de veículos aéreos não tripulados: identificação de sistemas, redes neurais, controle de formação e controle robusto.</p>
-    <div class="pubs" id="pubs"></div>
-    <div class="groups" id="grupos"></div>
-    <div class="links-row reveal" id="perfis"></div>
-  </div>
-</section>
-
-<section id="projetos">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">03 /</span><h2>Projetos em destaque</h2><span class="rule"></span></div>
-    <div class="grid" id="grid"></div>
-    <div class="links-row reveal"><a class="chip" href="https://github.com/otaviozordan" target="_blank" rel="noopener">Mais projetos no GitHub ↗</a></div>
-  </div>
-</section>
-
-<section id="competencias">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">04 /</span><h2>Competências</h2><span class="rule"></span></div>
-    <div class="skills" id="skills"></div>
-    <div class="two">
-      <div class="panel list reveal"><h3>Prêmios</h3><div id="premios"></div></div>
-      <div class="panel list reveal"><h3>Idiomas</h3><div id="idiomas"></div>
-        <details class="cursos"><summary>Cursos e certificações</summary><div id="certs"></div></details></div>
-    </div>
-  </div>
-</section>
-
-<section id="contato">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">05 /</span><h2>Contato</h2><span class="rule"></span></div>
-    <div class="panel contact reveal">
+  <aside class="side">
+    <div class="me">
+      <img class="foto" id="foto" alt="Otávio Zordan Alves" width="120" height="120">
       <div>
-        <h2>Vamos construir algo que <span class="ac">voa</span>.</h2>
-        <p class="sub" id="ct-chamada"></p>
+        <h1 id="nome"></h1>
+        <p class="titulo" id="titulo"></p>
+        <p class="local" id="local"></p>
       </div>
-      <div class="clinks" id="ct-links"></div>
     </div>
-  </div>
-</section>
-</main>
+    <p class="kicker" data-i18n="fale"></p>
+    <div class="contatos" id="contatos"></div>
+    <nav class="indice" id="indice" aria-label="Seções"></nav>
+    <div class="tools">
+      <div class="lang" id="lang" role="group" aria-label="Idioma / Language">
+        <button data-l="pt" lang="pt">PT</button><button data-l="en" lang="en">EN</button><button data-l="fr" lang="fr">FR</button><button data-l="it" lang="it">IT</button>
+      </div>
+      <button class="print" id="print"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg><span data-i18n="imprimir"></span></button>
+    </div>
+  </aside>
 
-<footer><div class="wrap"><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W</span></div></footer>
+  <main class="main">
+    <nav class="indice-m" id="indice-m" aria-label="Seções"></nav>
+    <div class="banner" aria-hidden="true"><canvas id="flow"></canvas><span class="bl" data-i18n="cv"></span></div>
+    <div id="secoes"></div>
+    <footer><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W</span></footer>
+  </main>
 
-<!-- Seletor de identidade visual (prévia) -->
-<div class="temas" id="temas" aria-label="Identidade visual"></div>
+</div>
 
 <template id="tpl-foguete">
-  <div class="panel rocket reveal">
-    <div>
-      <span class="kicker">Foguetemodelismo</span>
-      <h3 class="fg-equipe"></h3>
-      <p class="fg-texto"></p>
-      <div class="ranks fg-cargos"></div>
-      <div class="fg-link"></div>
-    </div>
+  <div class="rocket">
     <div class="rk">
-      <svg viewBox="0 0 300 440" role="img" aria-label="Desenho técnico de um foguete com marcações de CG e CP">
+      <svg viewBox="40 10 260 400" role="img" aria-label="Rocket · CG · CP">
         <defs>
           <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".25" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff5a1f" stop-opacity=".55"/><stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/></linearGradient>
         </defs>
-        <g class="rk-dim"><path d="M58 20V350M52 20h12M52 350h12"/><path d="M102 372V384M138 372V384M102 378h36"/></g>
-        <text x="40" y="190" transform="rotate(-90 40 190)" text-anchor="middle">COMPRIMENTO · L</text>
-        <text x="117" y="398">Ø</text>
-        <g class="rk-body">
-          <g class="smoke"></g>
-          <path class="flame" d="M106 352 Q120 450 134 352Z" fill="url(#fl)"/>
-          <path class="flame" d="M112 352 Q120 400 128 352Z" fill="#fff6d8" opacity=".85"/>
-          <path class="rk-nose" d="M120 20 C132 40,138 68,138 90 L102 90 C102 68,108 40,120 20Z"/>
-          <rect class="rk-hull" x="102" y="90" width="36" height="240"/>
-          <path class="rk-seam" d="M102 132h36M102 172h36M102 236h36"/>
-          <rect class="rk-bay" x="108" y="180" width="24" height="44" rx="2"/>
-          <path class="rk-hull" d="M102 282 L76 330 L76 346 L102 330Z"/>
-          <path class="rk-hull" d="M138 282 L164 330 L164 346 L138 330Z"/>
-          <path class="rk-fin" d="M120 296V346"/>
-          <path class="rk-noz" d="M110 330 L130 330 L134 350 L106 350Z"/>
-          <g transform="translate(120 202)"><circle class="rk-cg" r="7"/><path class="rk-cgf" d="M0 0V-7A7 7 0 0 1 7 0Z M0 0V7A7 7 0 0 1 -7 0Z"/></g>
-          <g transform="translate(120 262)"><circle class="rk-cp" r="7"/><circle class="rk-cpd" r="2.2"/></g>
-          <path class="rk-lead" d="M134 60h44M138 112h40M132 202h46M127 262h51M152 304h26M86 202h14"/>
-          <text x="182" y="63">Coifa</text>
-          <text x="182" y="115">Recuperação</text>
-          <text class="lbl" x="182" y="199">Baia GNC</text>
-          <text x="182" y="211">IMU · GNSS · OBC</text>
-          <text x="182" y="259">CP</text>
-          <text class="dim" x="182" y="271">margem estática</text>
-          <text x="182" y="307">Empenas</text>
-          <text x="82" y="205" text-anchor="end">CG</text>
-        </g>
+        <g class="rk-dim"><path d="M58 20V350M52 20h12M52 350h12"/></g>
+        <text x="46" y="190" transform="rotate(-90 46 190)" text-anchor="middle" data-i18n="rk_l"></text>
+        <path class="flame" d="M106 352 Q120 430 134 352Z" fill="url(#fl)"/>
+        <path class="flame" d="M112 352 Q120 392 128 352Z" fill="#fff6d8" opacity=".85"/>
+        <path class="rk-nose" d="M120 20 C132 40,138 68,138 90 L102 90 C102 68,108 40,120 20Z"/>
+        <rect class="rk-hull" x="102" y="90" width="36" height="240"/>
+        <path class="rk-seam" d="M102 132h36M102 172h36M102 236h36"/>
+        <rect class="rk-bay" x="108" y="180" width="24" height="44" rx="2"/>
+        <path class="rk-hull" d="M102 282 L76 330 L76 346 L102 330Z"/>
+        <path class="rk-hull" d="M138 282 L164 330 L164 346 L138 330Z"/>
+        <path class="rk-fin" d="M120 296V346"/>
+        <path class="rk-noz" d="M110 330 L130 330 L134 350 L106 350Z"/>
+        <g transform="translate(120 202)"><circle class="rk-cg" r="7"/><path class="rk-cgf" d="M0 0V-7A7 7 0 0 1 7 0Z M0 0V7A7 7 0 0 1 -7 0Z"/></g>
+        <g transform="translate(120 262)"><circle class="rk-cp" r="7"/><circle class="rk-cpd" r="2.2"/></g>
+        <path class="rk-lead" d="M134 60h44M138 112h40M132 202h46M127 262h51M152 304h26M86 202h14"/>
+        <text x="182" y="63" data-i18n="rk_coifa"></text>
+        <text x="182" y="115" data-i18n="rk_rec"></text>
+        <text class="lbl" x="182" y="199" data-i18n="rk_baia"></text>
+        <text x="182" y="211">IMU · GNSS · OBC</text>
+        <text x="182" y="259">CP</text>
+        <text class="dim" x="182" y="271" data-i18n="rk_margem"></text>
+        <text x="182" y="307" data-i18n="rk_empenas"></text>
+        <text x="82" y="205" text-anchor="end">CG</text>
       </svg>
+    </div>
+    <div>
+      <span class="kicker" data-i18n="foguetemodelismo"></span>
+      <h4 class="fg-equipe"></h4>
+      <p class="fg-texto"></p>
+      <div class="ranks fg-cargos"></div>
     </div>
   </div>
 </template>
