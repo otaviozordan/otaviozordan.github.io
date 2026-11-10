@@ -17,10 +17,9 @@ window.DADOS = {
     foto: "assets/otavio.jpg",
     local: "Itajubá · MG · Brasil",
     ficha: [
-      { rotulo: "Base",   valor: "Itajubá · MG" },
-      { rotulo: "Curso",  valor: "Eng. Aeronáutica" },
-      { rotulo: "Grupos", valor: "GEMEC · LSA · PET" },
-      { rotulo: "Equipe", valor: "Beyond Aerospace" }
+      { rotulo: "Graduação",  valor: "Eng. Mecânica Aeronáutica · UNIFEI" },
+      { rotulo: "Técnico",    valor: "Telecomunicações · ETE FMC" },
+      { rotulo: "Residência", valor: "Microeletrônica · CI Expert" }
     ],
     chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: do modelo matemático ao firmware que voa.",
     resumo: "Formação em Engenharia Mecânica Aeronáutica pela **UNIFEI** e técnico em Telecomunicações pela **ETE FMC**. Pesquisa em dinâmica e controle de drones, GNC de foguetes, microeletrônica e engenharia de sistemas.",
@@ -96,13 +95,8 @@ window.DADOS = {
         texto: "Maior honraria da escola, concedida a um único formando entre todos os cursos técnicos.", premio: "Melhor formando da turma" },
       { quando: "2023", logo: "assets/logos/obsat.png", titulo: "SolarEyes — CubeSat estratosférico", local: "Olimpíada Brasileira de Satélites (OBSAT-MCTI)",
         texto: "Integração de OBC, EPS e telecom de uma sonda com carga útil de radiação gama, validada em voo de balão estratosférico.", premio: "Campeão regional OBSAT 2023" },
-      { quando: "2022 — 2023", logo: "assets/logos/projete.png", titulo: "ARduck — realidade aumentada para eletrônica", local: "PROJETE",
-        texto: "Ecossistema de ensino com realidade aumentada, laboratório conectado, app e painel web. Embarcados, backend e DevOps.",
-        premio: "Campeão Utilidade e Melhor apresentação em inglês (2022) · Melhor projeto de Telecom (2023)" },
       { quando: "mar — dez 2022", logo: "assets/logos/ete.png", titulo: "Monitor de Laboratório", local: "ETE FMC",
-        texto: "Aulas de apoio em Algoritmos, Sistemas Digitais, Eletrônica Analógica e Eletricidade." },
-      { quando: "2021", logo: "assets/logos/projete.png", titulo: "Ajuste Dinâmico de Faróis Automotivos", local: "PROJETE 2021",
-        texto: "Líder da equipe e programador de um sistema embarcado que corrige automaticamente o facho dos faróis.", premio: "Campeão Automação · Prêmio Municipal de Inovação" }
+        texto: "Aulas de apoio em Algoritmos, Sistemas Digitais, Eletrônica Analógica e Eletricidade." }
     ] }
   ],
 
