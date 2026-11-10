@@ -58,7 +58,7 @@
 
 <main class="wrap conteudo">
   <div id="secoes"></div>
-  <footer><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W</span></footer>
+  <footer><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W · <em class="lema" data-i18n="lema"></em></span></footer>
 </main>
 
 <template id="tpl-foguete">
@@ -66,8 +66,9 @@
     <div class="rs">
       <canvas class="gnc" aria-label="Simulação de foguete guiado"></canvas>
       <div class="hud"></div>
+      <div class="veic"><button data-v="tie">TIE</button><button data-v="foguete" data-i18n="foguete_btn"></button></div>
     </div>
-    <div class="cap" data-i18n="gnc_cap"></div>
+    <div class="cap"><span data-i18n="gnc_cap"></span> <em data-i18n="gnc_lema"></em></div>
     <div class="rinfo">
       <div>
         <span class="kicker" data-i18n="foguetemodelismo"></span>

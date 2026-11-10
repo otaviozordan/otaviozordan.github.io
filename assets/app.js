@@ -65,6 +65,13 @@ const logo = (src, alt) => src ? `<img class="lg" src="${esc(src)}" alt="${esc(a
 
 /* ------------------------------ RENDER ------------------------------ */
 const SECOES = ['resumo', 'formacao', 'pesquisa', 'profissional', 'academico', 'projetos', 'competencias'];
+const HOBBY = {
+  sabre: '<path d="M4 20l3-3" stroke-width="3"/><path class="glow" d="M8.5 15.5L20 4" stroke-width="2.4"/><path d="M6.2 14.8l3 3"/>',
+  anel: '<ellipse cx="12" cy="12" rx="8" ry="8"/><ellipse class="glow" cx="12" cy="12" rx="5.6" ry="5.6" stroke-dasharray="1.4 1.8"/>',
+  estrela: '<path d="M12 3l2.6 6 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.2 1.4-6.3L3 9.6 9.4 9z"/>',
+  livro: '<path d="M4 5c3-1.5 5.5-1.5 8 0v14c-2.5-1.5-5-1.5-8 0zM20 5c-3-1.5-5.5-1.5-8 0v14c2.5-1.5 5-1.5 8 0z"/>',
+  jogo: '<rect x="3" y="8" width="18" height="9" rx="4.5"/><path d="M7.5 11v3M6 12.5h3"/><circle cx="15.5" cy="11.5" r=".6"/><circle cx="17.5" cy="13.5" r=".6"/>'
+};
 
 function render() {
   const D = traduz(BASE);
@@ -121,8 +128,9 @@ function render() {
   C.competencias = `<div class="skills">${D.competencias.map(c => `<div><h3>${esc(c.grupo)}</h3><div class="chips">${c.itens.map(i => `<span>${esc(i)}</span>`).join('')}</div></div>`).join('')}</div>
     <p class="lingua"><b>${esc(ui('idiomas'))}</b>${esc(D.idiomas)}</p>
     <details class="cursos"><summary>${esc(ui('cursos'))}</summary><div class="lista">${D.certificacoes.map(c => row(c.titulo, c.org, c.ano)).join('')}</div></details>`;
+  C.hobbies = `<div class="hobbies">${(D.hobbies || []).map(h => `<div class="hob"><svg viewBox="0 0 24 24" aria-hidden="true">${HOBBY[h.icone] || HOBBY.estrela}</svg><div><b>${esc(h.titulo)}</b>${h.texto ? `<span>${fmt(h.texto)}</span>` : ''}</div></div>`).join('')}</div>`;
 
-  set('#secoes', SECOES.map((id, i) => `<section class="sec" id="${id}"><h2 data-n="${String(i + 1).padStart(2, '0')}">${esc(ui(id))}</h2>${C[id]}</section>`).join(''));
+  set('#secoes', SECOES.filter(id => C[id]).map((id, i) => `<section class="sec" id="${id}"><h2 data-n="${String(i + 1).padStart(2, '0')}">${esc(ui(id))}</h2>${C[id]}</section>`).join(''));
 
   const F = D.foguete, slot = $('.slot-foguete');
   if (slot && F) {
@@ -153,13 +161,17 @@ function gnc() {
   const gauss = () => Math.sqrt(-2 * Math.log(Math.random() + 1e-12)) * Math.cos(2 * Math.PI * Math.random());
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const AC = css('--ac'), AC2 = css('--ac2'), OK = css('--ok'), MU = css('--muted'), FM = css('--fm');
-  let W, H, S, ox, oy, st, T, wind, trail, hist, fase, tf, puffs, vis = false, last = 0;
+  let W, H, S, ox, oy, st, T, wind, trail, hist, fase, tf, puffs, vis = false, last = 0, veic = 'tie';
+  try { veic = localStorage.getItem('veic') || 'tie'; } catch (e) {}
+  const marca = () => document.querySelectorAll('.rocket .veic button').forEach(b => b.classList.toggle('on', b.dataset.v === veic));
+  marca();
+  $('.rocket .veic').onclick = e => { const b = e.target.closest('button'); if (!b) return; veic = b.dataset.v; try { localStorage.setItem('veic', veic); } catch (er) {} marca(); if (reduce) desenha(); };
   const X = x => ox + x * S, Y = y => oy - y * S;
   function size() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    S = Math.min((W - 40) / (X1 - X0), (H - 36) / Y1);
-    ox = (W - (X1 - X0) * S) / 2 - X0 * S; oy = H - 18;
+    S = Math.min((W - 40) / (X1 - X0), (H - 58) / Y1);
+    ox = (W - (X1 - X0) * S) / 2 - X0 * S; oy = H - 40;
   }
   function reset() {
     T = { x: 900 + Math.random() * 1900, y: 1000 + Math.random() * 900 }; wind = (Math.random() - .5) * 1.5;
@@ -178,7 +190,31 @@ function gnc() {
     if (Math.hypot(T.x - a.x, T.y - a.y) < 40) { fase = 'ok'; tf = 0; }
     else if ((a.y < -5 && a.t > 2) || a.t > 40 || a.x > X1) reset();
   }
+  function tie() {                               // caça TIE (vista frontal), propulsor defletido pelo gimbal
+    const a = st, L = Math.max(26, Math.min(40, W / 30));
+    ctx.save(); ctx.translate(X(a.x), Y(a.y)); ctx.rotate(a.th);
+    if (fase === 'voo') {
+      ctx.save(); ctx.translate(0, L * .2); ctx.rotate(-a.d * 3);
+      const f = L * (.45 + Math.random() * .2), gr = ctx.createLinearGradient(0, 0, 0, f);
+      gr.addColorStop(0, '#ffe2d0'); gr.addColorStop(.35, '#ff5a3c'); gr.addColorStop(1, 'rgba(255,60,40,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(-L * .09, 0); ctx.quadraticCurveTo(0, f * 1.3, L * .09, 0); ctx.fill(); ctx.restore();
+    }
+    ctx.strokeStyle = AC2; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(-L * .5, 0); ctx.lineTo(L * .5, 0); ctx.stroke();          // pilones
+    for (const sx of [-1, 1]) {                                                              // asas hexagonais
+      const cx = sx * L * .56, w = L * .09, h = L * .62;
+      ctx.fillStyle = '#141d2c'; ctx.beginPath();
+      ctx.moveTo(cx - w, -h * .55); ctx.lineTo(cx, -h); ctx.lineTo(cx + w, -h * .55); ctx.lineTo(cx + w, h * .55); ctx.lineTo(cx, h); ctx.lineTo(cx - w, h * .55); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx, -h); ctx.lineTo(cx, h); ctx.stroke();
+    }
+    ctx.fillStyle = '#22314a'; ctx.beginPath(); ctx.arc(0, 0, L * .2, 0, 7); ctx.fill(); ctx.stroke();   // cabine
+    ctx.strokeStyle = AC; ctx.beginPath(); ctx.arc(0, 0, L * .11, 0, 7); ctx.stroke();
+    for (let k = 0; k < 8; k++) { const an = k * Math.PI / 4; ctx.beginPath(); ctx.moveTo(Math.cos(an) * L * .04, Math.sin(an) * L * .04); ctx.lineTo(Math.cos(an) * L * .11, Math.sin(an) * L * .11); ctx.stroke(); }
+    ctx.restore();
+  }
   function foguete() {
+    if (veic === 'tie') return tie();
     const a = st, x = X(a.x), y = Y(a.y), L = Math.max(22, Math.min(34, W / 34));
     ctx.save(); ctx.translate(x, y); ctx.rotate(a.th);
     if (fase === 'voo') {                       // chama defletida pelo gimbal (exagerada ×3)

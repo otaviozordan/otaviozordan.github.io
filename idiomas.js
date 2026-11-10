@@ -16,7 +16,7 @@ window.IDIOMAS = {
   /* --------------------- textos fixos da página --------------------- */
   ui: {
     pt: {
-      _titulo: "Otávio Zordan · Currículo", cv: "Currículo digital", fale: "Fale comigo", imprimir: "Salvar em PDF", foto: "Foto", n_pesquisa: "Pesquisa", n_profissional: "Experiência", n_academico: "Acadêmico", gnc_cap: "Simulação em tempo real: guiamento pela linha de visada com compensação da gravidade e controle de atitude em cascata por vetoração de empuxo (gimbal ±8°), sob rajadas de vento.", gnc_alvo: "ALVO", gnc_ok: "ALVO ATINGIDO", gnc_los: "linha de visada",
+      _titulo: "Otávio Zordan · Currículo", cv: "Currículo digital", fale: "Fale comigo", imprimir: "Salvar em PDF", foto: "Foto", n_pesquisa: "Pesquisa", n_profissional: "Experiência", n_academico: "Acadêmico", gnc_cap: "Simulação em tempo real: guiamento pela linha de visada com compensação da gravidade e controle de atitude em cascata por vetoração de empuxo (gimbal ±8°), sob rajadas de vento.", gnc_alvo: "ALVO", gnc_ok: "ALVO ATINGIDO", gnc_los: "linha de visada", hobbies: "Fora do laboratório", n_hobbies: "Hobbies", lema: "Nem todos que vagueiam estão perdidos.", gnc_lema: "Um laço de controle para a todos governar.", foguete_btn: "Foguete",
       resumo: "Resumo", formacao: "Formação", profissional: "Experiência profissional", academico: "Trajetória acadêmica",
       pesquisa: "Pesquisa e publicações", projetos: "Projetos", premios: "Prêmios", competencias: "Competências",
       idiomas: "Idiomas", cursos: "Cursos e certificações", mais_github: "Mais projetos no GitHub ↗", site: "site",
@@ -24,7 +24,7 @@ window.IDIOMAS = {
       rk_l: "COMPRIMENTO · L", rk_coifa: "Coifa", rk_rec: "Recuperação", rk_baia: "Baia GNC", rk_margem: "margem estática", rk_empenas: "Empenas"
     },
     en: {
-      _titulo: "Otávio Zordan · Résumé", cv: "Digital résumé", fale: "Get in touch", imprimir: "Save as PDF", foto: "Photo", n_pesquisa: "Research", n_profissional: "Experience", n_academico: "Academic", gnc_cap: "Real-time simulation: line-of-sight guidance with gravity compensation and cascaded attitude control by thrust vectoring (±8° gimbal), under wind gusts.", gnc_alvo: "TARGET", gnc_ok: "TARGET HIT", gnc_los: "line of sight",
+      _titulo: "Otávio Zordan · Résumé", cv: "Digital résumé", fale: "Get in touch", imprimir: "Save as PDF", foto: "Photo", n_pesquisa: "Research", n_profissional: "Experience", n_academico: "Academic", gnc_cap: "Real-time simulation: line-of-sight guidance with gravity compensation and cascaded attitude control by thrust vectoring (±8° gimbal), under wind gusts.", gnc_alvo: "TARGET", gnc_ok: "TARGET HIT", gnc_los: "line of sight", hobbies: "Outside the lab", n_hobbies: "Hobbies", lema: "Not all those who wander are lost.", gnc_lema: "One loop to rule them all.", foguete_btn: "Rocket",
       resumo: "Summary", formacao: "Education", profissional: "Professional experience", academico: "Academic background",
       pesquisa: "Research and publications", projetos: "Projects", premios: "Awards", competencias: "Skills",
       idiomas: "Languages", cursos: "Courses and certifications", mais_github: "More projects on GitHub ↗", site: "website",
@@ -32,7 +32,7 @@ window.IDIOMAS = {
       rk_l: "LENGTH · L", rk_coifa: "Nose cone", rk_rec: "Recovery", rk_baia: "GNC bay", rk_margem: "static margin", rk_empenas: "Fins"
     },
     fr: {
-      _titulo: "Otávio Zordan · CV", cv: "CV numérique", fale: "Me contacter", imprimir: "Enregistrer en PDF", foto: "Photo", n_pesquisa: "Recherche", n_profissional: "Expérience", n_academico: "Académique", gnc_cap: "Simulation en temps réel : guidage sur la ligne de visée avec compensation de la gravité et contrôle d'attitude en cascade par poussée vectorielle (cardan ±8°), sous rafales de vent.", gnc_alvo: "CIBLE", gnc_ok: "CIBLE ATTEINTE", gnc_los: "ligne de visée",
+      _titulo: "Otávio Zordan · CV", cv: "CV numérique", fale: "Me contacter", imprimir: "Enregistrer en PDF", foto: "Photo", n_pesquisa: "Recherche", n_profissional: "Expérience", n_academico: "Académique", gnc_cap: "Simulation en temps réel : guidage sur la ligne de visée avec compensation de la gravité et contrôle d'attitude en cascade par poussée vectorielle (cardan ±8°), sous rafales de vent.", gnc_alvo: "CIBLE", gnc_ok: "CIBLE ATTEINTE", gnc_los: "ligne de visée", hobbies: "Hors du labo", n_hobbies: "Loisirs", lema: "Tous ceux qui errent ne sont pas perdus.", gnc_lema: "Une boucle pour les gouverner toutes.", foguete_btn: "Fusée",
       resumo: "Profil", formacao: "Formation", profissional: "Expérience professionnelle", academico: "Parcours académique",
       pesquisa: "Recherche et publications", projetos: "Projets", premios: "Prix", competencias: "Compétences",
       idiomas: "Langues", cursos: "Cours et certifications", mais_github: "Plus de projets sur GitHub ↗", site: "site",
@@ -40,7 +40,7 @@ window.IDIOMAS = {
       rk_l: "LONGUEUR · L", rk_coifa: "Coiffe", rk_rec: "Récupération", rk_baia: "Baie GNC", rk_margem: "marge statique", rk_empenas: "Ailerons"
     },
     it: {
-      _titulo: "Otávio Zordan · Curriculum", cv: "Curriculum digitale", fale: "Contattami", imprimir: "Salva in PDF", foto: "Foto", n_pesquisa: "Ricerca", n_profissional: "Esperienza", n_academico: "Accademico", gnc_cap: "Simulazione in tempo reale: guida sulla linea di vista con compensazione della gravità e controllo d'assetto in cascata tramite spinta vettoriale (gimbal ±8°), con raffiche di vento.", gnc_alvo: "BERSAGLIO", gnc_ok: "BERSAGLIO COLPITO", gnc_los: "linea di vista",
+      _titulo: "Otávio Zordan · Curriculum", cv: "Curriculum digitale", fale: "Contattami", imprimir: "Salva in PDF", foto: "Foto", n_pesquisa: "Ricerca", n_profissional: "Esperienza", n_academico: "Accademico", gnc_cap: "Simulazione in tempo reale: guida sulla linea di vista con compensazione della gravità e controllo d'assetto in cascata tramite spinta vettoriale (gimbal ±8°), con raffiche di vento.", gnc_alvo: "BERSAGLIO", gnc_ok: "BERSAGLIO COLPITO", gnc_los: "linea di vista", hobbies: "Fuori dal laboratorio", n_hobbies: "Hobby", lema: "Non tutti quelli che vagano sono perduti.", gnc_lema: "Un anello di controllo per domarli tutti.", foguete_btn: "Razzo",
       resumo: "Profilo", formacao: "Formazione", profissional: "Esperienza professionale", academico: "Percorso accademico",
       pesquisa: "Ricerca e pubblicazioni", projetos: "Progetti", premios: "Premi", competencias: "Competenze",
       idiomas: "Lingue", cursos: "Corsi e certificazioni", mais_github: "Altri progetti su GitHub ↗", site: "sito",
@@ -70,6 +70,7 @@ window.IDIOMAS = {
       it: "Ho cominciato dall'elettronica. Ho studiato come tecnico in telecomunicazioni all'ETE FMC, a Santa Rita do Sapucaí, dove ho ricevuto il premio per il miglior rendimento accademico della classe 2024 e ho integrato l'elettronica di un CubeSat che ha volato su un pallone stratosferico. All'UNIFEI, in Ingegneria Meccanica Aeronautica, ho portato questa base nella dinamica del volo e nel controllo: ho identificato la dinamica di quadricotteri con reti neurali, lavorato al controllo di formazione di nanodroni, curato telemetria e GNC di un razzo universitario e progettato in RTL parte di un processore." },
     "Itajubá · MG · Brasil": { en: "Itajubá · MG · Brazil", fr: "Itajubá · MG · Brésil", it: "Itajubá · MG · Brasile" },
     "Curso": { en: "Program", fr: "Cursus", it: "Corso" },
+    "O Senhor dos Anéis": { en: "The Lord of the Rings", fr: "Le Seigneur des Anneaux", it: "Il Signore degli Anelli" },
     "Graduação": { en: "Degree", fr: "Diplôme d'ingénieur", it: "Laurea" },
     "Residência": { en: "Residency", fr: "Résidence", it: "Residenza" },
     "Eng. Mecânica Aeronáutica · UNIFEI": { en: "Aeronautical Mech. Eng. · UNIFEI", fr: "Génie méc. aéronautique · UNIFEI", it: "Ing. Meccanica Aeronautica · UNIFEI" },

@@ -224,6 +224,18 @@ svg .fc{fill:var(--ac2)}
 .row .d{font-family:var(--fm);font-size:.72rem;color:var(--muted);white-space:nowrap}
 @media (max-width:700px){.skills{grid-template-columns:1fr}}
 
+/* fora do laboratório */
+.hobbies{display:flex;flex-wrap:wrap;gap:12px}
+.hob{display:flex;align-items:center;gap:14px;padding:14px 20px 14px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);min-width:220px}
+.hob svg{width:34px;height:34px;flex:none;fill:none;stroke:var(--ac2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.hob svg .glow{stroke:var(--ac);filter:drop-shadow(0 0 3px rgba(255,176,32,.8))}
+.hob b{font-family:var(--fd);font-size:1.02rem;display:block}
+.hob span{color:var(--muted);font-size:.88rem}
+footer .lema{font-style:italic;color:var(--muted)}
+.rocket .cap em{font-style:italic;color:var(--ac)}
+.rocket .veic{position:absolute;left:14px;bottom:26px;display:flex;gap:2px;border:1px solid var(--line2);border-radius:7px;padding:2px;background:rgba(6,16,36,.75)}
+.rocket .veic button{font-family:var(--fm);font-size:.66rem;padding:5px 9px;border:0;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer}
+.rocket .veic button.on{background:var(--ac);color:var(--on-ac)}
 footer{margin:64px 0 0;padding:20px 0 40px;border-top:1px solid var(--line);font-family:var(--fm);font-size:.7rem;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.flame{animation:none}}
 
