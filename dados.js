@@ -52,7 +52,7 @@ window.DADOS = {
       texto: "Dinâmica de voo, controle e sistemas embarcados aplicados a drones, foguetes e hardware digital, com pesquisa no PET, GEMEC e LSA e artigos no COBEM e no CONEM.",
       destaques: ["GEMEC · LSA · PET", "Beyond Aerospace", "CI Expert", "COBEM 2025 · CONEM 2026"] },
     { instituicao: "ETE FMC", nomeCompleto: "Escola Técnica de Eletrônica Francisco Moreira da Costa", logo: "assets/logos/ete.png",
-      foto: "assets/fotos/ete.jpg", fotoCredito: "etefmc.com.br",
+      foto: "assets/fotos/ete.jpg",
       curso: "Técnico em Telecomunicações", periodo: "2021 — 2024", local: "Santa Rita do Sapucaí · MG", site: "https://www.etefmc.com.br/",
       texto: "A primeira escola técnica de eletrônica da América Latina, no Vale da Eletrônica. Base em eletrônica analógica e digital, sistemas digitais, redes e telecomunicações, com projetos premiados desde o primeiro ano.",
       destaques: ["Melhor Desempenho Acadêmico 2024", "Campeão regional OBSAT", "~1.300 horas-aula"] }
