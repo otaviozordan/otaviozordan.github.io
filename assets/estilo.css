@@ -49,7 +49,7 @@ nav.open .burger i::after{top:0;transform:rotate(-45deg)}
 .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1px solid rgba(76,227,154,.3);background:rgba(5,8,13,.6);padding:6px 12px;border-radius:4px}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:blink 1.4s infinite}
 @keyframes blink{50%{opacity:.25}}
-.hero h1{font-size:clamp(2.6rem,7.4vw,5.6rem);font-weight:700;margin:20px 0 10px;text-shadow:0 2px 30px var(--bg)}
+.hero h1{font-size:clamp(2.6rem,7.4vw,5.6rem);font-weight:700;margin:0 0 10px;text-shadow:0 2px 30px var(--bg)}
 .hero h1 em{font-style:normal;color:var(--amber)}
 .hero .role{font-family:var(--mono);color:var(--cyan);font-size:clamp(.8rem,1.4vw,1rem);letter-spacing:.03em}
 .hero .lead{margin-top:20px;color:var(--muted);font-size:1.06rem;max-width:56ch;text-shadow:0 1px 12px var(--bg)}

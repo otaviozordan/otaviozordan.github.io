@@ -12,7 +12,6 @@ const set = (sel, html) => { const el = $(sel); if (el) el.innerHTML = html; };
 const P = D.perfil;
 const parts = P.nome.split(' ');
 set('#h-nome', `${esc(parts[0])}<br><em>${esc(parts[1] || '')}</em> ${esc(parts.slice(2).join(' '))}`);
-set('#h-status', esc(P.status));
 set('#h-titulo', '// ' + esc(P.titulo));
 set('#h-chamada', fmt(P.chamada));
 $('#h-foto').src = P.foto;
@@ -24,7 +23,7 @@ $('#yr').textContent = new Date().getFullYear();
 set('#sobre-texto', P.sobre.map(p => `<p>${fmt(p)}</p>`).join(''));
 set('#interesses', P.interesses.map(i => `<li>${esc(i)}</li>`).join(''));
 set('#numeros', P.numeros.map(n => {
-  const v = n.auto === 'publicacoes' ? D.publicacoes.length : n.auto === 'premios' ? D.premios.length : n.valor;
+  const v = n.auto ? (D[n.auto] || []).length : n.valor;
   return `<div class="stat"><div class="n"><span data-count="${v}" data-dec="${n.casas || 0}">0</span>${n.sufixo ? `<sup>${esc(n.sufixo)}</sup>` : ''}</div><div class="l">${esc(n.rotulo)}</div></div>`;
 }).join(''));
 set('#grupos', D.grupos.map(g => `

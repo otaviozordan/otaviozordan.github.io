@@ -15,9 +15,8 @@ window.DADOS = {
   perfil: {
     nome: "Otávio Zordan Alves",
     titulo: "Engenharia Mecânica Aeronáutica · GNC · Sistemas Embarcados",
-    status: "Em voo · UNIFEI · 6º período",
     foto: "assets/otavio.jpg",
-    chamada: "Trabalho na fronteira entre **dinâmica de voo**, **controle** e **hardware**: identifico e controlo drones com redes neurais e controle robusto, projeto o GNC de foguetes e desço até o RTL para fazer o silício. Do modelo matemático ao firmware que voa.",
+    chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: identificação e controle de drones com redes neurais e controle robusto, GNC de foguetes e projeto digital até o RTL. Do modelo matemático ao firmware que voa.",
     ficha: [
       { rotulo: "Base",   valor: "Itajubá · MG" },
       { rotulo: "Curso",  valor: "Eng. Aeronáutica" },
@@ -25,9 +24,9 @@ window.DADOS = {
       { rotulo: "Equipe", valor: "Beyond · GNC" }
     ],
     sobre: [
-      "Sou graduando em **Engenharia Mecânica Aeronáutica na Universidade Federal de Itajubá (UNIFEI)** e técnico em Telecomunicações pela **ETE FMC**, a primeira escola técnica de eletrônica da América Latina, onde recebi o **Prêmio de Melhor Desempenho Acadêmico** da turma de 2024.",
-      "Pesquiso dinâmica e controle de veículos aéreos não tripulados no **PET Engenharia Mecânica**, no **GEMEC** e no **LSA**. Na equipe de foguetemodelismo **Beyond Rocket Design** sou responsável pelo subsistema de Navegação, Guiamento e Controle.",
-      "Fui selecionado como **Residente de Pesquisa em Graduação no CI Expert** (MCTI · Softex · UNIFEI), em microeletrônica, e atuei em engenharia de sistemas de um projeto de defesa para a **Marinha do Brasil**."
+      "Formação em **Engenharia Mecânica Aeronáutica na Universidade Federal de Itajubá (UNIFEI)** e técnico em Telecomunicações pela **ETE FMC**, a primeira escola técnica de eletrônica da América Latina, onde recebi o **Prêmio de Melhor Desempenho Acadêmico** da turma de 2024.",
+      "Pesquisei dinâmica e controle de veículos aéreos não tripulados no **PET Engenharia Mecânica**, no **GEMEC** e no **LSA**. Na equipe de foguetemodelismo **Beyond Rocket Design**, atuei em P&D, telecomunicações e no subsistema de Navegação, Guiamento e Controle.",
+      "Fui **Residente de Pesquisa em Graduação no CI Expert** (MCTI · Softex · UNIFEI), em microeletrônica, com foco em síntese RTL e descrição de hardware."
     ],
     interesses: [
       "Dinâmica de voo, modelagem e simulação",
@@ -38,9 +37,9 @@ window.DADOS = {
       "Software embarcado, FPGA e RTL",
       "Engenharia de sistemas e certificação (DO-254, MIL-STD)"
     ],
-    // auto: "publicacoes" ou "premios" conta sozinho; senão use valor
+    // auto: "publicacoes", "premios" ou "projetos" conta sozinho; senão use valor
     numeros: [
-      { valor: 8.4, casas: 1, rotulo: "Média ponderada /10" },
+      { auto: "projetos", rotulo: "Projetos no portfólio" },
       { auto: "publicacoes", rotulo: "Publicações" },
       { auto: "premios", rotulo: "Prêmios e distinções" },
       { valor: 35, sufixo: "+", rotulo: "Alunos instruídos" }
@@ -107,15 +106,15 @@ window.DADOS = {
       aba: "UNIFEI",
       instituicao: "Universidade Federal de Itajubá",
       curso: "Bacharelado em Engenharia Mecânica Aeronáutica",
-      periodo: "2024 — 2028 (previsto)",
+      periodo: "Ingresso em 2024",
       site: "https://unifei.edu.br/",
-      destaques: ["Média ponderada 8,4/10", "48 disciplinas · sem reprovações", "6º período"],
+      destaques: ["PET Engenharia Mecânica", "GEMEC · LSA", "Beyond Rocket Design", "CI Expert"],
       itens: [
         { quando: "mar 2026 — mar 2027", titulo: "Residente de Pesquisa em Graduação · CI Expert", local: "Residência em Microeletrônica · MCTI · Softex · UNIFEI",
           pontos: ["Síntese RTL e linguagens de descrição de hardware; trilha de RTL Design do processador multiciclo.", "Certificado na trilha de Síntese RTL da Purple Certification Brazil."] },
-        { quando: "2026 — hoje", titulo: "Responsável pelo GNC · Beyond Rocket Design", local: "Equipe de foguetemodelismo",
+        { quando: "2026", titulo: "Responsável pelo GNC · Beyond Rocket Design", local: "Equipe de foguetemodelismo",
           pontos: ["Navegação, guiamento e controle: fusão de sensores, estimação de estados, determinação de atitude e projeto de controle."] },
-        { quando: "jun 2025 — hoje", titulo: "Pesquisador Discente · PET Engenharia Mecânica", local: "PET Mecânica · GEMEC · LSA",
+        { quando: "jun 2025", titulo: "Pesquisador Discente · PET Engenharia Mecânica", local: "PET Mecânica · GEMEC · LSA",
           pontos: ["Controle de formação de nanodrones com controle robusto (CONEM 2026).", "Identificação da dinâmica de quadrirrotores com redes neurais (COBEM 2025).", "Posicionamento e rastreamento de trajetória com controle clássico e filtragem de Kalman."] },
         { quando: "out — dez 2025", titulo: "Instrutor de Curso de Extensão", local: "PET Engenharia Mecânica",
           pontos: ["Curso de 16 h de Python para engenharia (NumPy, Pandas, SciPy, SymPy), com mais de 35 alunos."] },
@@ -153,7 +152,7 @@ window.DADOS = {
   /* ---------------------- CARREIRA PROFISSIONAL ----------------------- */
   profissional: [
     { quando: "jan 2026", titulo: "Estagiário · Engenharia de Sistemas", local: "Modirum | Gespi · Santa Rita do Sapucaí",
-      pontos: ["Projeto estratégico de defesa para a Marinha do Brasil, em produto eletrônico embarcado com requisitos de qualificação militar.",
+      pontos: ["Engenharia de sistemas de um produto eletrônico embarcado para o setor de defesa, com requisitos de qualificação militar.",
                "Cadernos de teste e protocolos de ensaio para verificação.",
                "Estudos de certificação: MIL-STD-810, MIL-STD-901, RS101 e DO-254.",
                "Ferramenta em Python com interface gráfica para inteligência de mercado sobre aquisições de Forças Armadas."] },
@@ -171,7 +170,7 @@ window.DADOS = {
     equipe: "Beyond Rocket Design",
     texto: "Na equipe de foguetemodelismo da UNIFEI, passei por P&D e pela diretoria de Telecomunicações até assumir o subsistema de **Navegação, Guiamento e Controle**: fusão de sensores, estimação de estados, determinação de atitude e projeto de controle.",
     cargos: [
-      { ano: "2026 —", cargo: "Responsável pelo GNC" },
+      { ano: "2026",   cargo: "Responsável pelo GNC" },
       { ano: "2025",   cargo: "Diretor de Telecomunicações" },
       { ano: "2024",   cargo: "Membro de P&D" }
     ],
@@ -196,7 +195,7 @@ window.DADOS = {
       tags: ["System ID", "Redes neurais", "Python"],
       links: [{ rotulo: "Artigo COBEM 2025", url: "https://doi.org/10.26678/abcm.cobem2025.cob2025-1161" }] },
 
-    { titulo: "GNC de foguete — Beyond Rocket Design", org: "Foguetemodelismo · UNIFEI", ano: "2024–hoje", origem: "UNIFEI", icone: "foguete",
+    { titulo: "GNC de foguete — Beyond Rocket Design", org: "Foguetemodelismo · UNIFEI", ano: "2024", origem: "UNIFEI", icone: "foguete",
       categorias: ["Voo & Controle", "Espaço"],
       descricao: "Navegação, guiamento e controle: fusão de sensores, estimação de estados e determinação de atitude. Antes, telemetria e enlace com a estação de solo.",
       tags: ["Sensor fusion", "Atitude", "Telemetria", "RF"], links: [] },
@@ -298,7 +297,7 @@ window.DADOS = {
 
   /* ----------------------------- CONTATO ------------------------------ */
   contato: {
-    chamada: "Aberto a estágios, pesquisa e projetos em dinâmica de voo, GNC, sistemas embarcados e engenharia aeroespacial.",
+    chamada: "Pesquisa, colaborações e projetos em dinâmica de voo, GNC, sistemas embarcados e engenharia aeroespacial.",
     links: [
       { rotulo: "E-mail",   texto: "otaviozordan@gmail.com",   url: "mailto:otaviozordan@gmail.com" },
       { rotulo: "LinkedIn", texto: "in/otavio-zordan",         url: "https://www.linkedin.com/in/otavio-zordan" },
