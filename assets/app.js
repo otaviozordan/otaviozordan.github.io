@@ -7,7 +7,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 const ext = (url, txt, cls) => `<a${cls ? ` class="${cls}"` : ''} href="${esc(url)}" target="_blank" rel="noopener">${txt}</a>`;
-const host = u => u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+const host = u => u.replace(/^(https?:\/\/|mailto:)(www\.)?/, '').replace(/\/$/, '');
 const set = (sel, html) => { const el = $(sel); if (el) el.innerHTML = html; };
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -28,7 +28,7 @@ function tr(s) {
   if (/^[a-z\d\s—–\-]+$/.test(s) && /\b(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)\b/.test(s)) return s.replace(MES, m => I.meses[lang][m] || m);
   return s;
 }
-const NAO = new Set(['url', 'site', 'logo', 'foto', 'doi', 'icone', 'imagem', 'sigla', 'nome', 'instituicao', 'equipe', 'autores', 'evento', 'editora', 'texto_c']);
+const NAO = new Set(['url', 'site', 'logo', 'foto', 'fotoCredito', 'doi', 'icone', 'imagem', 'sigla', 'nome', 'instituicao', 'equipe', 'autores', 'evento', 'editora', 'texto_c']);
 function traduz(v) {
   if (Array.isArray(v)) return v.map(traduz);
   if (v && typeof v === 'object') { const o = {}; for (const k in v) o[k] = NAO.has(k) ? v[k] : traduz(v[k]); return o; }
@@ -47,24 +47,24 @@ const CONTATO = {
 };
 const ICW = '20 0 260 145', ICN = '78 4 144 136';
 const ICONS = {
-  formacao: [ICN, `<path class="a" d="M150 40l22 30h-44z" stroke-dasharray="4 4"/><circle class="fa" cx="150" cy="40" r="9"/><g class="fc"><circle cx="128" cy="70" r="9"/><circle cx="172" cy="70" r="9"/><circle cx="106" cy="100" r="9"/><circle cx="194" cy="100" r="9"/></g>`],
+  formacao: [ICN, `<path class="a" d="M150 40l22 30h-44z" stroke-dasharray="4 4"/><circle class="fa" cx="150" cy="40" r="10"/><g class="fc"><circle cx="128" cy="70" r="10"/><circle cx="172" cy="70" r="10"/><circle cx="106" cy="100" r="10"/><circle cx="194" cy="100" r="10"/></g>`],
   sysid: [ICW, `<path class="s" d="M20 90 C50 40,70 40,90 80 S130 120,150 70 S200 30,220 75 S260 110,280 60"/><path class="a" d="M20 96 C50 48,72 46,90 86 S128 118,150 76 S198 36,220 80 S262 104,280 66" stroke-dasharray="6 5"/>`],
   foguete: [ICN, `<path class="s" d="M90 130 Q120 30 210 50" stroke-dasharray="3 5"/><g transform="translate(160 62) rotate(40)"><path class="a" d="M-8 18V-12L0-26 8-12V18zM-8 18l-8 10h32l-8-10"/></g>`],
   cubesat: [ICN, `<ellipse class="s" cx="150" cy="40" rx="24" ry="28"/><path class="s" d="M150 68V92"/><rect class="a" x="136" y="92" width="28" height="28"/>`],
-  radar: [ICN, `<g class="g"><circle cx="150" cy="72" r="56"/><circle cx="150" cy="72" r="30"/></g><path class="a" d="M150 72L196 42"/><g class="fc"><circle cx="190" cy="44" r="6"/><circle cx="202" cy="56" r="6"/></g>`],
+  radar: [ICN, `<g class="g"><circle cx="150" cy="72" r="56"/><circle cx="150" cy="72" r="30"/></g><path class="a" d="M150 72L196 42"/><g class="fc"><circle cx="190" cy="44" r="7"/><circle cx="202" cy="56" r="7"/></g>`],
   chip: [ICN, `<rect class="a" x="110" y="32" width="80" height="80"/><g class="s"><path d="M125 32v-14M150 32v-14M175 32v-14M125 112v14M150 112v14M175 112v14M110 52h-14M110 72h-14M110 92h-14M190 52h14M190 72h14M190 92h14"/></g>`],
   aerofolio: [ICW, `<path class="a" d="M40 72 C60 45,110 39,170 49 S250 67,265 72 C230 77,170 85,110 87 S55 83,40 72Z"/><path class="s" d="M40 72 C90 61,180 61,265 72" stroke-dasharray="5 5"/>`],
   altimetro: [ICW, `<g class="s"><path d="M60 118V93M90 118V78M120 118V68M150 118V56M180 118V48M210 118V38M240 118V28"/></g><path class="a" d="M60 90 L240 24"/>`],
-  ar: [ICN, `<path class="a" d="M100 36h100l-10 70h-80z"/><circle class="fc" cx="150" cy="71" r="8"/>`],
+  ar: [ICN, `<path class="a" d="M100 36h100l-10 70h-80z"/><circle class="fc" cx="150" cy="71" r="9"/>`],
   rs485: [ICW, `<path class="s" d="M30 72H270"/><g class="a"><rect x="40" y="52" width="40" height="40"/><rect x="130" y="52" width="40" height="40"/><rect x="220" y="52" width="40" height="40"/></g>`],
   farol: [ICW, `<path class="a" d="M70 66h30v20H70z"/><path class="s" d="M100 68L260 46M100 84L260 101"/>`],
   python: [ICN, `<g class="s"><path d="M90 30h120v84H90z"/></g><path class="a" d="M108 62l18 14-18 14M134 96h32"/>`],
   padrao: [ICN, `<g class="g"><circle cx="150" cy="72" r="44"/></g><path class="a" d="M108 72 Q150 22 192 72 Q150 122 108 72Z"/>`]
 };
+const logo = (src, alt) => src ? `<img class="lg" src="${esc(src)}" alt="${esc(alt || '')}" loading="lazy">` : `<span class="lg txt">${esc((alt || '').slice(0, 3))}</span>`;
 
 /* ------------------------------ RENDER ------------------------------ */
-const SECOES = [['resumo', 'resumo'], ['formacao', 'formacao'], ['profissional', 'profissional'], ['academico', 'academico'],
-  ['pesquisa', 'pesquisa'], ['projetos', 'projetos'], ['premios', 'premios'], ['competencias', 'competencias']];
+const SECOES = ['resumo', 'formacao', 'pesquisa', 'profissional', 'academico', 'projetos', 'competencias'];
 
 function render() {
   const D = traduz(BASE);
@@ -73,52 +73,56 @@ function render() {
   document.title = ui('_titulo');
   document.querySelectorAll('#lang button').forEach(b => b.classList.toggle('on', b.dataset.l === lang));
 
-  // lateral
-  const P = D.perfil;
+  // abertura
+  const P = D.perfil, parts = P.nome.split(' ');
+  set('#nome', `${esc(parts[0])}<br><em>${esc(parts[1] || '')}</em> ${esc(parts.slice(2).join(' '))}`);
+  set('#titulo', '// ' + esc(P.titulo));
+  set('#chamada', fmt(P.chamada));
   $('#foto').src = P.foto;
-  set('#nome', esc(P.nome));
-  set('#titulo', esc(P.titulo));
-  set('#local', esc(P.local));
-  set('#contatos', D.contatos.map(c => `<a class="${c.icone === 'whatsapp' ? 'wa' : ''}" href="${esc(c.url)}"${c.url.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>
-    <svg viewBox="0 0 24 24" aria-hidden="true">${CONTATO[c.icone] || CONTATO.lattes}</svg><span><small>${esc(c.rotulo)}</small><em>${esc(c.texto)}</em></span></a>`).join(''));
+  set('#ficha', (P.ficha || []).map(f => `<div><small>${esc(f.rotulo)}</small><span>${esc(f.valor)}</span></div>`).join(''));
+  set('#contatos', D.contatos.map(c => {
+    const cls = [c.icone === 'whatsapp' ? 'wa' : '', c.texto ? '' : 'ico'].join(' ').trim();
+    const tgt = c.url.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+    return `<a class="${cls}" href="${esc(c.url)}"${tgt} title="${esc(c.rotulo)}" aria-label="${esc(c.rotulo)}" data-p="${esc(host(c.url))}">
+      <svg viewBox="0 0 24 24" aria-hidden="true">${CONTATO[c.icone] || CONTATO.lattes}</svg>${c.texto ? `<span>${esc(c.texto)}</span>` : ''}</a>`;
+  }).join(''));
   set('#ft-nome', esc(P.nome));
   $('#yr').textContent = new Date().getFullYear();
-  set('#indice', SECOES.map(([id, k], i) => `<a href="#${id}" data-s="${id}"><i>${String(i + 1).padStart(2, '0')}</i>${esc(ui(k))}</a>`).join(''));
-  set('#indice-m', SECOES.map(([id, k]) => `<a href="#${id}" data-s="${id}">${esc(ui(k))}</a>`).join(''));
+  set('#indice', SECOES.map(id => `<a href="#${id}" data-s="${id}">${esc(ui('n_' + id) || ui(id))}</a>`).join(''));
 
   // blocos
-  const item = e => `<div class="item"><div class="when">${esc(e.quando)}</div><div><h3>${esc(e.titulo)}</h3>
+  const item = e => `<div class="item"><div class="when">${esc(e.quando)}</div>${logo(e.logo, e.local)}<div><h3>${esc(e.titulo)}</h3>
     <div class="at">${esc(e.local)}</div>${e.texto ? `<p>${fmt(e.texto)}</p>` : ''}${e.premio ? `<div class="star">★ ${esc(e.premio)}</div>` : ''}</div></div>`;
-  const row = (t, o, a, star) => `<div class="row"><div><b>${star ? '<span class="trophy">★</span>' : ''}${esc(t)}</b><small>${esc(o)}</small></div><span class="d">${esc(a)}</span></div>`;
+  const row = (t, o, a) => `<div class="row"><div><b>${esc(t)}</b><small>${esc(o)}</small></div><span class="d">${esc(a)}</span></div>`;
   const C = {};
-  C.resumo = `<p class="chamada">${fmt(P.chamada)}</p><p class="resumo">${fmt(P.resumo)}</p>
+  C.resumo = `<p class="resumo">${fmt(P.resumo)}</p>
     <div class="fatos">${P.fatos.map(f => `<div class="fato"><small>${esc(f.rotulo)}</small><strong>${f.auto ? count(f.auto) + esc(f.sufixo || '') : esc(f.valor)}</strong><span>${esc(f.sub)}</span></div>`).join('')}</div>`;
-  C.formacao = D.formacao.map(f => `<div class="edu"><div class="edu-top"><h3>${esc(f.instituicao)}</h3><span class="per">${esc(f.periodo)} · ${esc(f.local)}</span></div>
+  C.formacao = D.formacao.map(f => `<div class="edu">
+    ${f.foto ? `<div class="foto"><img src="${esc(f.foto)}" alt="${esc(f.nomeCompleto)}" loading="lazy">${f.fotoCredito ? `<small>${esc(ui('foto'))}: ${esc(f.fotoCredito)}</small>` : ''}</div>` : ''}
+    <div class="info"><div class="edu-top">${logo(f.logo, f.instituicao)}<div><h3>${esc(f.instituicao)}</h3><span class="per">${esc(f.periodo)} · ${esc(f.local)}</span></div></div>
     <div class="cn">${esc(f.curso)} · ${esc(f.nomeCompleto)}</div><p>${fmt(f.texto)}</p>
     <div class="dest">${(f.destaques || []).map(d => `<span>${esc(d)}</span>`).join('')}</div>
-    ${f.site ? `<div style="margin-top:10px;font-family:var(--fm);font-size:.72rem">${ext(f.site, host(f.site) + ' ↗')}</div>` : ''}</div>`).join('');
-  C.profissional = D.profissional.map(item).join('');
-  C.academico = D.academico.map(a => `<div class="sub-h">${esc(a.instituicao)}</div>${a.itens.map(item).join('')}${a.foguete ? '<div class="slot-foguete"></div>' : ''}`).join('');
+    ${f.site ? ext(f.site, host(f.site) + ' ↗', 'site') : ''}</div></div>`).join('');
   C.pesquisa = [...D.publicacoes].sort((a, b) => (b.ano || 0) - (a.ano || 0)).map(p => {
     const url = p.doi ? 'https://doi.org/' + p.doi : p.url;
     return `<div class="pub"><div class="meta"><span class="type">${esc(p.tipo || ui('publicacao'))}</span><strong>${esc(p.sigla || '')}</strong><span>${esc([p.editora, p.ano].filter(Boolean).join(' · '))}</span></div>
       <h3>${esc(p.titulo)}</h3><p>${fmt(p.autores)} · ${esc(p.evento)}${p.nota ? '. ' + esc(p.nota) + '.' : ''}</p>
       ${url ? ext(url, (p.doi ? 'DOI ' + esc(p.doi) : esc(ui('link'))) + ' ↗', 'doi') : ''}</div>`;
   }).join('') + `<div class="groups">${D.grupos.map(g => `<a class="group" href="${esc(g.url)}" target="_blank" rel="noopener">
-      <div class="logo"><img src="${esc(g.logo)}" alt="${esc(g.sigla)}" loading="lazy"></div>
-      <div class="gt"><b>${esc(g.sigla)}</b><span>${esc(g.descricao)}</span><em>${esc(host(g.site))} ↗</em></div></a>`).join('')}</div>`;
+      ${logo(g.logo, g.sigla)}<div class="gt"><b>${esc(g.sigla)}</b><span>${esc(g.descricao)}</span><em>${esc(host(g.site))} ↗</em></div></a>`).join('')}</div>`;
+  C.profissional = D.profissional.map(item).join('');
+  C.academico = D.academico.map(a => `<div class="sub-h">${esc(a.instituicao)}</div>${a.itens.map(item).join('')}${a.foguete ? '<div class="slot-foguete"></div>' : ''}`).join('');
   C.projetos = D.projetos.filter(p => p.destaque).map(p => {
     const [vb, ic] = ICONS[p.icone] || ICONS.padrao;
     return `<div class="proj"><div class="ic">${p.imagem ? `<img src="${esc(p.imagem)}" alt="" loading="lazy">` : `<svg viewBox="${vb}" aria-hidden="true">${ic}</svg>`}</div>
       <div><h3>${esc(p.titulo)} <small>${esc(p.ano)}</small></h3><div class="org">${esc(p.org)}</div><p>${fmt(p.descricao)}</p>
       ${(p.links || []).length ? `<div class="lnk">${p.links.map(l => ext(l.url, esc(l.rotulo) + ' ↗')).join('')}</div>` : ''}</div></div>`;
   }).join('') + ext('https://github.com/otaviozordan', esc(ui('mais_github')), 'more');
-  C.premios = D.premios.map(p => row(p.titulo, p.org, p.ano, true)).join('');
   C.competencias = `<div class="skills">${D.competencias.map(c => `<div><h3>${esc(c.grupo)}</h3><div class="chips">${c.itens.map(i => `<span>${esc(i)}</span>`).join('')}</div></div>`).join('')}</div>
     <p class="lingua"><b>${esc(ui('idiomas'))}</b>${esc(D.idiomas)}</p>
     <details class="cursos"><summary>${esc(ui('cursos'))}</summary><div class="lista">${D.certificacoes.map(c => row(c.titulo, c.org, c.ano)).join('')}</div></details>`;
 
-  set('#secoes', SECOES.map(([id, k], i) => `<section class="sec" id="${id}"><h2 data-n="${String(i + 1).padStart(2, '0')}">${esc(ui(k))}</h2>${C[id]}</section>`).join(''));
+  set('#secoes', SECOES.map((id, i) => `<section class="sec" id="${id}"><h2 data-n="${String(i + 1).padStart(2, '0')}">${esc(ui(id))}</h2>${C[id]}</section>`).join(''));
 
   const F = D.foguete, slot = $('.slot-foguete');
   if (slot && F) {
@@ -131,16 +135,16 @@ function render() {
   espiao();
 }
 
-/* ------------------------- ÍNDICE ATIVO (scroll) -------------------- */
+/* ------------------------- MENU ATIVO (scroll) ---------------------- */
 let spy;
 function espiao() {
   if (spy) spy.disconnect();
   spy = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     document.querySelectorAll('[data-s]').forEach(a => a.classList.toggle('on', a.dataset.s === e.target.id));
-    const m = $(`#indice-m [data-s="${e.target.id}"]`);
-    if (m) { const box = $('#indice-m'); box.scrollTo({ left: m.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth' }); }
-  }), { rootMargin: '-35% 0px -60% 0px' });
+    const m = $(`#indice [data-s="${e.target.id}"]`), box = $('#indice');
+    if (m && box.scrollWidth > box.clientWidth) box.scrollTo({ left: m.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth' });
+  }), { rootMargin: '-30% 0px -65% 0px' });
   document.querySelectorAll('.sec').forEach(s => spy.observe(s));
 }
 
@@ -212,11 +216,12 @@ addEventListener('beforeprint', () => document.querySelectorAll('details').forEa
     const dpr = Math.min(devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight; if (!W || !H) return;
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const mob = W <= 600;
-    chord = mob ? W * .62 : Math.min(W * .44, 360);
-    S = chord / 4.03; ox = W * (mob ? .52 : .56); oy = H * .56;
+    const mob = W <= 860;
+    const pad = mob ? W * .92 * .4 + 40 : Math.min(W * .46, 620) * .44 + 40;
+    chord = mob ? W * .78 : Math.min(W * .46, 620);
+    S = chord / 4.03; ox = W / 2; oy = H - pad * .56;
     cores(); buildStill(dpr);
-    parts = []; const n = mob ? 70 : 130;
+    parts = []; const n = mob ? 110 : 220;
     for (let i = 0; i < n; i++) parts.push(seed({}, true));
   }
   function seed(o, anywhere) {
@@ -235,16 +240,16 @@ addEventListener('beforeprint', () => document.querySelectorAll('details').forEa
   function buildStill(dpr) {
     still = document.createElement('canvas'); still.width = W * dpr; still.height = H * dpr;
     const c = still.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.lineWidth = 1;
-    const yTop = oy / S + .5, yBot = (oy - H) / S - .5, N = W <= 600 ? 16 : 24;
+    const yTop = oy / S + .5, yBot = (oy - H) / S - .5, N = W <= 860 ? 26 : 38;
     for (let i = 0; i <= N; i++) {
-      const t = i / N * 2 - 1, yw = (t < 0 ? yBot : yTop) * Math.pow(Math.abs(t), 1.6) + .12;
+      const t = i / N * 2 - 1, yw = (t < 0 ? yBot : yTop) * Math.pow(Math.abs(t), 1.8) + .12;
       const o = {}; [o.zr, o.zi] = fromS(-5, oy - yw * S);
       let px = toX(o.zr, o.zi), py = toY(o.zr, o.zi);
       for (let s = 0; s < 1600; s++) {
         const v = vel(o.zr, o.zi); if (!v) break;
         if (!step(o, .035 / Math.max(Math.hypot(v[0], v[1]), .25))) break;
         const x = toX(o.zr, o.zi), y = toY(o.zr, o.zi);
-        c.strokeStyle = rgba(col(o.q), .07 + .3 * near(o.zr, o.zi));
+        c.strokeStyle = rgba(col(o.q), .05 + .3 * near(o.zr, o.zi));
         c.beginPath(); c.moveTo(px, py); c.lineTo(x, y); c.stroke();
         px = x; py = y; if (x > W + 10) break;
       }
@@ -257,17 +262,25 @@ addEventListener('beforeprint', () => document.querySelectorAll('details').forEa
     }
     c.closePath();
     const g = c.createLinearGradient(0, oy - chord * .1, 0, oy + chord * .05);
-    g.addColorStop(0, rgba(C.wing, .24)); g.addColorStop(1, rgba(C.wing, .06));
-    c.fillStyle = g; c.fill(); c.strokeStyle = rgba(C.wing, .9); c.lineWidth = 1.4; c.stroke();
-    c.font = `10px ${C.fm || 'monospace'}`;
-    const lx = toX(-1, 0), ly = toY(-1, .05), L = Math.min(chord * .2, oy - 26);
-    c.strokeStyle = c.fillStyle = rgba(C.vec, .9); c.lineWidth = 1.5;
+    g.addColorStop(0, rgba(C.wing, .22)); g.addColorStop(1, rgba(C.wing, .05));
+    c.fillStyle = g; c.fill(); c.strokeStyle = rgba(C.wing, .9); c.lineWidth = 1.5; c.stroke();
+    c.setLineDash([4, 5]); c.lineWidth = 1; c.strokeStyle = rgba(C.wing, .35);
+    c.beginPath(); c.moveTo(toX(-2.03, 0), toY(-2.03, 0)); c.lineTo(toX(2, 0), toY(2, 0)); c.stroke();
+    c.setLineDash([]);
+    const fs = W <= 860 ? 10 : 11; c.font = `${fs}px ${C.fm || 'monospace'}`;
+    const lx = toX(-1, 0), ly = toY(-1, .05), L = chord * .15;
+    c.strokeStyle = c.fillStyle = rgba(C.vec, .9); c.lineWidth = 1.6;
     c.beginPath(); c.moveTo(lx, ly); c.lineTo(lx, ly - L); c.stroke();
-    c.beginPath(); c.moveTo(lx, ly - L - 6); c.lineTo(lx - 3.5, ly - L + 1); c.lineTo(lx + 3.5, ly - L + 1); c.fill();
-    c.fillText('L', lx + 7, ly - L + 4);
-    c.fillStyle = rgba(C.wing, .95); c.fillText('α = 6°', toX(1.3, 0), toY(-2.03, 0) + 16);
-    c.fillStyle = rgba(C.txt, .7); c.textAlign = 'right';
-    c.fillText('Joukowski · Kutta', W - 12, H - 10);
+    c.beginPath(); c.moveTo(lx, ly - L - 7); c.lineTo(lx - 4, ly - L + 1); c.lineTo(lx + 4, ly - L + 1); c.fill();
+    c.fillText('L', lx + 8, ly - L + 4);
+    const vx = Math.max(toX(-2.03, 0) - chord * .42, 12), vy = toY(-2.03, 0), al = chord * .16;
+    c.strokeStyle = c.fillStyle = rgba(C.txt, .85);
+    c.beginPath(); c.moveTo(vx, vy); c.lineTo(vx + al, vy); c.stroke();
+    c.beginPath(); c.moveTo(vx + al + 7, vy); c.lineTo(vx + al - 1, vy - 4); c.lineTo(vx + al - 1, vy + 4); c.fill();
+    c.fillText('V∞', vx, vy - 8);
+    c.fillStyle = rgba(C.wing, .95); c.fillText('α = 6°', toX(1.2, 0), toY(-2.03, 0) + 18);
+    c.fillStyle = rgba(C.txt, .7);
+    c.fillText('Joukowski · Kutta · Γ = 4πUR sin(α+β)', toX(-2.03, 0), Math.min(toY(-2.03, 0) + chord * .2 + 6, H - 8));
   }
 
   function frame(t) {
@@ -275,22 +288,22 @@ addEventListener('beforeprint', () => document.querySelectorAll('details').forEa
     const dt = Math.min((t - (lastT || t)) / 1000, .05); lastT = t;
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(still, 0, 0, W, H);
-    const h = dt * 110 / S;
-    ctx.lineWidth = 1.2;
+    const h = dt * 150 / S;
+    ctx.lineWidth = 1.3;
     for (const o of parts) {
       if (!step(o, h) || toX(o.zr, o.zi) > W + 20 || ++o.age > 3000) { seed(o, false); continue; }
-      o.tr.push([toX(o.zr, o.zi), toY(o.zr, o.zi)]); if (o.tr.length > 14) o.tr.shift();
+      o.tr.push([toX(o.zr, o.zi), toY(o.zr, o.zi)]); if (o.tr.length > 16) o.tr.shift();
       if (o.tr.length < 2) continue;
-      ctx.strokeStyle = rgba(col(o.q), .15 + .7 * near(o.zr, o.zi));
+      ctx.strokeStyle = rgba(col(o.q), .12 + .7 * near(o.zr, o.zi));
       ctx.beginPath(); o.tr.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
     }
     requestAnimationFrame(frame);
   }
-  let lw = 0, tm;
+  let lw = 0, lh = 0, tm;
   function onResize(force) {
-    const w = cv.clientWidth;
-    if (!force && w === lw) return;
-    lw = w; size(); if (reduce && still) { ctx.clearRect(0, 0, W, H); ctx.drawImage(still, 0, 0, W, H); }
+    const w = cv.clientWidth, hh = cv.clientHeight;
+    if (!force && w === lw && Math.abs(hh - lh) < 80) return;
+    lw = w; lh = hh; size(); if (reduce && still) { ctx.clearRect(0, 0, W, H); ctx.drawImage(still, 0, 0, W, H); }
   }
   addEventListener('resize', () => { clearTimeout(tm); tm = setTimeout(onResize, 150); });
   onResize(true);

@@ -16,35 +16,45 @@ window.DADOS = {
     titulo: "Engenharia Mecânica Aeronáutica · GNC · Sistemas Embarcados",
     foto: "assets/otavio.jpg",
     local: "Itajubá · MG · Brasil",
+    ficha: [
+      { rotulo: "Base",   valor: "Itajubá · MG" },
+      { rotulo: "Curso",  valor: "Eng. Aeronáutica" },
+      { rotulo: "Grupos", valor: "GEMEC · LSA · PET" },
+      { rotulo: "Equipe", valor: "Beyond Aerospace" }
+    ],
     chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: do modelo matemático ao firmware que voa.",
     resumo: "Formação em Engenharia Mecânica Aeronáutica pela **UNIFEI** e técnico em Telecomunicações pela **ETE FMC**. Pesquisa em dinâmica e controle de drones, GNC de foguetes, microeletrônica e engenharia de sistemas.",
-    // auto: "publicacoes" | "premios" conta sozinho
+    // auto: "publicacoes" conta sozinho
     fatos: [
       { rotulo: "Formação",       valor: "Eng. Mecânica Aeronáutica", sub: "UNIFEI · Itajubá" },
       { rotulo: "Técnico",        valor: "Telecomunicações",          sub: "ETE FMC · melhor desempenho 2024" },
-      { rotulo: "Pesquisa",       auto: "publicacoes", sufixo: " publicações", sub: "Dinâmica e controle de VANTs" },
-      { rotulo: "Reconhecimento", auto: "premios",     sufixo: " prêmios",     sub: "OBSAT · PROJETE · Inovação" }
+      { rotulo: "Pesquisa",       auto: "publicacoes", sufixo: " publicações", sub: "COBEM 2025 · CONEM 2026" },
+      { rotulo: "Equipe",         valor: "Beyond Aerospace",          sub: "GNC · Telecomunicações" }
     ]
   },
 
   /* ----------------------------- CONTATOS -----------------------------
-     icone: whatsapp | linkedin | email | github | lattes | researchgate  */
+     icone: whatsapp | linkedin | email | github | lattes | researchgate
+     Sem "texto", o botão mostra só o ícone.                              */
   contatos: [
-    { icone: "whatsapp",     rotulo: "WhatsApp",     texto: "+55 35 98800-0636",      url: "https://wa.me/5535988000636" },
-    { icone: "linkedin",     rotulo: "LinkedIn",     texto: "in/otavio-zordan",       url: "https://www.linkedin.com/in/otavio-zordan" },
-    { icone: "email",        rotulo: "E-mail",       texto: "otaviozordan@gmail.com", url: "mailto:otaviozordan@gmail.com" },
-    { icone: "github",       rotulo: "GitHub",       texto: "otaviozordan",           url: "https://github.com/otaviozordan" },
-    { icone: "lattes",       rotulo: "Lattes",       texto: "9155564516628230",       url: "http://lattes.cnpq.br/9155564516628230" },
-    { icone: "researchgate", rotulo: "ResearchGate", texto: "Otavio-Alves-4",         url: "https://www.researchgate.net/profile/Otavio-Alves-4" }
+    { icone: "whatsapp",     rotulo: "WhatsApp",     url: "https://wa.me/5535988000636" },
+    { icone: "linkedin",     rotulo: "LinkedIn",     url: "https://www.linkedin.com/in/otavio-zordan" },
+    { icone: "github",       rotulo: "GitHub",       url: "https://github.com/otaviozordan" },
+    { icone: "lattes",       rotulo: "Lattes",       url: "http://lattes.cnpq.br/9155564516628230" },
+    { icone: "researchgate", rotulo: "ResearchGate", url: "https://www.researchgate.net/profile/Otavio-Alves-4" },
+    // "texto" faz o botão aparecer por extenso
+    { icone: "email",        rotulo: "E-mail",       url: "mailto:otavio.zordan@outlook.com", texto: "otavio.zordan@outlook.com" }
   ],
 
   /* ----------------------------- FORMAÇÃO ----------------------------- */
   formacao: [
-    { instituicao: "UNIFEI", nomeCompleto: "Universidade Federal de Itajubá",
+    { instituicao: "UNIFEI", nomeCompleto: "Universidade Federal de Itajubá", logo: "assets/logos/unifei.png",
+      foto: "assets/fotos/unifei.jpg", fotoCredito: "@clebergoncalvesjr · gemec.unifei.edu.br",
       curso: "Engenharia Mecânica Aeronáutica", periodo: "Ingresso em 2024", local: "Itajubá · MG", site: "https://unifei.edu.br/",
       texto: "Dinâmica de voo, controle e sistemas embarcados aplicados a drones, foguetes e hardware digital, com pesquisa no PET, GEMEC e LSA e artigos no COBEM e no CONEM.",
       destaques: ["GEMEC · LSA · PET", "Beyond Aerospace", "CI Expert", "COBEM 2025 · CONEM 2026"] },
-    { instituicao: "ETE FMC", nomeCompleto: "Escola Técnica de Eletrônica Francisco Moreira da Costa",
+    { instituicao: "ETE FMC", nomeCompleto: "Escola Técnica de Eletrônica Francisco Moreira da Costa", logo: "assets/logos/ete.png",
+      foto: "assets/fotos/ete.jpg", fotoCredito: "etefmc.com.br",
       curso: "Técnico em Telecomunicações", periodo: "2021 — 2024", local: "Santa Rita do Sapucaí · MG", site: "https://www.etefmc.com.br/",
       texto: "A primeira escola técnica de eletrônica da América Latina, no Vale da Eletrônica. Base em eletrônica analógica e digital, sistemas digitais, redes e telecomunicações, com projetos premiados desde o primeiro ano.",
       destaques: ["Melhor Desempenho Acadêmico 2024", "Campeão regional OBSAT", "~1.300 horas-aula"] }
@@ -52,13 +62,13 @@ window.DADOS = {
 
   /* ---------------------- EXPERIÊNCIA PROFISSIONAL -------------------- */
   profissional: [
-    { quando: "jan 2026", titulo: "Estagiário · Engenharia de Sistemas", local: "Modirum | Gespi",
+    { quando: "jan 2026", logo: "assets/logos/modirum.png", titulo: "Estagiário · Engenharia de Sistemas", local: "Modirum | Gespi",
       texto: "Cadernos de teste e protocolos de ensaio para um projeto estratégico; estudos de certificação MIL-STD-810, MIL-STD-901, RS101 e DO-254; ferramenta em Python para inteligência de mercado em defesa." },
-    { quando: "jan — mar 2024", titulo: "Estagiário · Desenvolvimento de Soluções", local: "ChamaInbox Brasil · Remoto",
+    { quando: "jan — mar 2024", logo: "assets/logos/chamainbox.png", titulo: "Estagiário · Desenvolvimento de Soluções", local: "ChamaInbox Brasil · Remoto",
       texto: "Backend em Python: APIs, otimização de desempenho e integração com bancos de dados." },
-    { quando: "jan — fev 2023", titulo: "Estagiário · Desenvolvimento", local: "CEDEN ETE FMC",
+    { quando: "jan — fev 2023", logo: "assets/logos/ceden.png", titulo: "Estagiário · Desenvolvimento", local: "CEDEN ETE FMC",
       texto: "Sistema completo de monitoramento e controle industrial via RS-485 (firmware, driver e app desktop), adotado no curso de Automação da ETE FMC." },
-    { quando: "dez 2021 — jan 2022", titulo: "Estagiário · Desenvolvimento de Software", local: "ChamaInbox Brasil",
+    { quando: "dez 2021 — jan 2022", logo: "assets/logos/chamainbox.png", titulo: "Estagiário · Desenvolvimento de Software", local: "ChamaInbox Brasil",
       texto: "Backend de APIs e serviços em Python e Flask, com integração a bancos de dados." }
   ],
 
@@ -66,32 +76,32 @@ window.DADOS = {
      Um bloco por instituição. foguete: true mostra o desenho do foguete. */
   academico: [
     { instituicao: "UNIFEI", foguete: true, itens: [
-      { quando: "out 2026", titulo: "Pesquisador de Graduação · GEMEC", local: "Grupo de Estudos em Mecânica Experimental e Computacional",
+      { quando: "out 2026", logo: "assets/logos/gemec.png", titulo: "Pesquisador de Graduação · GEMEC", local: "Grupo de Estudos em Mecânica Experimental e Computacional",
         texto: "Pesquisa em dinâmica de voo e controle de veículos aéreos não tripulados." },
-      { quando: "mar 2026 — mar 2027", titulo: "Residente de Pesquisa · CI Expert", local: "Microeletrônica · MCTI · Softex · UNIFEI",
+      { quando: "mar 2026 — mar 2027", logo: "assets/logos/ciexpert.png", titulo: "Residente de Pesquisa · CI Expert", local: "Microeletrônica · MCTI · Softex · UNIFEI",
         texto: "Síntese RTL e descrição de hardware; trilha de RTL Design de um processador multiciclo. Certificado em Síntese RTL (Purple Certification)." },
-      { quando: "jan — out 2026", titulo: "Subsistema de GNC · Beyond Aerospace", local: "Equipe de foguetemodelismo",
+      { quando: "jan — out 2026", logo: "assets/logos/beyond.png", titulo: "Subsistema de GNC · Beyond Aerospace", local: "Equipe de foguetemodelismo",
         texto: "Fusão de sensores, estimação de estados, determinação de atitude e controle em tempo real com RTOS." },
-      { quando: "out — dez 2025", titulo: "Instrutor de Curso de Extensão", local: "PET Mecânica UNIFEI",
+      { quando: "out — dez 2025", logo: "assets/logos/pet.png", titulo: "Instrutor de Curso de Extensão", local: "PET Mecânica UNIFEI",
         texto: "Curso de 16 h de Python para engenharia (NumPy, Pandas, SciPy, SymPy) com mais de 35 alunos." },
-      { quando: "jun 2025", titulo: "Pesquisador de Graduação · PET Engenharia Mecânica", local: "PET Mecânica UNIFEI",
+      { quando: "jun 2025", logo: "assets/logos/pet.png", titulo: "Pesquisador de Graduação · PET Engenharia Mecânica", local: "PET Mecânica UNIFEI",
         texto: "Controle de formação de nanodrones com controle robusto e identificação de quadrirrotores com redes neurais; artigos no COBEM 2025 e CONEM 2026." },
-      { quando: "jan — dez 2025", titulo: "Líder de Telecomunicações · Beyond Aerospace", local: "Equipe de foguetemodelismo",
+      { quando: "jan — dez 2025", logo: "assets/logos/beyond.png", titulo: "Líder de Telecomunicações · Beyond Aerospace", local: "Equipe de foguetemodelismo",
         texto: "Liderou telemetria e radiocomunicação: RF, integração de SDR, enlace com a estação de solo e dados de bordo em tempo real." },
-      { quando: "mar — dez 2024", titulo: "Membro de P&D · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
+      { quando: "mar — dez 2024", logo: "assets/logos/beyond.png", titulo: "Membro de P&D · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
         texto: "Divisão de pesquisa e desenvolvimento da equipe de foguetes da universidade." }
     ] },
     { instituicao: "ETE FMC", itens: [
-      { quando: "2024", titulo: "Prêmio de Melhor Desempenho Acadêmico", local: "Turma de 2024",
+      { quando: "2024", logo: "assets/logos/ete.png", titulo: "Prêmio de Melhor Desempenho Acadêmico", local: "Turma de 2024",
         texto: "Maior honraria da escola, concedida a um único formando entre todos os cursos técnicos.", premio: "Melhor formando da turma" },
-      { quando: "2023", titulo: "SolarEyes — CubeSat estratosférico", local: "Olimpíada Brasileira de Satélites (OBSAT-MCTI)",
+      { quando: "2023", logo: "assets/logos/obsat.png", titulo: "SolarEyes — CubeSat estratosférico", local: "Olimpíada Brasileira de Satélites (OBSAT-MCTI)",
         texto: "Integração de OBC, EPS e telecom de uma sonda com carga útil de radiação gama, validada em voo de balão estratosférico.", premio: "Campeão regional OBSAT 2023" },
-      { quando: "2022 — 2023", titulo: "ARduck — realidade aumentada para eletrônica", local: "PROJETE",
+      { quando: "2022 — 2023", logo: "assets/logos/projete.png", titulo: "ARduck — realidade aumentada para eletrônica", local: "PROJETE",
         texto: "Ecossistema de ensino com realidade aumentada, laboratório conectado, app e painel web. Embarcados, backend e DevOps.",
         premio: "Campeão Utilidade e Melhor apresentação em inglês (2022) · Melhor projeto de Telecom (2023)" },
-      { quando: "mar — dez 2022", titulo: "Monitor de Laboratório", local: "ETE FMC",
+      { quando: "mar — dez 2022", logo: "assets/logos/ete.png", titulo: "Monitor de Laboratório", local: "ETE FMC",
         texto: "Aulas de apoio em Algoritmos, Sistemas Digitais, Eletrônica Analógica e Eletricidade." },
-      { quando: "2021", titulo: "Ajuste Dinâmico de Faróis Automotivos", local: "PROJETE 2021",
+      { quando: "2021", logo: "assets/logos/projete.png", titulo: "Ajuste Dinâmico de Faróis Automotivos", local: "PROJETE 2021",
         texto: "Líder da equipe e programador de um sistema embarcado que corrige automaticamente o facho dos faróis.", premio: "Campeão Automação · Prêmio Municipal de Inovação" }
     ] }
   ],
@@ -111,10 +121,10 @@ window.DADOS = {
   grupos: [
     { sigla: "GEMEC", nome: "Grupo de Estudos em Mecânica Experimental e Computacional",
       descricao: "Mecânica estrutural, vibrações, otimização, IA aplicada e leis de controle para aeronaves.",
-      logo: "assets/gemec.png", url: "https://gemec.unifei.edu.br/membro/otavio-zordan-alves/", site: "https://gemec.unifei.edu.br/" },
+      logo: "assets/logos/gemec.png", url: "https://gemec.unifei.edu.br/membro/otavio-zordan-alves/", site: "https://gemec.unifei.edu.br/" },
     { sigla: "LSA", nome: "Laboratório de Sistemas Aeronáuticos",
       descricao: "Dinâmica de voo, controle não linear e tolerância a falhas de veículos aéreos não tripulados.",
-      logo: "assets/lsa.png", url: "https://lsa.unifei.edu.br/", site: "https://lsa.unifei.edu.br/" }
+      logo: "assets/logos/lsa.png", url: "https://lsa.unifei.edu.br/", site: "https://lsa.unifei.edu.br/" }
   ],
 
   /* --------------------------- PUBLICAÇÕES ----------------------------
@@ -161,19 +171,6 @@ window.DADOS = {
     { destaque: false, titulo: "Duck Protocol — RS-485", org: "CEDEN ETE FMC", ano: "2023", icone: "rs485",
       descricao: "Protocolo serial didático, firmware, driver e dashboard para redes industriais.",
       links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/Duck-Protocol" }] }
-  ],
-
-  /* ------------------------------ PRÊMIOS ----------------------------- */
-  premios: [
-    { titulo: "Melhor Desempenho Acadêmico — Turma 2024", org: "ETE FMC", ano: "2024" },
-    { titulo: "Campeão Regional — OBSAT-MCTI", org: "Sonda CubeSat SolarEyes", ano: "2023" },
-    { titulo: "Melhor projeto de Telecomunicações", org: "PROJETE 2023 · ARduck", ano: "2023" },
-    { titulo: "Campeão categoria Utilidade", org: "PROJETE 2022 · ARduck", ano: "2022" },
-    { titulo: "Melhor apresentação em inglês", org: "PROJETE 2022 · ARduck", ano: "2022" },
-    { titulo: "Participação destacada Custom Brasil", org: "PROJETE 2022", ano: "2022" },
-    { titulo: "Reconhecimento empreendedor CP2", org: "PROJETE 2022", ano: "2022" },
-    { titulo: "Prêmio Municipal de Inovação", org: "Santa Rita do Sapucaí", ano: "2021" },
-    { titulo: "Campeão categoria Automação", org: "PROJETE 2021", ano: "2021" }
   ],
 
   /* -------------------------- COMPETÊNCIAS ---------------------------- */

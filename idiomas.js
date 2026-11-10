@@ -16,7 +16,7 @@ window.IDIOMAS = {
   /* --------------------- textos fixos da página --------------------- */
   ui: {
     pt: {
-      _titulo: "Otávio Zordan · Currículo", cv: "Currículo digital", fale: "Fale comigo", imprimir: "Salvar em PDF",
+      _titulo: "Otávio Zordan · Currículo", cv: "Currículo digital", fale: "Fale comigo", imprimir: "Salvar em PDF", foto: "Foto", n_pesquisa: "Pesquisa", n_profissional: "Experiência", n_academico: "Acadêmico",
       resumo: "Resumo", formacao: "Formação", profissional: "Experiência profissional", academico: "Trajetória acadêmica",
       pesquisa: "Pesquisa e publicações", projetos: "Projetos", premios: "Prêmios", competencias: "Competências",
       idiomas: "Idiomas", cursos: "Cursos e certificações", mais_github: "Mais projetos no GitHub ↗", site: "site",
@@ -24,7 +24,7 @@ window.IDIOMAS = {
       rk_l: "COMPRIMENTO · L", rk_coifa: "Coifa", rk_rec: "Recuperação", rk_baia: "Baia GNC", rk_margem: "margem estática", rk_empenas: "Empenas"
     },
     en: {
-      _titulo: "Otávio Zordan · Résumé", cv: "Digital résumé", fale: "Get in touch", imprimir: "Save as PDF",
+      _titulo: "Otávio Zordan · Résumé", cv: "Digital résumé", fale: "Get in touch", imprimir: "Save as PDF", foto: "Photo", n_pesquisa: "Research", n_profissional: "Experience", n_academico: "Academic",
       resumo: "Summary", formacao: "Education", profissional: "Professional experience", academico: "Academic background",
       pesquisa: "Research and publications", projetos: "Projects", premios: "Awards", competencias: "Skills",
       idiomas: "Languages", cursos: "Courses and certifications", mais_github: "More projects on GitHub ↗", site: "website",
@@ -32,7 +32,7 @@ window.IDIOMAS = {
       rk_l: "LENGTH · L", rk_coifa: "Nose cone", rk_rec: "Recovery", rk_baia: "GNC bay", rk_margem: "static margin", rk_empenas: "Fins"
     },
     fr: {
-      _titulo: "Otávio Zordan · CV", cv: "CV numérique", fale: "Me contacter", imprimir: "Enregistrer en PDF",
+      _titulo: "Otávio Zordan · CV", cv: "CV numérique", fale: "Me contacter", imprimir: "Enregistrer en PDF", foto: "Photo", n_pesquisa: "Recherche", n_profissional: "Expérience", n_academico: "Académique",
       resumo: "Profil", formacao: "Formation", profissional: "Expérience professionnelle", academico: "Parcours académique",
       pesquisa: "Recherche et publications", projetos: "Projets", premios: "Prix", competencias: "Compétences",
       idiomas: "Langues", cursos: "Cours et certifications", mais_github: "Plus de projets sur GitHub ↗", site: "site",
@@ -40,7 +40,7 @@ window.IDIOMAS = {
       rk_l: "LONGUEUR · L", rk_coifa: "Coiffe", rk_rec: "Récupération", rk_baia: "Baie GNC", rk_margem: "marge statique", rk_empenas: "Ailerons"
     },
     it: {
-      _titulo: "Otávio Zordan · Curriculum", cv: "Curriculum digitale", fale: "Contattami", imprimir: "Salva in PDF",
+      _titulo: "Otávio Zordan · Curriculum", cv: "Curriculum digitale", fale: "Contattami", imprimir: "Salva in PDF", foto: "Foto", n_pesquisa: "Ricerca", n_profissional: "Esperienza", n_academico: "Accademico",
       resumo: "Profilo", formacao: "Formazione", profissional: "Esperienza professionale", academico: "Percorso accademico",
       pesquisa: "Ricerca e pubblicazioni", projetos: "Progetti", premios: "Premi", competencias: "Competenze",
       idiomas: "Lingue", cursos: "Corsi e certificazioni", mais_github: "Altri progetti su GitHub ↗", site: "sito",
@@ -70,6 +70,7 @@ window.IDIOMAS = {
       it: "Formazione in Ingegneria Meccanica Aeronautica presso l'**UNIFEI** e tecnico in Telecomunicazioni presso l'**ETE FMC**. Ricerca in dinamica e controllo di droni, GNC di razzi, microelettronica e ingegneria dei sistemi." },
     "Itajubá · MG · Brasil": { en: "Itajubá · MG · Brazil", fr: "Itajubá · MG · Brésil", it: "Itajubá · MG · Brasile" },
     "Curso": { en: "Program", fr: "Cursus", it: "Corso" },
+    "GNC · Telecomunicações": { en: "GNC · Telecommunications", fr: "GNC · Télécommunications", it: "GNC · Telecomunicazioni" },
     "Grupos": { en: "Groups", fr: "Groupes", it: "Gruppi" },
     "Equipe": { en: "Team", fr: "Équipe", it: "Squadra" },
     "Eng. Aeronáutica": { en: "Aeronautical Eng.", fr: "Génie aéronautique", it: "Ing. Aeronautica" },

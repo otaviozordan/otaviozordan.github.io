@@ -23,36 +23,43 @@
 <script src="idiomas.js"></script>
 </head>
 <body>
-<div class="layout">
 
-  <aside class="side">
-    <div class="me">
-      <img class="foto" id="foto" alt="Otávio Zordan Alves" width="120" height="120">
-      <div>
-        <h1 id="nome"></h1>
-        <p class="titulo" id="titulo"></p>
-        <p class="local" id="local"></p>
-      </div>
-    </div>
-    <p class="kicker" data-i18n="fale"></p>
-    <div class="contatos" id="contatos"></div>
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#inicio">OZA<b>/</b>AERO</a>
     <nav class="indice" id="indice" aria-label="Seções"></nav>
     <div class="tools">
       <div class="lang" id="lang" role="group" aria-label="Idioma / Language">
         <button data-l="pt" lang="pt">PT</button><button data-l="en" lang="en">EN</button><button data-l="fr" lang="fr">FR</button><button data-l="it" lang="it">IT</button>
       </div>
-      <button class="print" id="print"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg><span data-i18n="imprimir"></span></button>
+      <button class="print" id="print" title="PDF"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg><span data-i18n="imprimir"></span></button>
     </div>
-  </aside>
+  </div>
+</header>
 
-  <main class="main">
-    <nav class="indice-m" id="indice-m" aria-label="Seções"></nav>
-    <div class="banner" aria-hidden="true"><canvas id="flow"></canvas><span class="bl" data-i18n="cv"></span></div>
-    <div id="secoes"></div>
-    <footer><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W</span></footer>
-  </main>
+<section class="hero" id="inicio">
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <div>
+      <h1 id="nome"></h1>
+      <p class="titulo" id="titulo"></p>
+      <p class="chamada" id="chamada"></p>
+      <div class="contatos" id="contatos"></div>
+    </div>
+    <aside class="idcard">
+      <div class="ph">
+        <img id="foto" alt="Otávio Zordan Alves" width="768" height="765">
+        <div class="reticle"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="ficha" id="ficha"></div>
+    </aside>
+  </div>
+</section>
 
-</div>
+<main class="wrap conteudo">
+  <div id="secoes"></div>
+  <footer><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W</span></footer>
+</main>
 
 <template id="tpl-foguete">
   <div class="rocket">
