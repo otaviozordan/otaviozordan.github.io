@@ -21,11 +21,11 @@ window.DADOS = {
       { rotulo: "Base",   valor: "Itajubá · MG" },
       { rotulo: "Curso",  valor: "Eng. Aeronáutica" },
       { rotulo: "Grupos", valor: "GEMEC · LSA · PET" },
-      { rotulo: "Equipe", valor: "Beyond · GNC" }
+      { rotulo: "Equipe", valor: "Beyond Aerospace" }
     ],
     sobre: [
       "Formação em **Engenharia Mecânica Aeronáutica na Universidade Federal de Itajubá (UNIFEI)** e técnico em Telecomunicações pela **ETE FMC**, a primeira escola técnica de eletrônica da América Latina, onde recebi o **Prêmio de Melhor Desempenho Acadêmico** da turma de 2024.",
-      "Pesquisei dinâmica e controle de veículos aéreos não tripulados no **PET Engenharia Mecânica**, no **GEMEC** e no **LSA**. Na equipe de foguetemodelismo **Beyond Rocket Design**, atuei em P&D, telecomunicações e no subsistema de Navegação, Guiamento e Controle.",
+      "Pesquisei dinâmica e controle de veículos aéreos não tripulados no **PET Engenharia Mecânica**, no **GEMEC** e no **LSA**. Na equipe de foguetemodelismo **Beyond Aerospace Department**, atuei em P&D, liderei o subsistema de telecomunicações e trabalhei no subsistema de Navegação, Guiamento e Controle.",
       "Fui **Residente de Pesquisa em Graduação no CI Expert** (MCTI · Softex · UNIFEI), em microeletrônica, com foco em síntese RTL e descrição de hardware."
     ],
     interesses: [
@@ -108,19 +108,21 @@ window.DADOS = {
       curso: "Bacharelado em Engenharia Mecânica Aeronáutica",
       periodo: "Ingresso em 2024",
       site: "https://unifei.edu.br/",
-      destaques: ["PET Engenharia Mecânica", "GEMEC · LSA", "Beyond Rocket Design", "CI Expert"],
+      destaques: ["GEMEC · LSA", "PET Engenharia Mecânica", "Beyond Aerospace", "CI Expert"],
       itens: [
+        { quando: "out 2026", titulo: "Pesquisador de Graduação · GEMEC", local: "Grupo de Estudos em Mecânica Experimental e Computacional",
+          pontos: ["Pesquisa em dinâmica de voo e controle de veículos aéreos não tripulados."] },
         { quando: "mar 2026 — mar 2027", titulo: "Residente de Pesquisa em Graduação · CI Expert", local: "Residência em Microeletrônica · MCTI · Softex · UNIFEI",
           pontos: ["Síntese RTL e linguagens de descrição de hardware; trilha de RTL Design do processador multiciclo.", "Certificado na trilha de Síntese RTL da Purple Certification Brazil."] },
-        { quando: "2026", titulo: "Responsável pelo GNC · Beyond Rocket Design", local: "Equipe de foguetemodelismo",
-          pontos: ["Navegação, guiamento e controle: fusão de sensores, estimação de estados, determinação de atitude e projeto de controle."] },
-        { quando: "jun 2025", titulo: "Pesquisador Discente · PET Engenharia Mecânica", local: "PET Mecânica · GEMEC · LSA",
+        { quando: "jan — out 2026", titulo: "Subsistema de GNC · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
+          pontos: ["Fusão de sensores, estimação de estados, determinação de atitude, projeto de controle e implementação de controle em tempo real com RTOS."] },
+        { quando: "out — dez 2025", titulo: "Instrutor de Curso de Extensão · PET Engenharia Mecânica", local: "PET Engenharia Mecânica UNIFEI",
+          pontos: ["Curso de 16 h de Python para estudantes de Engenharia Aeronáutica e Mecânica, voltado a simulações e análise de dados.", "Currículo próprio: NumPy, Pandas, SciPy e SymPy.", "Mais de 35 alunos orientados em exercícios e projetos práticos."] },
+        { quando: "jun 2025", titulo: "Pesquisador de Graduação · PET Engenharia Mecânica", local: "PET Engenharia Mecânica UNIFEI",
           pontos: ["Controle de formação de nanodrones com controle robusto (CONEM 2026).", "Identificação da dinâmica de quadrirrotores com redes neurais (COBEM 2025).", "Posicionamento e rastreamento de trajetória com controle clássico e filtragem de Kalman."] },
-        { quando: "out — dez 2025", titulo: "Instrutor de Curso de Extensão", local: "PET Engenharia Mecânica",
-          pontos: ["Curso de 16 h de Python para engenharia (NumPy, Pandas, SciPy, SymPy), com mais de 35 alunos."] },
-        { quando: "2025", titulo: "Diretor de Telecomunicações · Beyond Rocket Design", local: "Equipe de foguetemodelismo",
-          pontos: ["Liderou telemetria e radiocomunicação: enlace com a estação de solo e transmissão de dados de bordo."] },
-        { quando: "2024", titulo: "Membro de P&D · Beyond Rocket Design", local: "Equipe de foguetemodelismo",
+        { quando: "jan — dez 2025", titulo: "Líder do Subsistema de Telecomunicações · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
+          pontos: ["Liderou telemetria e radiocomunicação: sistemas de RF, integração de SDR, enlace com a estação de solo e transmissão de dados de bordo em tempo real."] },
+        { quando: "mar — dez 2024", titulo: "Membro de P&D · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
           pontos: ["Divisão de pesquisa e desenvolvimento da equipe."] }
       ]
     },
@@ -151,27 +153,27 @@ window.DADOS = {
 
   /* ---------------------- CARREIRA PROFISSIONAL ----------------------- */
   profissional: [
-    { quando: "jan 2026", titulo: "Estagiário · Engenharia de Sistemas", local: "Modirum | Gespi · Santa Rita do Sapucaí",
-      pontos: ["Engenharia de sistemas de um produto eletrônico embarcado para o setor de defesa, com requisitos de qualificação militar.",
-               "Cadernos de teste e protocolos de ensaio para verificação.",
-               "Estudos de certificação: MIL-STD-810, MIL-STD-901, RS101 e DO-254.",
-               "Ferramenta em Python com interface gráfica para inteligência de mercado sobre aquisições de Forças Armadas."] },
-    { quando: "jan — mar 2024", titulo: "Estagiário · Desenvolvimento de Soluções", local: "ChamaInbox Brasil · Remoto",
-      pontos: ["Backend em Python: endpoints, otimização de desempenho e integração com bancos de dados."] },
-    { quando: "jan — fev 2023", titulo: "Estagiário · Desenvolvimento", local: "CEDEN ETE FMC · Centro de Desenvolvimento e Negócios",
-      pontos: ["Sistema completo de monitoramento e controle de equipamentos industriais via RS-485: firmware, driver e aplicação desktop.",
-               "Adotado no curso de Controle e Automação Industrial da ETE FMC."] },
-    { quando: "dez 2021 — jan 2022", titulo: "Estagiário · Desenvolvimento de Software", local: "ChamaInbox Brasil · Santa Rita do Sapucaí",
-      pontos: ["APIs e serviços em Python com integração a bancos de dados."] }
+    { quando: "jan 2026", titulo: "Estagiário de Férias · Engenharia de Sistemas", local: "Modirum | Gespi · Santa Rita do Sapucaí",
+      pontos: ["Cadernos de teste e protocolos de ensaio para um projeto estratégico.",
+               "Ferramenta em Python com interface gráfica para mineração e análise de dados abertos sobre aquisições internacionais de Forças Armadas, apoiando inteligência de mercado.",
+               "Estudos de requisitos de certificação: MIL-STD-810, MIL-STD-901, RS101 e DO-254.",
+               "Detalhes do projeto omitidos por sigilo profissional."] },
+    { quando: "jan — mar 2024", titulo: "Estagiário de Férias · Desenvolvimento de Soluções", local: "ChamaInbox Brasil · Remoto",
+      pontos: ["Desenvolvimento backend em Python: APIs, novas funcionalidades, otimização de desempenho e integração com bancos de dados."] },
+    { quando: "jan — fev 2023", titulo: "Estagiário de Férias · Desenvolvimento", local: "CEDEN ETE FMC · Centro de Desenvolvimento e Negócios",
+      pontos: ["Software embarcado para controle e automação industrial: sistema completo de monitoramento e controle de equipamentos via RS-485, com driver de interface e aplicação desktop.",
+               "Solução adotada no curso de Controle e Automação Industrial da ETE FMC."] },
+    { quando: "dez 2021 — jan 2022", titulo: "Estagiário de Férias · Desenvolvimento de Software", local: "ChamaInbox Brasil · Santa Rita do Sapucaí",
+      pontos: ["Desenvolvimento backend de APIs e serviços em Python e Flask, com integração a bancos de dados."] }
   ],
 
   /* ----------------------------- FOGUETES ----------------------------- */
   foguete: {
-    equipe: "Beyond Rocket Design",
-    texto: "Na equipe de foguetemodelismo da UNIFEI, passei por P&D e pela diretoria de Telecomunicações até assumir o subsistema de **Navegação, Guiamento e Controle**: fusão de sensores, estimação de estados, determinação de atitude e projeto de controle.",
+    equipe: "Beyond Aerospace Department",
+    texto: "Na equipe de foguetemodelismo da UNIFEI, passei por P&D, liderei o subsistema de **Telecomunicações** (RF, SDR e enlace com a estação de solo) e trabalhei no subsistema de **Navegação, Guiamento e Controle**: fusão de sensores, estimação de estados, determinação de atitude e controle em tempo real com RTOS.",
     cargos: [
-      { ano: "2026",   cargo: "Responsável pelo GNC" },
-      { ano: "2025",   cargo: "Diretor de Telecomunicações" },
+      { ano: "2026",   cargo: "Subsistema de GNC" },
+      { ano: "2025",   cargo: "Líder de Telecomunicações" },
       { ano: "2024",   cargo: "Membro de P&D" }
     ],
     url: ""   // coloque aqui o site/Instagram da equipe, se quiser
@@ -195,10 +197,10 @@ window.DADOS = {
       tags: ["System ID", "Redes neurais", "Python"],
       links: [{ rotulo: "Artigo COBEM 2025", url: "https://doi.org/10.26678/abcm.cobem2025.cob2025-1161" }] },
 
-    { titulo: "GNC de foguete — Beyond Rocket Design", org: "Foguetemodelismo · UNIFEI", ano: "2024", origem: "UNIFEI", icone: "foguete",
+    { titulo: "Foguete — Beyond Aerospace Department", org: "Foguetemodelismo · UNIFEI", ano: "2024–26", origem: "UNIFEI", icone: "foguete",
       categorias: ["Voo & Controle", "Espaço"],
-      descricao: "Navegação, guiamento e controle: fusão de sensores, estimação de estados e determinação de atitude. Antes, telemetria e enlace com a estação de solo.",
-      tags: ["Sensor fusion", "Atitude", "Telemetria", "RF"], links: [] },
+      descricao: "GNC com fusão de sensores, estimação de estados, determinação de atitude e controle em tempo real com RTOS. Antes, liderança de telemetria: RF, SDR e enlace com a estação de solo.",
+      tags: ["GNC", "RTOS", "SDR", "Telemetria"], links: [] },
 
     { titulo: "Interceptação de enxames", org: "Estudo · Python", ano: "2026", origem: "Pessoal", icone: "radar",
       categorias: ["Voo & Controle", "Software"],
