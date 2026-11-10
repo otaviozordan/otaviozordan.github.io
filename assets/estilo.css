@@ -59,11 +59,12 @@ h1,h2,h3,h4{font-family:var(--fd);letter-spacing:-.02em;line-height:1.2}
 .titulo{font-family:var(--fm);color:var(--ac2);font-size:clamp(.8rem,1.3vw,.95rem);margin-top:14px}
 .chamada{margin-top:16px;color:var(--muted);font-size:1.12rem;max-width:52ch;text-shadow:var(--shadow)}
 .chamada b{color:var(--text)}
-.contatos{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;align-items:center}
-.contatos a{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:44px;min-width:44px;padding:0 12px;border:1px solid var(--line2);border-radius:10px;background:rgba(6,16,36,.7);color:var(--text);font-size:.9rem;transition:.18s}
+.contatos{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;align-items:center}
+.contatos a{display:inline-flex;align-items:center;justify-content:center;gap:11px;height:58px;min-width:58px;padding:0 18px;border:1px solid var(--line2);border-radius:13px;background:rgba(6,16,36,.75);color:var(--text);font-size:1.02rem;transition:.18s}
 .contatos a:hover{border-color:var(--ac);text-decoration:none;transform:translateY(-2px)}
-.contatos a svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--ac);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.contatos a.ico{padding:0;width:44px}
+.contatos a svg{width:27px;height:27px;flex:none;fill:none;stroke:var(--ac);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.contatos a.ico{padding:0;width:58px}
+@media (max-width:400px){.contatos{gap:8px}.contatos a{height:52px;min-width:52px}.contatos a.ico{width:52px}.contatos a svg{width:24px;height:24px}}
 .contatos a.wa svg{stroke:var(--ok)}
 .contatos a.wa{border-color:rgba(76,227,154,.45)}
 
