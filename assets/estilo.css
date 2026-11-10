@@ -37,7 +37,9 @@ h1,h2,h3,h4{font-family:var(--fd);letter-spacing:-.02em;line-height:1.2}
 .indice a.on{background:var(--ac);color:var(--on-ac)}
 .tools{display:flex;gap:6px;align-items:center;flex:none}
 .lang{display:flex;gap:2px;border:1px solid var(--line2);border-radius:7px;padding:2px}
-.lang button{font-family:var(--fm);font-size:.68rem;letter-spacing:.06em;padding:5px 7px;border:0;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer}
+.lang button{font-family:var(--fm);font-size:.68rem;letter-spacing:.06em;padding:5px 7px;display:flex;align-items:center;gap:5px;border:0;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer}
+.lang button svg{width:18px;height:12px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.18);flex:none}
+.lang button:not(.on) svg{opacity:.75}
 .lang button:hover{color:var(--text)}
 .lang button.on{background:var(--ac);color:var(--on-ac)}
 .print{display:flex;align-items:center;gap:6px;font-family:var(--fm);font-size:.68rem;padding:7px 9px;border:1px solid var(--line2);border-radius:7px;background:transparent;color:var(--muted);cursor:pointer}
