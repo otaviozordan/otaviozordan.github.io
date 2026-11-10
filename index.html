@@ -3,869 +3,607 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aeris · Diário de Bordo</title>
-<meta name="description" content="Diário de bordo do projeto Aeris (Análise Eletrônica de Riscos e Indicadores Socioambientais), turma 11MT, inscrição 1106 — PROJETE ETE FMC 2026.">
-<meta property="og:title" content="Aeris · Diário de Bordo MT1106">
-<meta property="og:description" content="A estação que lê o ar para prever o risco de queimadas. 25 encontros, 5 integrantes, 1 protótipo.">
-<meta property="og:image" content="assets/aeris/6ac13c05.webp">
-<link rel="icon" href="assets/aeris/6ac13c05.webp">
+<title>Otávio Zordan · Engenharia Aeronáutica</title>
+<meta name="description" content="Otávio Zordan Alves — estudante de Engenharia Mecânica Aeronáutica na UNIFEI. Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital.">
+<meta property="og:title" content="Otávio Zordan Alves · Engenharia Aeronáutica">
+<meta property="og:description" content="Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital. UNIFEI · GEMEC · PET Mecânica.">
+<meta property="og:image" content="assets/otavio.jpg">
+<meta name="theme-color" content="#05080d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2305080d'/%3E%3Cpath d='M4 18 Q16 9 28 15 Q16 17 4 18Z' fill='%23ffb020'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0706; --bg2:#140c0a; --card:rgba(30,18,14,.72); --line:rgba(255,140,80,.16);
-  --text:#f5ebe4; --muted:#b8a49a; --dim:#7d6a60;
-  --fire:#ff5a1f; --ember:#ffb347; --blood:#c2261b; --sky:#4f8cff;
-  --r:18px;
+  --bg:#05080d; --bg2:#0a1018; --panel:rgba(13,20,30,.78); --line:rgba(120,170,220,.14); --line2:rgba(120,170,220,.28);
+  --text:#e6edf5; --muted:#93a3b8; --dim:#5b6b80;
+  --amber:#ffb020; --cyan:#3fd0ff; --green:#4ce39a; --red:#ff5d5d;
+  --mono:"JetBrains Mono",ui-monospace,monospace; --disp:"Space Grotesk",Inter,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.display{font-family:"Space Grotesk",sans-serif;line-height:1.1;letter-spacing:-.02em}
-a{color:var(--ember)}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 80%);opacity:.55}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
 img{max-width:100%;display:block}
-#scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
-.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 120%,rgba(255,90,31,.18),transparent 60%)}
-main{position:relative;z-index:2}
-.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto;position:relative;z-index:1}
+.mono{font-family:var(--mono)}
+h1,h2,h3{font-family:var(--disp);line-height:1.1;letter-spacing:-.02em}
 
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:20;transition:background .3s,backdrop-filter .3s}
-nav.solid{background:rgba(11,7,6,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;color:var(--text);text-decoration:none;letter-spacing:.06em}
-.brand img{width:34px;height:34px;border-radius:50%}
-nav ul{display:flex;gap:26px;list-style:none}
-nav ul a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
-nav ul a:hover{color:var(--text)}
-@media (max-width:760px){nav ul{display:none}}
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:50;transition:.3s}
+nav.solid{background:rgba(5,8,13,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:var(--mono);font-weight:600;color:var(--text);font-size:.92rem;letter-spacing:.04em}
+.brand b{color:var(--amber)}
+.brand:hover{text-decoration:none}
+nav ul{display:flex;gap:4px;list-style:none}
+nav ul a{display:block;padding:6px 12px;border-radius:6px;color:var(--muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+nav ul a:hover{color:var(--text);background:rgba(255,255,255,.04);text-decoration:none}
+nav ul a span{color:var(--dim)}
+@media (max-width:900px){nav ul{display:none}}
 
-/* hero */
-.hero{min-height:100svh;display:flex;align-items:center;padding:100px 0 60px}
-.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:center}
-.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);border-radius:99px;font-size:.8rem;color:var(--ember);background:rgba(255,90,31,.06);letter-spacing:.04em}
-.tag i{width:7px;height:7px;border-radius:50%;background:var(--fire);box-shadow:0 0 12px var(--fire);animation:pulse 1.6s infinite}
-@keyframes pulse{50%{opacity:.3}}
-.hero h1{font-size:clamp(4rem,13vw,9.5rem);font-weight:700;margin:18px 0 8px;background:linear-gradient(180deg,#fff3d6 0%,var(--ember) 35%,var(--fire) 65%,var(--blood) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 40px rgba(255,90,31,.35))}
-.hero .acr{font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--muted);max-width:30ch}
-.hero .acr b{color:var(--text);font-weight:600}
-.hero p.lead{margin-top:22px;font-size:1.05rem;color:var(--muted);max-width:46ch}
-.cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:.95rem;transition:transform .2s,box-shadow .2s,background .2s}
-.btn.primary{background:linear-gradient(135deg,var(--fire),var(--blood));color:#fff;box-shadow:0 10px 30px -8px rgba(255,90,31,.6)}
-.btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px rgba(255,90,31,.7)}
-.btn.ghost{border:1px solid var(--line);color:var(--text);background:rgba(255,255,255,.03)}
-.btn.ghost:hover{background:rgba(255,255,255,.07)}
-.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:var(--dim);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
-.scroll-hint span{width:1px;height:40px;background:linear-gradient(var(--fire),transparent);animation:drip 2s infinite}
-@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{align-items:flex-end;padding-bottom:110px}.hero .spacer{display:none}}
+/* HERO */
+.hero{min-height:100svh;position:relative;display:flex;align-items:center;padding:110px 0 170px;overflow:hidden}
+#flow{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:60px;background:linear-gradient(transparent,var(--bg));z-index:0}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:48px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1px solid rgba(76,227,154,.3);background:rgba(76,227,154,.06);padding:6px 12px;border-radius:4px}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.hero h1{font-size:clamp(2.8rem,7.4vw,5.6rem);font-weight:700;margin:22px 0 10px}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero .role{font-family:var(--mono);color:var(--cyan);font-size:clamp(.85rem,1.4vw,1rem);letter-spacing:.04em}
+.hero .lead{margin-top:22px;color:var(--muted);font-size:1.08rem;max-width:56ch}
+.hero .lead b{color:var(--text);font-weight:500}
+.cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:6px;font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;transition:.2s}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn.pri{background:var(--amber);color:#1a1000}
+.btn.pri:hover{box-shadow:0 10px 30px -8px rgba(255,176,32,.6)}
+.btn.sec{border:1px solid var(--line2);color:var(--text);background:rgba(255,255,255,.02)}
+.btn.sec:hover{border-color:var(--cyan);color:var(--cyan)}
 
-/* sections */
+.idcard{border:1px solid var(--line2);background:var(--panel);backdrop-filter:blur(10px);border-radius:10px;overflow:hidden;position:relative}
+.idcard .ph{position:relative;aspect-ratio:1/1;overflow:hidden}
+.idcard .ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.05)}
+.idcard .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,8,13,.9)),repeating-linear-gradient(0deg,rgba(63,208,255,.05) 0 1px,transparent 1px 3px)}
+.reticle{position:absolute;inset:14px;z-index:2;pointer-events:none}
+.reticle i{position:absolute;width:18px;height:18px;border-color:var(--amber);border-style:solid}
+.reticle i:nth-child(1){top:0;left:0;border-width:2px 0 0 2px}
+.reticle i:nth-child(2){top:0;right:0;border-width:2px 2px 0 0}
+.reticle i:nth-child(3){bottom:0;left:0;border-width:0 0 2px 2px}
+.reticle i:nth-child(4){bottom:0;right:0;border-width:0 2px 2px 0}
+.idcard .tag{position:absolute;left:18px;bottom:16px;z-index:3;font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:.12em}
+.telemetry{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.telemetry div{padding:12px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.telemetry div:nth-child(2n){border-right:0}
+.telemetry div:nth-last-child(-n+2){border-bottom:0}
+.telemetry small{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.telemetry span{font-family:var(--mono);font-size:.86rem;color:var(--text)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.idcard{max-width:380px}}
+
+/* SECTIONS */
 section{padding:110px 0;position:relative}
-.eyebrow{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);font-weight:600}
-h2{font-size:clamp(2.1rem,5vw,3.4rem);margin:12px 0 18px}
-.sub{color:var(--muted);max-width:62ch;font-size:1.05rem}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px)}
-.solidbg{background:linear-gradient(180deg,transparent,rgba(11,7,6,.88) 120px,rgba(11,7,6,.88) calc(100% - 120px),transparent)}
+.sh{display:flex;align-items:baseline;gap:18px;margin-bottom:14px}
+.sh .num{font-family:var(--mono);color:var(--amber);font-size:.85rem;letter-spacing:.1em}
+.sh .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+h2{font-size:clamp(2rem,4.6vw,3.2rem)}
+.sub{color:var(--muted);max-width:66ch;margin-top:14px;font-size:1.04rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;backdrop-filter:blur(8px)}
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:46px}
-.stat{padding:26px 22px}
-.stat .n{font-family:"Space Grotesk";font-size:clamp(2.2rem,4vw,3rem);font-weight:700;color:var(--ember)}
-.stat .l{color:var(--muted);font-size:.9rem}
-@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:48px}
+.stat{background:var(--bg2);padding:26px 22px}
+.stat .n{font-family:var(--disp);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:var(--text)}
+.stat .n sup{font-size:.45em;color:var(--amber);margin-left:4px}
+.stat .l{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
 
-/* about */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.about .pics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.about .pics img{border-radius:14px;aspect-ratio:1;object-fit:cover;border:1px solid var(--line);cursor:zoom-in;transition:transform .4s}
-.about .pics img:hover{transform:scale(1.03) rotate(-1deg)}
-.about .pics img:first-child{grid-row:span 2;aspect-ratio:auto;height:100%}
-.feats{display:grid;gap:12px;margin-top:26px}
-.feat{display:flex;gap:14px;padding:16px 18px;align-items:flex-start}
-.feat .ic{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,90,31,.12);color:var(--ember);font-size:1.1rem}
-.feat h3{font-size:1rem;margin-bottom:2px}
-.feat p{color:var(--muted);font-size:.92rem}
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;margin-top:40px}
+.about p{color:var(--muted);margin-bottom:16px}
+.about p b{color:var(--text);font-weight:500}
+.focus{padding:24px}
+.focus h3{font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;font-weight:500}
+.focus ul{list-style:none;display:grid;gap:10px}
+.focus li{display:flex;gap:12px;align-items:flex-start;font-size:.95rem}
+.focus li::before{content:"";width:8px;height:8px;margin-top:8px;border:1.5px solid var(--amber);transform:rotate(45deg);flex:none}
 @media (max-width:860px){.about{grid-template-columns:1fr}}
 
-/* team */
-.team{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
-.member{padding:24px 18px;text-align:center;transition:transform .3s,border-color .3s}
-.member:hover{transform:translateY(-6px);border-color:rgba(255,140,80,.45)}
-.avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;font-family:"Space Grotesk";font-weight:700;font-size:1.3rem;color:#fff;background:linear-gradient(135deg,var(--fire),var(--blood));box-shadow:0 0 0 4px rgba(255,90,31,.12)}
-.member h3{font-size:1rem}
-.member p{font-size:.82rem;color:var(--muted);margin-top:4px}
-.group-photo{margin-top:22px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);cursor:zoom-in}
-.group-photo img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:center 30%}
-@media (max-width:900px){.team{grid-template-columns:repeat(2,1fr)}.member:last-child{grid-column:span 2}}
+/* PUBS */
+.pubs{display:grid;gap:16px;margin-top:40px}
+.pub{padding:26px 28px;display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:center;transition:.25s}
+.pub:hover{border-color:var(--line2);transform:translateX(4px)}
+.pub .venue{font-family:var(--mono);font-size:.8rem;color:var(--amber);line-height:1.4}
+.pub .venue small{display:block;color:var(--dim)}
+.pub h3{font-size:1.25rem;margin-bottom:6px}
+.pub p{color:var(--muted);font-size:.9rem}
+.pub .doi{font-family:var(--mono);font-size:.76rem;white-space:nowrap;border:1px solid var(--line2);padding:8px 12px;border-radius:5px}
+@media (max-width:760px){.pub{grid-template-columns:1fr;gap:10px}}
+.links-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.chip{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;padding:7px 12px;border:1px solid var(--line2);border-radius:5px;color:var(--muted)}
+a.chip:hover{color:var(--cyan);border-color:var(--cyan);text-decoration:none}
 
-/* journey (phases) */
-.journey{display:flex;gap:10px;margin:36px 0 10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
-.journey::-webkit-scrollbar{display:none}
-.phase-chip{flex:none;padding:10px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:.85rem;cursor:pointer;transition:all .2s;white-space:nowrap}
-.phase-chip b{color:var(--text);font-weight:600}
-.phase-chip:hover,.phase-chip.on{border-color:var(--fire);color:var(--text);background:rgba(255,90,31,.1)}
+/* PROJECTS */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px}
+.filters button{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:5px;border:1px solid var(--line2);background:transparent;color:var(--muted);cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--text)}
+.filters button.on{background:var(--amber);border-color:var(--amber);color:#1a1000}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+@media (max-width:1000px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.grid{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;overflow:hidden;transition:.25s}
+.card:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
+.card.hide{display:none}
+.card .viz{height:150px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(63,208,255,.04),transparent);position:relative}
+.card .viz svg{width:100%;height:100%}
+.card .viz .code{position:absolute;top:12px;left:14px;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--dim)}
+.card .viz .yr{position:absolute;top:12px;right:14px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--amber)}
+.card .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.18rem;margin-bottom:4px}
+.card .org{font-family:var(--mono);font-size:.72rem;color:var(--cyan);letter-spacing:.04em;margin-bottom:12px}
+.card p{color:var(--muted);font-size:.9rem;flex:1}
+.card .award{margin-top:12px;font-size:.82rem;color:var(--amber);display:flex;gap:8px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags span{font-family:var(--mono);font-size:.66rem;padding:3px 8px;border-radius:3px;background:rgba(120,170,220,.08);color:var(--muted)}
+.card .lnk{margin-top:14px;font-family:var(--mono);font-size:.76rem}
+svg .s{stroke:var(--cyan);fill:none;stroke-width:1.4}
+svg .a{stroke:var(--amber);fill:none;stroke-width:1.6}
+svg .g{stroke:var(--line2);fill:none;stroke-width:1}
+svg .fa{fill:var(--amber)}
+svg .fc{fill:var(--cyan)}
+svg text{font-family:var(--mono);font-size:9px;fill:var(--dim)}
 
-/* timeline */
-.timeline{position:relative;margin-top:30px}
-.timeline::before{content:"";position:absolute;left:23px;top:0;bottom:0;width:2px;background:linear-gradient(var(--fire),var(--blood) 70%,transparent)}
-.phase-head{position:relative;padding:34px 0 14px 70px}
-.phase-head .k{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);font-weight:600}
-.phase-head h3{font-size:1.6rem;margin-top:4px}
-.phase-head p{color:var(--muted);font-size:.95rem;max-width:60ch;margin-top:4px}
-.phase-head::before{content:"";position:absolute;left:14px;top:40px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:2px solid var(--fire);box-shadow:0 0 18px var(--fire)}
-.entry{position:relative;padding-left:70px;margin:14px 0;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
-.entry.in{opacity:1;transform:none}
-.entry .dot{position:absolute;left:12px;top:22px;width:24px;height:24px;border-radius:50%;background:var(--bg2);border:1px solid var(--line);display:grid;place-items:center;font-size:.62rem;font-weight:700;color:var(--ember);font-family:"Space Grotesk"}
-.entry.pivot .dot{background:var(--fire);color:#fff;border-color:var(--fire);box-shadow:0 0 16px var(--fire)}
-.entry .panel{padding:22px 24px}
-.meta{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.82rem;color:var(--dim);margin-bottom:10px}
-.meta .num{font-family:"Space Grotesk";font-weight:700;color:var(--text);font-size:1.05rem}
-.meta .badge{padding:2px 10px;border-radius:99px;background:rgba(255,90,31,.14);color:var(--ember);font-weight:600;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase}
-.who{display:flex;margin-left:auto}
-.who span{width:24px;height:24px;border-radius:50%;margin-left:-6px;display:grid;place-items:center;font-size:.6rem;font-weight:700;color:#fff;border:2px solid var(--bg2)}
-.entry .txt{color:#e3d4cb;font-size:.97rem}
-.entry .txt p+p{margin-top:10px}
-.entry ul{margin:10px 0 0 18px;color:var(--muted);font-size:.92rem}
-.entry ul em{color:var(--text);font-style:normal;font-weight:600}
-.media{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
-.media img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;border:1px solid var(--line);transition:transform .3s,filter .3s;filter:saturate(.9)}
-.media img:hover{transform:scale(1.03);filter:saturate(1.1)}
-.media video{grid-column:1/-1;width:100%;max-height:440px;border-radius:12px;background:#000;border:1px solid var(--line)}
-.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;border:1px solid var(--line);font-size:.82rem;text-decoration:none;color:var(--text);background:rgba(255,255,255,.03);transition:background .2s}
-.chip:hover{background:rgba(255,90,31,.12)}
+/* TIMELINE */
+.tl{margin-top:44px;position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--amber),var(--line2) 30%,var(--line))}
+.ev{position:relative;padding-bottom:34px}
+.ev::before{content:"";position:absolute;left:-31px;top:7px;width:11px;height:11px;border:2px solid var(--amber);background:var(--bg);transform:rotate(45deg)}
+.ev .when{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;color:var(--amber);text-transform:uppercase}
+.ev h3{font-size:1.2rem;margin:4px 0 2px}
+.ev .at{font-family:var(--mono);font-size:.78rem;color:var(--cyan);margin-bottom:8px}
+.ev ul{list-style:none;color:var(--muted);font-size:.94rem;display:grid;gap:4px;max-width:80ch}
+.ev li{padding-left:16px;position:relative}
+.ev li::before{content:"›";position:absolute;left:0;color:var(--dim)}
 
-/* components */
-.comps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:40px}
-.comp{padding:14px;transition:transform .3s,border-color .3s;perspective:600px}
-.comp:hover{transform:translateY(-5px);border-color:rgba(255,140,80,.45)}
-.comp .img{background:#fff;border-radius:12px;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden;margin-bottom:12px}
-.comp .img img{max-height:85%;max-width:85%;object-fit:contain;transition:transform .5s}
-.comp:hover .img img{transform:scale(1.08) rotate(-3deg)}
-.comp h3{font-size:.98rem}
-.comp p{font-size:.84rem;color:var(--muted);margin-top:4px}
+/* SKILLS */
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+@media (max-width:1000px){.skills{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.skills{grid-template-columns:1fr}}
+.sk{padding:22px}
+.sk h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+.sk ul{list-style:none;display:grid;gap:7px;font-size:.92rem;color:var(--muted)}
+.sk li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.sk li:last-child{border:0}
 
-/* docs */
-.docs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
-.doc{padding:22px;display:flex;flex-direction:column}
-.doc h3{font-size:1.2rem;margin-bottom:6px}
-.doc p{color:var(--muted);font-size:.93rem}
-.doc .media{margin-top:auto;padding-top:16px}
-.doc.wide{grid-column:1/-1}
-@media (max-width:760px){.docs{grid-template-columns:1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.list{padding:24px}
+.list h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin-bottom:16px;font-weight:600}
+.row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row b{font-weight:500;font-size:.94rem;display:block}
+.row small{color:var(--dim);font-size:.8rem}
+.row .d{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+.trophy{color:var(--amber)}
 
-/* logos */
-.logos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
-.logos img{border-radius:var(--r);border:1px solid var(--line);cursor:zoom-in;transition:transform .4s}
-.logos img:hover{transform:translateY(-6px) scale(1.02)}
+/* CONTACT */
+.contact{padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;margin-top:40px;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;right:-80px;top:-80px;width:300px;height:300px;border:1px solid var(--line2);border-radius:50%;box-shadow:0 0 0 40px rgba(120,170,220,.03),0 0 0 80px rgba(120,170,220,.02)}
+.contact h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
+.clinks{display:grid;gap:10px;position:relative}
+.clinks a{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border:1px solid var(--line2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:.84rem;background:rgba(5,8,13,.6);transition:.2s}
+.clinks a:hover{border-color:var(--amber);color:var(--amber);text-decoration:none}
+.clinks a span{color:var(--dim);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:760px){.contact{grid-template-columns:1fr;padding:28px}}
+footer{padding:40px 0 50px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.74rem;color:var(--dim);position:relative;z-index:1}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
-/* finale */
-.finale{text-align:center;padding:140px 0 120px}
-.finale blockquote{font-family:"Space Grotesk";font-size:clamp(1.3rem,2.6vw,1.9rem);max-width:30ch;margin:20px auto 0;line-height:1.35}
-.finale blockquote em{color:var(--ember);font-style:normal}
-.finale .pics{display:flex;justify-content:center;gap:14px;margin-top:40px;flex-wrap:wrap}
-.finale .pics img{height:260px;width:auto;border-radius:14px;border:1px solid var(--line);cursor:zoom-in;transform:rotate(var(--r2,0));transition:transform .4s}
-.finale .pics img:hover{transform:rotate(0) scale(1.04)}
-@media (max-width:600px){.finale .pics img{height:180px}}
-footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:.85rem;position:relative;z-index:2;background:var(--bg)}
-footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-
-/* 3D interaction: the hero lets pointer events through to the canvas */
-main{pointer-events:none}
-main>*{pointer-events:auto}
-main>.hero{pointer-events:none}
-.hero .wrap>div:first-child,.hero a,.hero button,.qr-card{pointer-events:auto}
-#scene{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-body.grabbing{-webkit-user-select:none;user-select:none}
-body.grabbing #scene{cursor:grabbing}
-.hint3d{position:absolute;right:max(16px,calc((100vw - 1120px)/2));bottom:28px;display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--muted);padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(11,7,6,.55);backdrop-filter:blur(8px);transition:opacity .6s}
-.hint3d svg{width:18px;height:18px;flex:none}
-body.grabbing .hint3d{opacity:0}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38vh;pointer-events:none;background:radial-gradient(ellipse 70% 100% at 50% 100%,rgba(255,90,20,.16),rgba(194,38,27,.05) 55%,transparent 75%);animation:flick 2.4s infinite alternate;z-index:-1}
-@keyframes flick{0%{opacity:.75}30%{opacity:1}55%{opacity:.82}80%{opacity:.97}100%{opacity:.86}}
-.hero{position:relative}
-
-/* QR */
-.qr-card{color:var(--text);font:inherit;text-align:left;display:flex;align-items:center;gap:14px;margin-top:28px;padding:12px 16px 12px 12px;width:max-content;max-width:100%;border:1px solid var(--line);border-radius:16px;background:rgba(20,12,10,.7);backdrop-filter:blur(8px);cursor:zoom-in;transition:border-color .2s,transform .2s}
-.qr-card:hover{border-color:var(--fire);transform:translateY(-2px)}
-.qr-box{background:#fff;padding:8px;border-radius:10px;line-height:0}
-.qr-box svg{width:92px;height:92px}
-.qr-card b{display:block;font-family:"Space Grotesk";font-size:1rem}
-.qr-card span{font-size:.82rem;color:var(--muted)}
-.qr-fab{position:fixed;right:18px;bottom:18px;z-index:30;width:56px;height:56px;border-radius:16px;border:1px solid var(--line);background:rgba(20,12,10,.85);backdrop-filter:blur(10px);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(20px);pointer-events:none;transition:all .3s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-.qr-fab.show{opacity:1;transform:none;pointer-events:auto}
-.qr-fab:hover{border-color:var(--fire)}
-.qr-fab .qr-box{padding:5px;border-radius:7px}
-.qr-fab svg{width:34px;height:34px}
-#qrFull{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:radial-gradient(ellipse at 50% 110%,rgba(255,90,20,.35),rgba(5,3,2,.96) 60%);backdrop-filter:blur(8px);cursor:zoom-out;text-align:center;padding:24px}
-#qrFull.on{display:grid}
-#qrFull .qr-box{padding:clamp(14px,2vw,26px);border-radius:24px;box-shadow:0 0 0 6px rgba(255,90,31,.35),0 0 120px rgba(255,90,31,.45)}
-#qrFull svg{width:min(62vh,80vw);height:min(62vh,80vw)}
-#qrFull h3{font-size:clamp(1.6rem,3.5vw,2.6rem);margin-bottom:22px;background:linear-gradient(180deg,#fff3d6,var(--ember) 50%,var(--fire));-webkit-background-clip:text;background-clip:text;color:transparent}
-#qrFull p{margin-top:20px;color:var(--muted);font-size:clamp(1rem,1.8vw,1.3rem)}
-#qrFull p b{color:var(--text)}
-@media (max-width:860px){.qr-card,.hint3d{display:none}.qr-fab{display:none}}
-
-/* mobile menu */
-.menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:1.2rem;cursor:pointer}
-@media (max-width:760px){
-  .menu-btn{display:grid;place-items:center}
-  nav ul{display:flex;position:fixed;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(11,7,6,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:6px 16px 14px;transform:translateY(-120%);transition:transform .35s;z-index:-1}
-  nav.open ul{transform:none}
-  nav ul a{display:block;padding:14px 4px;font-size:1.05rem;border-bottom:1px solid rgba(255,140,80,.08)}
-}
-@media (max-width:860px){
-  .hero{min-height:100svh;padding:0 0 84px;align-items:flex-end}
-  .hero .wrap>div:first-child{background:linear-gradient(180deg,transparent,rgba(11,7,6,.85) 22%);padding-top:40px;margin-top:52svh}
-  .hero h1{margin:12px 0 4px}
-  .hero p.lead{font-size:.98rem;margin-top:14px}
-  .cta{gap:10px;margin-top:22px}
-  .cta .btn{flex:1 1 auto;justify-content:center;white-space:nowrap;padding:13px 16px;font-size:.92rem}
-  .scroll-hint{display:none}
-}
-@media (max-width:600px){
-  section{padding:72px 0}
-  h2{font-size:2rem}
-  .sub{font-size:.98rem}
-  .stats{gap:10px;margin-top:30px}
-  .stat{padding:18px 16px}
-  .feat{padding:14px}
-  .about .pics img:first-child{grid-row:auto;grid-column:span 2;aspect-ratio:16/10}
-  .journey{position:sticky;top:64px;z-index:5;margin:24px -16px 0;padding:10px 16px;background:rgba(11,7,6,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .phase-chip{padding:8px 12px;font-size:.8rem}
-  .timeline::before{left:11px}
-  .phase-head{padding:28px 0 10px 34px;scroll-margin-top:130px}
-  .phase-head::before{left:3px;top:33px;width:18px;height:18px}
-  .phase-head h3{font-size:1.35rem}
-  .entry{padding-left:34px}
-  .entry .dot{left:0;top:18px}
-  .entry .panel{padding:16px}
-  .meta{gap:4px 12px}
-  .meta .num{width:100%}
-  .who{margin-left:0;padding-left:6px;width:100%;margin-top:4px}
-  .entry .txt{font-size:.94rem}
-  .media{grid-template-columns:repeat(2,1fr);gap:8px}
-  .media img:only-child{grid-column:1/-1;aspect-ratio:16/10}
-  .comps{grid-template-columns:repeat(2,1fr);gap:10px}
-  .comp{padding:10px}
-  .comp h3{font-size:.9rem}.comp p{font-size:.78rem}
-  .doc{padding:16px}
-  .logos{gap:8px}
-  .group-photo img{aspect-ratio:4/3}
-  .finale{padding:90px 0 80px}
-  .finale .pics img{height:auto;width:calc(50% - 7px);object-fit:cover;aspect-ratio:3/4}
-  #lb{padding:10px}
-}
-.phase-head{scroll-margin-top:90px}
-
-/* lightbox */
-#lb{position:fixed;inset:0;z-index:50;background:rgba(5,3,2,.92);backdrop-filter:blur(6px);display:none;place-items:center;padding:24px;cursor:zoom-out}
-#lb.on{display:grid}
-#lb img{max-height:90vh;max-width:min(1400px,100%);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.entry{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<canvas id="scene" aria-hidden="true"></canvas>
-<div class="veil"></div>
 
-<nav id="nav"><div class="wrap">
-  <a class="brand" href="#top"><img src="assets/aeris/6ac13c05.webp" alt="">AERIS</a>
-  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
-  <ul id="menu">
-    <li><a href="#projeto">Projeto</a></li>
-    <li><a href="#equipe">Equipe</a></li>
-    <li><a href="#diario">Diário</a></li>
-    <li><a href="#componentes">Componentes</a></li>
-    <li><a href="#documentacao">Documentação</a></li>
-  </ul>
-</div></nav>
+<nav id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">OZA<b>/</b>AERO</a>
+    <ul>
+      <li><a href="#sobre"><span>01</span> Sobre</a></li>
+      <li><a href="#pesquisa"><span>02</span> Pesquisa</a></li>
+      <li><a href="#portfolio"><span>03</span> Portfólio</a></li>
+      <li><a href="#trajetoria"><span>04</span> Trajetória</a></li>
+      <li><a href="#competencias"><span>05</span> Competências</a></li>
+      <li><a href="#contato"><span>06</span> Contato</a></li>
+    </ul>
+  </div>
+</nav>
 
-<main id="top">
-<!-- HERO -->
-<header class="hero">
+<header class="hero" id="top">
+  <canvas id="flow" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
-      <span class="tag"><i></i>PROJETE 2026 · Turma 11MT · Inscrição 1106</span>
-      <h1>AERIS</h1>
-      <p class="acr"><b>A</b>nálise <b>E</b>letrônica de <b>R</b>iscos e <b>I</b>ndicadores <b>S</b>ocioambientais</p>
-      <p class="lead">Uma estação que lê o ar — temperatura, umidade, vento e solo — para alertar sobre o risco de queimadas. Este é o diário de bordo de como ela nasceu, encontro a encontro.</p>
+      <span class="status"><i></i>Em voo · UNIFEI · 6º período</span>
+      <h1>Otávio<br><em>Zordan</em> Alves</h1>
+      <div class="role">// Engenharia Mecânica Aeronáutica · GNC · Sistemas Embarcados</div>
+      <p class="lead">Trabalho na fronteira entre <b>dinâmica de voo</b>, <b>controle</b> e <b>hardware</b>: identifico e controlo drones com redes neurais e controle robusto, projeto o GNC de foguetes e desço até o RTL para fazer o silício. Do modelo matemático ao firmware que voa.</p>
       <div class="cta">
-        <a class="btn primary" href="#diario">Abrir o diário →</a>
-        <a class="btn ghost" href="#projeto">Conhecer o projeto</a>
+        <a class="btn pri" href="#portfolio">Ver portfólio →</a>
+        <a class="btn sec" href="#pesquisa">Publicações</a>
+        <a class="btn sec" href="#contato">Contato</a>
       </div>
-      <button class="qr-card" type="button" data-qr aria-label="Mostrar QR code em tela cheia">
-        <div class="qr-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div>
-        <div style="text-align:left"><b>Acompanhe no celular</b><span>Aponte a câmera do celular</span></div>
-      </button>
     </div>
-    <div class="spacer"></div>
+    <aside class="idcard">
+      <div class="ph">
+        <img src="assets/otavio.jpg" alt="Foto de Otávio Zordan Alves" width="768" height="765">
+        <div class="reticle"><i></i><i></i><i></i><i></i></div>
+        <div class="tag">ID · OZA-2024007190</div>
+      </div>
+      <div class="telemetry">
+        <div><small>Base</small><span>Itajubá · MG</span></div>
+        <div><small>Curso</small><span>Eng. Aeronáutica</span></div>
+        <div><small>Grupos</small><span>GEMEC · PET</span></div>
+        <div><small>Equipe</small><span>Beyond · GNC</span></div>
+      </div>
+    </aside>
   </div>
-  <div class="scroll-hint">role<span></span></div>
-  <div class="hint3d"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 11V6a1.5 1.5 0 0 1 3 0v4m0-1V4.5a1.5 1.5 0 0 1 3 0V10m0-3.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.6 14a1.5 1.5 0 0 1 2.4-1.8L9 15"/></svg>Arraste para girar · role para zoom</div>
 </header>
 
-<!-- PROJETO -->
-<section id="projeto" class="solidbg">
+<main>
+<section id="sobre">
   <div class="wrap">
+    <div class="sh reveal"><span class="num">01 /</span><h2>Sobre</h2><span class="rule"></span></div>
     <div class="about">
       <div class="reveal">
-        <span class="eyebrow">O projeto</span>
-        <h2>Do latim, <em style="color:var(--ember);font-style:normal">“do ar”</em>.</h2>
-        <p class="sub">Aeris é uma estação de monitoramento das condições ambientais com termo-higrômetro, focada em identificar indicadores de risco de incêndio em áreas propícias. Os dados aparecem num display e, quando o risco sobe, a estação avisa com luz e som — pensando também em pessoas com deficiência visual.</p>
-        <div class="feats">
-          <div class="feat panel"><div class="ic">🌡️</div><div><h3>Temperatura e umidade do ar</h3><p>Sensor DHT22 acompanha as condições do ambiente em tempo real.</p></div></div>
-          <div class="feat panel"><div class="ic">🌬️</div><div><h3>Vento e solo</h3><p>Anemômetro mede a ação do vento; o FC-28 mede a umidade do solo.</p></div></div>
-          <div class="feat panel"><div class="ic">🔥</div><div><h3>Alerta de risco</h3><p>Display 20x4 mostra o status; LED RGB e buzzer sinalizam o perigo.</p></div></div>
-        </div>
+        <p>Sou graduando em <b>Engenharia Mecânica Aeronáutica na Universidade Federal de Itajubá (UNIFEI)</b> e técnico em Telecomunicações pela <b>ETE FMC</b>, a primeira escola técnica de eletrônica da América Latina, onde recebi o <b>Prêmio de Melhor Desempenho Acadêmico</b> da turma de 2024.</p>
+        <p>Pesquiso dinâmica de veículos aéreos não tripulados no <b>PET Engenharia Mecânica</b> e no <b>GEMEC</b> (Grupo de Estudos em Mecânica Experimental e Computacional), com artigos apresentados no COBEM 2025 e no CONEM 2026. Na equipe de foguetemodelismo <b>Beyond Rocket Design</b> sou responsável pelo subsistema de Navegação, Guiamento e Controle.</p>
+        <p>Fui selecionado como <b>Residente de Pesquisa em Graduação no CI Expert</b> (MCTI · Softex · UNIFEI), em microeletrônica, com foco em síntese RTL. Também atuei em engenharia de sistemas de um projeto de defesa para a <b>Marinha do Brasil</b>.</p>
       </div>
-      <div class="pics reveal">
-        <img src="assets/aeris/6ac1489f.webp" alt="Aeris instalado na maquete com floresta e cachoeira" data-lb>
-        <img src="assets/aeris/6abdb449.webp" alt="Caixa vermelha do Aeris com display e anemômetro" data-lb>
-        <img src="assets/aeris/6abdb456.webp" alt="Lateral do Aeris com logo e sensor DHT22" data-lb>
+      <div class="panel focus reveal">
+        <h3>Vetor de interesse</h3>
+        <ul>
+          <li>Dinâmica de voo, modelagem e simulação</li>
+          <li>Controle robusto, clássico e de formação</li>
+          <li>Estimação de estados e filtragem de Kalman</li>
+          <li>Identificação de sistemas com redes neurais</li>
+          <li>GNC de foguetes e determinação de atitude</li>
+          <li>Software embarcado, FPGA e RTL</li>
+          <li>Engenharia de sistemas e certificação (DO-254, MIL-STD)</li>
+        </ul>
       </div>
     </div>
-    <div class="stats">
-      <div class="stat panel reveal"><div class="n" data-count="25">0</div><div class="l">encontros registrados</div></div>
-      <div class="stat panel reveal"><div class="n" data-count="5">0</div><div class="l">integrantes</div></div>
-      <div class="stat panel reveal"><div class="n" data-count="11">0</div><div class="l">componentes eletrônicos</div></div>
-      <div class="stat panel reveal"><div class="n" data-count="3">0</div><div class="l">mudanças de rota</div></div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n" data-count="8.4" data-dec="1">0</div><div class="l">Média ponderada /10</div></div>
+      <div class="stat"><div class="n"><span data-count="2">0</span><sup>ABCM</sup></div><div class="l">Artigos em congresso</div></div>
+      <div class="stat"><div class="n"><span data-count="10">0</span><sup>+</sup></div><div class="l">Prêmios e distinções</div></div>
+      <div class="stat"><div class="n"><span data-count="35">0</span><sup>+</sup></div><div class="l">Alunos instruídos</div></div>
     </div>
   </div>
 </section>
 
-<!-- EQUIPE -->
-<section id="equipe">
+<section id="pesquisa">
   <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Equipe</span>
-      <h2>Quem acendeu essa ideia</h2>
-      <p class="sub">No 8º encontro o grupo se dividiu em pilares, de acordo com a facilidade e disponibilidade de cada integrante.</p>
-    </div>
-    <div class="team" id="team"></div>
-    <div class="group-photo reveal"><img src="assets/aeris/6abc64d4.webp" alt="Foto do grupo" data-lb></div>
-  </div>
-</section>
-
-<!-- DIÁRIO -->
-<section id="diario" class="solidbg">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Diário de bordo</span>
-      <h2>25 encontros, de julho a outubro</h2>
-      <p class="sub">Cada reunião registrada pelo grupo — com as ideias que ficaram, as que foram abandonadas e as fotos do caminho. Os pontos acesos marcam as grandes viradas.</p>
-    </div>
-    <div class="journey" id="journey"></div>
-    <div class="timeline" id="timeline"></div>
-  </div>
-</section>
-
-<!-- COMPONENTES -->
-<section id="componentes">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Hardware</span>
-      <h2>Lista de componentes</h2>
-      <p class="sub">Tudo o que vive dentro (e em cima) da caixa vermelha.</p>
-    </div>
-    <div class="comps" id="comps"></div>
-  </div>
-</section>
-
-<!-- DOCUMENTAÇÃO -->
-<section id="documentacao" class="solidbg">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Documentação técnica</span>
-      <h2>Por dentro do Aeris</h2>
-    </div>
-    <div class="docs">
-      <div class="doc panel reveal">
-        <h3>Simulação e circuito</h3>
-        <p>Circuito funcional desenvolvido no Tinkercad, com as conexões do Arduino aos componentes. É uma imagem ilustrativa do funcionamento — não literalmente a montagem real.</p>
-        <div class="links"><a class="chip" target="_blank" rel="noopener" href="https://www.tinkercad.com/things/dpGDYUjAGbI-brave-bombul-waasa/editel?sharecode=o8FzG_tOkam1uED563NkHxoQ_e35kdU20z5_wm9omK8">⚡ Abrir no Tinkercad</a></div>
-        <div class="media"><img src="assets/aeris/6a961c3d.webp" alt="Circuito no Tinkercad" data-lb style="aspect-ratio:auto;grid-column:1/-1"></div>
-      </div>
-      <div class="doc panel reveal">
-        <h3>Programação</h3>
-        <p>Código do Arduino que gerencia e controla os sensores e componentes — primeiro testados um a um, depois integrados no código oficial.</p>
-        <div class="links">
-          <a class="chip" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1S2yq6Y2IJW8RGLBn6oasYj6WGL9RfqxO/edit?usp=sharing">🧪 Códigos de teste por componente</a>
-          <a class="chip" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1wYUksdbSHMlhLv9m87rbFhX0rScCqPFFLVwsUbVVig4/edit?usp=sharing">💾 Código oficial do Aeris</a>
+    <div class="sh reveal"><span class="num">02 /</span><h2>Pesquisa &amp; Publicações</h2><span class="rule"></span></div>
+    <p class="sub reveal">Pesquisador discente no PET Engenharia Mecânica e membro de graduação do GEMEC/UNIFEI, orientado em dinâmica e controle de VANTs. Linhas: identificação de sistemas, redes neurais, dinâmica de voo de drones, controle de formação de nanodrones e controle robusto.</p>
+    <div class="pubs">
+      <article class="panel pub reveal">
+        <div class="venue">CONEM 2026<small>ABCM · ago 2026</small></div>
+        <div>
+          <h3>Formation Control of Nanodrones Using Robust Controller</h3>
+          <p><b>O. Zordan Alves</b>, J. I. Urzúa Ciolina, A. Ramos, O. A. Olanrewaju, Y. Diaz · XIII Congresso Nacional de Engenharia Mecânica. Apresentado pelo autor.</p>
         </div>
-        <div class="media"><img src="assets/aeris/6ac13d32.webp" alt="Testes na protoboard" data-lb style="aspect-ratio:16/9;grid-column:1/-1"></div>
-      </div>
-      <div class="doc panel reveal">
-        <h3>Protótipo sujo</h3>
-        <p>Os primeiros rabiscos: aparência, organização e estrutura da estação.</p>
-        <div class="media">
-          <img src="assets/aeris/6abc5d2b.webp" alt="Protótipo sujo 1" data-lb>
-          <img src="assets/aeris/6abc5d39.webp" alt="Protótipo sujo 2" data-lb>
-          <img src="assets/aeris/6abc5d59.webp" alt="Protótipo sujo 3" data-lb>
+        <a class="doi" href="https://doi.org/10.26678/abcm.conem2026.con26-0895" target="_blank" rel="noopener">DOI ↗</a>
+      </article>
+      <article class="panel pub reveal">
+        <div class="venue">COBEM 2025<small>ABCM · nov 2025</small></div>
+        <div>
+          <h3>Quadrotor Dynamics Identification Using Neural Networks</h3>
+          <p><b>O. Zordan Alves</b>, G. de Paula Pinheiro, Y. Diaz · 28th International Congress of Mechanical Engineering. Apresentado pelo autor.</p>
         </div>
+        <a class="doi" href="https://doi.org/10.26678/abcm.cobem2025.cob2025-1161" target="_blank" rel="noopener">DOI ↗</a>
+      </article>
+    </div>
+    <div class="links-row reveal">
+      <a class="chip" href="http://lattes.cnpq.br/9155564516628230" target="_blank" rel="noopener">Currículo Lattes ↗</a>
+      <a class="chip" href="https://www.researchgate.net/profile/Otavio-Alves-4" target="_blank" rel="noopener">ResearchGate ↗</a>
+      <a class="chip" href="https://gemec.unifei.edu.br/membro/otavio-zordan-alves/" target="_blank" rel="noopener">Perfil GEMEC ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="wrap">
+    <div class="sh reveal"><span class="num">03 /</span><h2>Portfólio</h2><span class="rule"></span></div>
+    <p class="sub reveal">Projetos de voo, controle, hardware e software, da sonda estratosférica ao processador em silício.</p>
+    <div class="filters reveal" role="tablist">
+      <button class="on" data-f="all">Todos</button>
+      <button data-f="voo">Voo &amp; Controle</button>
+      <button data-f="espaco">Espaço</button>
+      <button data-f="hw">Hardware</button>
+      <button data-f="sw">Software</button>
+    </div>
+    <div class="grid" id="grid">
+
+      <article class="panel card reveal" data-c="voo">
+        <div class="viz"><span class="code">PRJ-01</span><span class="yr">2025–26</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M20 120H280M20 30H280"/></g>
+            <path class="a" d="M150 40l22 30h-44z" stroke-dasharray="3 3"/>
+            <g><circle class="fa" cx="150" cy="40" r="5"/><circle class="fc" cx="128" cy="70" r="5"/><circle class="fc" cx="172" cy="70" r="5"/><circle class="fc" cx="106" cy="100" r="5"/><circle class="fc" cx="194" cy="100" r="5"/></g>
+            <path class="s" d="M128 70L106 100M172 70L194 100" stroke-dasharray="3 3"/><text x="20" y="144">FORMATION · H∞</text></svg></div>
+        <div class="body"><h3>Controle de formação de nanodrones</h3><div class="org">PET Mecânica · GEMEC · UNIFEI</div>
+          <p>Controle de formação de enxame de nanodrones com controladores robustos, além de posicionamento e rastreamento de trajetória combinando controle clássico e filtragem de Kalman.</p>
+          <div class="tags"><span>Controle robusto</span><span>Kalman</span><span>MATLAB/Simulink</span></div>
+          <div class="lnk"><a href="https://doi.org/10.26678/abcm.conem2026.con26-0895" target="_blank" rel="noopener">Artigo CONEM 2026 ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="voo">
+        <div class="viz"><span class="code">PRJ-02</span><span class="yr">2025</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M20 120H280"/></g>
+            <path class="s" d="M20 90 C50 40,70 40,90 80 S130 120,150 70 S200 30,220 75 S260 110,280 60"/>
+            <path class="a" d="M20 93 C50 45,72 44,90 83 S128 118,150 74 S198 34,220 78 S262 106,280 64" stroke-dasharray="4 3"/>
+            <text x="20" y="144">MEDIDO — · RNA - -</text></svg></div>
+        <div class="body"><h3>Identificação da dinâmica de quadrirrotores</h3><div class="org">PET Mecânica · GEMEC · UNIFEI</div>
+          <p>Caracterização da dinâmica de voo de um quadrirrotor por redes neurais, unindo modelagem matemática, simulação e análise de dados de voo.</p>
+          <div class="tags"><span>System ID</span><span>Redes neurais</span><span>Python</span></div>
+          <div class="lnk"><a href="https://doi.org/10.26678/abcm.cobem2025.cob2025-1161" target="_blank" rel="noopener">Artigo COBEM 2025 ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="voo espaco">
+        <div class="viz"><span class="code">PRJ-03</span><span class="yr">2024–hoje</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M20 130H280"/></g>
+            <path class="s" d="M60 130 Q120 10 240 60" stroke-dasharray="2 4"/>
+            <g transform="translate(150 45) rotate(28)"><path class="a" d="M-6 14V-10L0-20 6-10V14zM-6 14l-6 8h24l-6-8"/></g>
+            <text x="20" y="144">APOGEU · ATITUDE · GNC</text></svg></div>
+        <div class="body"><h3>GNC de foguete — Beyond Rocket Design</h3><div class="org">Equipe de foguetemodelismo · UNIFEI</div>
+          <p>Responsável pelo subsistema de Navegação, Guiamento e Controle: fusão de sensores, estimação de estados, determinação de atitude e projeto de controle. Antes, Diretor de Telecomunicações (telemetria e enlace com a estação de solo).</p>
+          <div class="tags"><span>Sensor fusion</span><span>Atitude</span><span>Telemetria</span><span>RF</span></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="espaco hw">
+        <div class="viz"><span class="code">PRJ-04</span><span class="yr">2023</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M20 130H280"/></g>
+            <ellipse class="s" cx="150" cy="40" rx="22" ry="28"/><path class="s" d="M150 68V96"/>
+            <rect class="a" x="138" y="96" width="24" height="24"/><path class="g" d="M138 108h24M150 96v24"/>
+            <text x="20" y="144">BALÃO ESTRATOSFÉRICO · γ</text></svg></div>
+        <div class="body"><h3>SolarEyes — CubeSat estratosférico</h3><div class="org">OBSAT-MCTI · ETE FMC</div>
+          <p>Sonda CubeSat com carga útil que detecta radiação gama usando fotodiodos PIN de baixo custo. Integração de OBC, EPS e telecom; validada em voo de balão estratosférico, elevando o TRL do sensor.</p>
+          <div class="award">★ Campeão regional — Olimpíada Brasileira de Satélites 2023</div>
+          <div class="tags"><span>OBC</span><span>EPS</span><span>Telecom</span><span>Payload</span></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="voo sw">
+        <div class="viz"><span class="code">PRJ-05</span><span class="yr">2026</span>
+          <svg viewBox="0 0 300 150"><g class="g"><circle cx="150" cy="75" r="55"/><circle cx="150" cy="75" r="30"/><path d="M150 15v120M90 75h120"/></g>
+            <path class="a" d="M150 75L196 44"/><g class="fc"><circle cx="190" cy="46" r="3"/><circle cx="200" cy="56" r="3"/><circle cx="182" cy="38" r="3"/><circle cx="205" cy="42" r="3"/></g>
+            <path class="s" d="M110 110 Q140 80 186 48" stroke-dasharray="3 3"/><text x="20" y="144">RADAR · ALOCAÇÃO</text></svg></div>
+        <div class="body"><h3>Interceptação de enxames</h3><div class="org">Estudo · Python</div>
+          <p>Simulador para alocação de interceptadores contra enxames de aeronaves evasivas sob informação de radar: 29 métodos de alocação, 60 cenários com terreno real (Copernicus GLO-30) e geração automática das tabelas do artigo.</p>
+          <div class="tags"><span>Simulação</span><span>Otimização</span><span>Defesa</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/estudo-interceptador" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="hw">
+        <div class="viz"><span class="code">PRJ-06</span><span class="yr">2026</span>
+          <svg viewBox="0 0 300 150"><rect class="a" x="110" y="35" width="80" height="80"/><rect class="g" x="128" y="53" width="44" height="44"/>
+            <g class="s"><path d="M120 35v-12M135 35v-12M150 35v-12M165 35v-12M180 35v-12M120 115v12M135 115v12M150 115v12M165 115v12M180 115v12M110 50h-12M110 65h-12M110 80h-12M110 95h-12M190 50h12M190 65h12M190 80h12M190 95h12"/></g>
+            <text x="20" y="144">RTL → GDSII</text></svg></div>
+        <div class="body"><h3>Processador multiciclo — CI Expert</h3><div class="org">Residência em Microeletrônica · MCTI/Softex</div>
+          <p>Projeto final da residência: processador multiciclo parametrizado de 3 estágios, do RTL ao sign-off. Responsável pela trilha de RTL Design em Verilog; certificado em Síntese RTL (Purple Certification).</p>
+          <div class="tags"><span>Verilog</span><span>RTL</span><span>Síntese</span><span>FPGA</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/ci-expert" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="sw">
+        <div class="viz"><span class="code">PRJ-07</span><span class="yr">2024</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M20 75H280"/></g>
+            <path class="a" d="M40 75 C60 48,110 42,170 52 S250 70,265 75 C230 80,170 88,110 90 S55 86,40 75Z"/>
+            <path class="s" d="M40 75 C90 64,180 64,265 75" stroke-dasharray="3 3"/><text x="20" y="144">NACA 2412</text></svg></div>
+        <div class="body"><h3>NACA Airfoil Plotter</h3><div class="org">CS50 · Harvard · Flask</div>
+          <p>Aplicação web que gera aerofólios NACA de 4 dígitos com superfícies, linha média, distribuição de espessura, distribuição de pressão e polares de sustentação e arrasto.</p>
+          <div class="tags"><span>Aerodinâmica</span><span>Flask</span><span>Matplotlib</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/NACA-Airfoil-Plotter" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://youtu.be/ZzYQg_iRxVs" target="_blank" rel="noopener">Vídeo ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="sw">
+        <div class="viz"><span class="code">PRJ-08</span><span class="yr">2026</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M40 120H260"/></g>
+            <g class="s"><path d="M60 120V95M90 120V80M120 120V70M150 120V58M180 120V50M210 120V40M240 120V30"/></g>
+            <path class="a" d="M60 92 L240 26"/><circle class="fa" cx="240" cy="26" r="4"/><text x="20" y="144">ALTÍMETRO · LATTES</text></svg></div>
+        <div class="body"><h3>Altímetro</h3><div class="org">Software livre · GPL-3.0</div>
+          <p>Ferramenta multiplataforma que levanta métricas de grupos de pesquisa a partir do Currículo Lattes (produção, orientações, projetos, bancas e colaboração) para relatórios, editais e avaliações CAPES.</p>
+          <div class="tags"><span>Python</span><span>Dados</span><span>Desktop</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/altimetro-lattes" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="hw sw">
+        <div class="viz"><span class="code">PRJ-09</span><span class="yr">2022–23</span>
+          <svg viewBox="0 0 300 150"><path class="a" d="M100 40h100l-10 70h-80z"/><path class="s" d="M150 40V20M120 110l-20 20M180 110l20 20"/>
+            <circle class="g" cx="150" cy="75" r="18"/><circle class="fc" cx="150" cy="75" r="4"/><text x="20" y="144">AR · IoT · LAB</text></svg></div>
+        <div class="body"><h3>ARduck — Realidade aumentada para eletrônica</h3><div class="org">PROJETE · ETE FMC</div>
+          <p>Ecossistema de ensino com realidade aumentada, instrumentação de laboratório conectada e vinculada a cada usuário, app móvel e painel web para professores, com microsserviços próprios. Embarcados, backend, integrações e DevOps.</p>
+          <div class="award">★ Campeão Utilidade e Melhor apresentação em inglês (2022) · Melhor projeto de Telecom (2023)</div>
+          <div class="tags"><span>Flask</span><span>Docker</span><span>IoT</span><span>AR</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/ARduck" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="hw sw">
+        <div class="viz"><span class="code">PRJ-10</span><span class="yr">2023</span>
+          <svg viewBox="0 0 300 150"><path class="s" d="M30 75H270"/>
+            <g class="a"><rect x="40" y="55" width="40" height="40"/><rect x="130" y="55" width="40" height="40"/><rect x="220" y="55" width="40" height="40"/></g>
+            <path class="g" d="M60 55V35h180v20"/><text x="20" y="144">RS-485 · 5 BYTES</text></svg></div>
+        <div class="body"><h3>Duck Protocol — rede industrial RS-485</h3><div class="org">CEDEN · ETE FMC</div>
+          <p>Sistema completo de monitoramento e controle de equipamentos industriais: protocolo serial didático, firmware, driver e dashboard desktop. Adotado no curso de Controle e Automação Industrial da ETE FMC.</p>
+          <div class="tags"><span>Firmware</span><span>RS-485</span><span>C#</span><span>Python</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/Duck-Protocol" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="hw">
+        <div class="viz"><span class="code">PRJ-11</span><span class="yr">2021</span>
+          <svg viewBox="0 0 300 150"><g class="g"><path d="M20 120H280"/></g>
+            <path class="a" d="M70 70h30v20H70z"/><path class="s" d="M100 72L260 50M100 88L260 105" stroke-dasharray="4 4"/>
+            <path class="s" d="M100 80L260 70"/><text x="20" y="144">PITCH COMP · LDR</text></svg></div>
+        <div class="body"><h3>Ajuste dinâmico de faróis automotivos</h3><div class="org">PROJETE 2021 · ETE FMC</div>
+          <p>Sistema embarcado que corrige automaticamente o facho dos faróis do veículo. Líder da equipe e programador do firmware.</p>
+          <div class="award">★ Campeão Automação · Prêmio Municipal de Inovação</div>
+          <div class="tags"><span>C++</span><span>Embarcados</span><span>Sensores</span></div>
+          <div class="lnk"><a href="https://github.com/otaviozordan/ProjETE-2021-1106" target="_blank" rel="noopener">GitHub ↗</a></div></div>
+      </article>
+
+      <article class="panel card reveal" data-c="sw">
+        <div class="viz"><span class="code">PRJ-12</span><span class="yr">2025</span>
+          <svg viewBox="0 0 300 150"><g class="s"><path d="M40 40h220v80H40z"/><path d="M40 58h220"/></g>
+            <text x="52" y="52" style="fill:var(--amber)">&gt;&gt;&gt; import numpy as np</text>
+            <text x="52" y="78">sol = solve_ivp(f, t, x0)</text><text x="52" y="94">sp.symbols('x y')</text><text x="20" y="144">16 h · 35+ ALUNOS</text></svg></div>
+        <div class="body"><h3>Curso de Python para engenharia</h3><div class="org">Extensão · PET Mecânica · UNIFEI</div>
+          <p>Curso de 16 horas criado e ministrado para alunos de Engenharia Aeronáutica e Mecânica: NumPy, Pandas, SciPy e SymPy aplicados a simulação e análise de dados.</p>
+          <div class="tags"><span>Ensino</span><span>SciPy</span><span>SymPy</span></div></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="trajetoria">
+  <div class="wrap">
+    <div class="sh reveal"><span class="num">04 /</span><h2>Plano de voo</h2><span class="rule"></span></div>
+    <p class="sub reveal">Formação, pesquisa e experiência profissional.</p>
+    <div class="tl">
+      <div class="ev reveal"><div class="when">mar 2026 — mar 2027</div><h3>Residente de Pesquisa em Graduação · CI Expert</h3><div class="at">MCTI · Softex · UNIFEI</div>
+        <ul><li>Residência em microeletrônica com foco em síntese RTL e linguagens de descrição de hardware.</li><li>Certificado na trilha de Síntese RTL da Purple Certification Brazil.</li></ul></div>
+      <div class="ev reveal"><div class="when">2026 — hoje</div><h3>Responsável pelo GNC · Beyond Rocket Design</h3><div class="at">Equipe de foguetemodelismo · UNIFEI</div>
+        <ul><li>Navegação, guiamento e controle: fusão de sensores, estimação de estados, atitude e controle.</li><li>2025: Diretor de Telecomunicações. 2024: membro de P&amp;D.</li></ul></div>
+      <div class="ev reveal"><div class="when">jan 2026</div><h3>Estagiário · Engenharia de Sistemas</h3><div class="at">Modirum | Gespi</div>
+        <ul><li>Projeto estratégico de defesa para a Marinha do Brasil, em produto eletrônico embarcado com requisitos de qualificação militar.</li><li>Cadernos de teste e protocolos de ensaio para verificação.</li><li>Estudos de certificação: MIL-STD-810, MIL-STD-901, RS101 e DO-254.</li><li>Ferramenta em Python com GUI para inteligência de mercado sobre aquisições de Forças Armadas.</li></ul></div>
+      <div class="ev reveal"><div class="when">jun 2025 — hoje</div><h3>Pesquisador Discente · PET Engenharia Mecânica</h3><div class="at">UNIFEI · GEMEC</div>
+        <ul><li>Controle de formação de nanodrones (CONEM 2026) e identificação de quadrirrotores com redes neurais (COBEM 2025).</li><li>Instrutor do curso de extensão em Python para engenharia (out–dez 2025).</li></ul></div>
+      <div class="ev reveal"><div class="when">jan 2024 — dez 2028</div><h3>Bacharelado em Engenharia Mecânica Aeronáutica</h3><div class="at">Universidade Federal de Itajubá</div>
+        <ul><li>Média ponderada 8,4/10 em 48 disciplinas, sem reprovações.</li></ul></div>
+      <div class="ev reveal"><div class="when">2021 — 2024</div><h3>Estágios em desenvolvimento</h3><div class="at">ChamaInbox Brasil · CEDEN ETE FMC</div>
+        <ul><li>Backend em Python: APIs, otimização e integração com bancos de dados.</li><li>Sistema RS-485 completo (firmware, driver e app desktop) adotado na formação técnica da ETE FMC.</li></ul></div>
+      <div class="ev reveal"><div class="when">2021 — 2024</div><h3>Técnico em Telecomunicações</h3><div class="at">ETE FMC · Santa Rita do Sapucaí</div>
+        <ul><li>Prêmio de Melhor Desempenho Acadêmico, a maior honraria da escola, concedida a um único formando.</li><li>Monitor de laboratório em Algoritmos, Sistemas Digitais, Eletrônica Analógica e Eletricidade (2022).</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="competencias">
+  <div class="wrap">
+    <div class="sh reveal"><span class="num">05 /</span><h2>Competências</h2><span class="rule"></span></div>
+    <div class="skills">
+      <div class="panel sk reveal"><h3>Voo &amp; Controle</h3><ul><li>Dinâmica de voo</li><li>Projeto de controle</li><li>Controle robusto</li><li>Filtro de Kalman</li><li>System ID</li></ul></div>
+      <div class="panel sk reveal"><h3>Programação</h3><ul><li>Python</li><li>C / C++</li><li>MATLAB / Simulink</li><li>Verilog · VHDL</li><li>Git</li></ul></div>
+      <div class="panel sk reveal"><h3>Hardware</h3><ul><li>Sistemas embarcados</li><li>FPGA &amp; RTL</li><li>Eletrônica analógica/digital</li><li>PCI (Eagle)</li><li>Telecom &amp; RF</li></ul></div>
+      <div class="panel sk reveal"><h3>Engenharia</h3><ul><li>Engenharia de sistemas</li><li>Elementos finitos</li><li>SolidWorks</li><li>DO-254 · MIL-STD</li><li>Backend &amp; DevOps</li></ul></div>
+    </div>
+    <div class="two">
+      <div class="panel list reveal"><h3>Certificações selecionadas</h3>
+        <div class="row"><div><b>Kalman Filter Boot Camp</b><small>University of Colorado Boulder</small></div><span class="d">2026</span></div>
+        <div class="row"><div><b>Intro to FPGA Design for Embedded Systems</b><small>University of Colorado Boulder</small></div><span class="d">2025</span></div>
+        <div class="row"><div><b>Systems Engineering</b><small>MathWorks</small></div><span class="d">2025</span></div>
+        <div class="row"><div><b>Flight Mechanics: Theory to Certification</b><small>FAA Part 25 · Simulink</small></div><span class="d">2025</span></div>
+        <div class="row"><div><b>Controle Usando Resposta em Frequência</b><small>ITA</small></div><span class="d">2025</span></div>
+        <div class="row"><div><b>Flight Mechanics: Propulsive Balance &amp; Energy</b><small>ISAE-SUPAERO</small></div><span class="d">2025</span></div>
+        <div class="row"><div><b>Introdução à Geopolítica Aeroespacial</b><small>Agência Espacial Brasileira</small></div><span class="d">2025</span></div>
+        <div class="row"><div><b>CS50 Introduction to Computer Science</b><small>Harvard University</small></div><span class="d">2024</span></div>
       </div>
-      <div class="doc panel reveal">
-        <h3>Diagrama em blocos</h3>
-        <p>As principais ligações, entradas e saídas de dados do sistema.</p>
-        <div class="media"><img src="assets/aeris/6ac13fbc.webp" alt="Diagrama em blocos" data-lb style="aspect-ratio:16/9;grid-column:1/-1"></div>
-      </div>
-      <div class="doc panel wide reveal">
-        <h3>Identidade do Aeris</h3>
-        <p>As logos foram desenhadas à mão, em referência a <em>Avatar: A Lenda de Aang</em> — o elemento fogo carrega a ambiguidade do projeto: é o que o Aeris vigia e o que dá nome à sua energia.</p>
-        <div class="logos">
-          <img src="assets/aeris/6ac13c05.webp" alt="Logo circular do Aeris" data-lb>
-          <img src="assets/aeris/6ac13c27.webp" alt="Logo 1106 Aeris" data-lb>
-          <img src="assets/aeris/6ac13c39.webp" alt="Logo Aeris em chamas" data-lb>
-        </div>
+      <div class="panel list reveal"><h3>Prêmios</h3>
+        <div class="row"><div><b><span class="trophy">★</span> Melhor Desempenho Acadêmico — Turma 2024</b><small>ETE FMC · maior honraria da escola</small></div><span class="d">2024</span></div>
+        <div class="row"><div><b><span class="trophy">★</span> Campeão Regional — OBSAT-MCTI</b><small>Sonda CubeSat SolarEyes</small></div><span class="d">2023</span></div>
+        <div class="row"><div><b><span class="trophy">★</span> Melhor projeto de Telecomunicações</b><small>PROJETE 2023 · ARduck</small></div><span class="d">2023</span></div>
+        <div class="row"><div><b><span class="trophy">★</span> Campeão Utilidade + Melhor apresentação em inglês</b><small>PROJETE 2022 · ARduck</small></div><span class="d">2022</span></div>
+        <div class="row"><div><b><span class="trophy">★</span> Destaque Custom Brasil · Reconhecimento CP2</b><small>PROJETE 2022</small></div><span class="d">2022</span></div>
+        <div class="row"><div><b><span class="trophy">★</span> Prêmio Municipal de Inovação</b><small>Prefeitura de Santa Rita do Sapucaí</small></div><span class="d">2021</span></div>
+        <div class="row"><div><b><span class="trophy">★</span> Campeão Automação</b><small>PROJETE 2021 · Faróis dinâmicos</small></div><span class="d">2021</span></div>
+        <div class="row"><div><b>Idiomas</b><small>Português nativo · Inglês B1 · Francês B1</small></div><span class="d">—</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FINALE -->
-<section class="finale">
-  <div class="wrap reveal">
-    <span class="eyebrow">Fim de um ciclo</span>
-    <blockquote>“Encerramos um ciclo duradouro de cooperatividade e, principalmente, de <em>amizade verdadeira</em>. Obrigada, ETE FMC — foi uma experiência inesquecível!”</blockquote>
-    <div class="pics">
-      <img src="assets/aeris/6ac6fc3e.webp" alt="Grupo no dia da exposição" data-lb style="--r2:-3deg">
-      <img src="assets/aeris/6ac6fc63.webp" alt="Grupo com gato no dia da exposição" data-lb style="--r2:2deg">
+<section id="contato">
+  <div class="wrap">
+    <div class="sh reveal"><span class="num">06 /</span><h2>Contato</h2><span class="rule"></span></div>
+    <div class="panel contact reveal">
+      <div>
+        <h2>Vamos construir algo que <span style="color:var(--amber)">voa</span>.</h2>
+        <p class="sub">Aberto a estágios, pesquisa e projetos em dinâmica de voo, GNC, sistemas embarcados e engenharia aeroespacial.</p>
+      </div>
+      <div class="clinks">
+        <a href="mailto:otaviozordan@gmail.com">otaviozordan@gmail.com <span>E-mail</span></a>
+        <a href="https://www.linkedin.com/in/otavio-zordan" target="_blank" rel="noopener">in/otavio-zordan <span>LinkedIn</span></a>
+        <a href="https://github.com/otaviozordan" target="_blank" rel="noopener">github.com/otaviozordan <span>GitHub</span></a>
+        <a href="http://lattes.cnpq.br/9155564516628230" target="_blank" rel="noopener">9155564516628230 <span>Lattes</span></a>
+      </div>
     </div>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap">
-  <span>Aeris · MT1106 · PROJETE 2026 · ETE FMC</span>
-  <a href="https://trello.com/b/DE513Oqv/mt1106" target="_blank" rel="noopener">Quadro original no Trello ↗</a>
-</div></footer>
-
-<div id="lb"><img alt=""></div>
-<button class="qr-fab" id="qrFab" type="button" data-qr aria-label="Mostrar QR code"><div class="qr-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div></button>
-<div id="qrFull" role="dialog" aria-label="QR code do site"><div>
-  <h3>Aeris · Diário de Bordo</h3>
-  <div class="qr-box" style="display:inline-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#0b0706" d="M0 0.5h7m2 0h1m1 0h1m2 0h3m1 0h2m2 0h1m1 0h1m1 0h7m-33 1h1m5 0h1m2 0h5m1 0h1m3 0h3m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h3m4 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h2m1 0h1m5 0h2m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h2m4 0h2m1 0h1m3 0h1m-22 1h2m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m10 0h2m-31 1h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h4m1 0h1m1 0h4m1 0h1m1 0h5m-31 1h1m2 0h1m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h2m1 0h3m1 0h4m-32 1h4m2 0h5m1 0h1m3 0h1m3 0h4m1 0h3m1 0h3m-33 1h1m1 0h1m3 0h4m1 0h1m2 0h1m2 0h2m1 0h2m4 0h2m1 0h1m-30 1h1m3 0h2m4 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h2m-31 1h3m1 0h4m1 0h3m1 0h2m2 0h3m5 0h1m1 0h1m-28 1h1m2 0h1m3 0h1m4 0h1m1 0h3m2 0h1m2 0h1m6 0h2m-32 1h2m4 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m4 0h5m1 0h1m-28 1h1m2 0h6m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m2 0h1m-33 1h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m-26 1h7m3 0h2m3 0h3m2 0h4m1 0h1m-33 1h2m2 0h4m1 0h2m4 0h1m4 0h1m3 0h2m3 0h1m-30 1h2m1 0h2m3 0h1m2 0h2m1 0h1m2 0h2m1 0h2m2 0h1m2 0h4m-31 1h1m5 0h1m1 0h2m1 0h2m5 0h4m1 0h1m2 0h1m2 0h4m-33 1h1m6 0h2m2 0h1m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m-33 1h3m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m6 0h6m1 0h2m-25 1h1m2 0h1m6 0h3m1 0h1m1 0h1m3 0h1m1 0h2m-32 1h7m1 0h1m6 0h1m5 0h4m1 0h1m1 0h3m-31 1h1m5 0h1m2 0h3m6 0h1m1 0h1m2 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h1m1 0h7m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h8m1 0h2m1 0h2m3 0h1m1 0h1m3 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m3 0h2m1 0h2m-33 1h1m5 0h1m4 0h1m4 0h3m1 0h3m2 0h1m3 0h4m-33 1h7m5 0h3m1 0h2m2 0h1m1 0h3m3 0h1"/></svg></div>
-  <p>Aponte a câmera do celular</p>
-</div></div>
+<footer><div class="wrap"><span>© <span id="yr">2026</span> Otávio Zordan Alves</span><span>Itajubá · MG · 22°25′S 45°27′W</span></div></footer>
 
 <script>
-const A = id => `assets/aeris/${id}.webp`;
-const V = id => `assets/aeris/${id}.mp4`;
-
-const TEAM = [
-  {n:"Izabella Sales Costa", s:"IS", c:"#ff5a1f", r:"Maquete e estrutura mecânica"},
-  {n:"Jade Brandão Rangel", s:"JB", c:"#e8891c", r:"Maquete e estrutura mecânica"},
-  {n:"Maria Laura Silvério Inácio", s:"ML", c:"#c2261b", r:"Programação e análise de códigos"},
-  {n:"Nicoly de Lima Barros Amaral", s:"NA", c:"#d9472b", r:"Montagem e soldagem do circuito"},
-  {n:"Olavo Zordan Alves", s:"OZ", c:"#a8321e", r:"Programação e análise de códigos"},
-];
-const ALL = [0,1,2,3,4];
-
-const PHASES = [
-  {k:"Fase 1", t:"A largada", d:"Grupo formado e a primeira ideia — uma estação meteorológica portátil — colocada em xeque.", from:1},
-  {k:"Fase 2", t:"O desvio: Aegis", d:"Uma central de segurança a laser ganha nome, componentes e simulação… até o grupo perceber que já existia no mercado.", from:3},
-  {k:"Fase 3", t:"De volta ao ar", d:"Retorno à estação de monitoramento, divisão de tarefas e o nascimento do nome Aeris.", from:7},
-  {k:"Fase 4", t:"Testes e correções", d:"Programação componente a componente, circuito completo e a caça aos maus contatos.", from:12},
-  {k:"Fase 5", t:"Montagem final", d:"Maquete, caixa pintada, soldagem, foco em queimadas e a banca.", from:18},
-  {k:"Fase 6", t:"Exposição", d:"Bancada montada e um ciclo encerrado.", from:25},
-];
-
-const E = [
- {n:1,d:"10/07/2026",who:ALL,txt:["Formação oficial do grupo: turma <b>11MT</b>, número de inscrição <b>1106</b>."],img:["6aba7110"]},
- {n:2,d:"03/08/2026",h:"13h30 – 14h00",who:ALL,pivot:"Mudança",txt:["Percebemos que nosso projeto anterior, a <b>Estação meteorológica portátil</b>, não seria viável. Discutimos a mudança e a inovação de um novo protótipo, sempre visando inovação e praticidade, e decidimos reunir as melhores ideias para um encontro posterior."]},
- {n:3,d:"07/08/2026",h:"14h10 – 15h00",who:ALL,txt:["Discutimos o nome do projeto e os componentes. O protótipo de central de monitoramento de segurança a laser precisaria de:"],list:[["Arduino Uno","processamento do sistema"],["Botão","início e encerramento do alarme"],["Buzzer","alerta sonoro"],["Fonte de 5V","alimentação do circuito"],["Jumpers","ligações entre componentes"],["Laser de 5V","detecção de movimento"],["LDR","detecção de presença luminosa"]],after:"O nome escolhido foi <b>“Aegis”</b>, relacionado à ideia de proteção e luminosidade."},
- {n:4,d:"12/08/2026",h:"11h00 – 11h30",who:ALL,txt:["Relembramos e esclarecemos pontos do protótipo, pensando em como colocá-lo em prática. Faltava apenas a aprovação e a orientação do professor para começar a montagem física da Central de Segurança a Laser — como ele estava ausente, enviamos nossas ideias por e-mail."]},
- {n:5,d:"14/08/2026",h:"14h10 – 15h00",who:ALL,txt:["Começamos a montagem no <b>Tinkercad</b>, simulando o circuito e os componentes. Alguns componentes não existiam na plataforma, então adaptamos a Central de Segurança a Laser à simulação."]},
- {n:6,d:"19/08/2026",h:"11h00 – 11h30",who:ALL,txt:["Elaboramos a parte estética e técnica: primeiro desenhamos o <b>protótipo sujo</b> (aparência, organização e estrutura), depois discutimos o <b>diagrama em blocos</b>, definindo ligações, entradas e saídas de dados."]},
- {n:7,d:"21/08/2026",h:"14h10 – 15h00",who:ALL,pivot:"Virada",txt:["Conversando com o professor, decidimos <b>retomar a ideia anterior</b>: a Estação para monitoramento das condições diárias e termo-higrômetro. A Central de Segurança a Laser já tinha soluções semelhantes no mercado — não traria utilidade nem originalidade."]},
- {n:8,d:"25/08/2026",h:"20h00 – 20h40",who:ALL,txt:["Distribuímos os afazeres do projeto, priorizando agilidade e preparação:"],list:[["Programação e análise de códigos","Olavo e Maria Laura"],["Maquete e estrutura mecânica","Jade e Izabella"],["Montagem e soldagem do circuito","Nicoly"]]},
- {n:9,d:"26/08/2026",h:"11h00 – 11h30",who:ALL,txt:["Atualizamos o diagrama em blocos e o protótipo sujo para a nova realidade do projeto — propostos como resultado final da parte estética e funcional da estação."]},
- {n:10,d:"28/08/2026",h:"14h10 – 15h00",who:ALL,pivot:"Nasce o Aeris",txt:["Montamos e revisamos o circuito elétrico na simulação do Tinkercad.","Trocamos o nome do projeto para <b>“Aeris”</b> (Análise Eletrônica de Riscos e Indicadores Socioambientais) — do latim, “do ar” ou “atmosfera”. Também fechamos a lista de componentes e a estrutura da programação."],img:["6a961c3d"]},
- {n:11,d:"07/09/2026",h:"19h00 – 20h00",who:ALL,txt:["Decidimos oficialmente a <b>logo do projeto</b>, organizamos o fluxo de suprimentos (quem finaliza as compras pendentes e o que já foi adquirido) e estabelecemos o cronograma oficial das próximas etapas, para começar a montagem o quanto antes."],img:["6ac13c05","6ac13c27","6ac13c39"]},
- {n:12,d:"11/09/2026",h:"14h10 – 15h00",who:ALL,txt:["Testamos e aprimoramos a programação de cada componente no Arduino. Confirmamos que todos funcionam como esperado, e o projeto pôde seguir com mais eficiência."],links:[["🧪 Códigos de teste","https://docs.google.com/document/d/1S2yq6Y2IJW8RGLBn6oasYj6WGL9RfqxO/edit?usp=sharing"]]},
- {n:13,d:"14/09/2026",h:"17h00 – 18h30",who:[2,3,4],txt:["Montamos <b>completamente o circuito do Aeris</b> e o monitoramos junto com a programação. Depois do teste, ajustamos pontos do código e da montagem para otimizar o protótipo — um enorme avanço para a ideia central."],vid:"6abc60bb"},
- {n:14,d:"16/09/2026",h:"11h00 – 11h40",who:[0,2,3,4],txt:["Analisamos de novo montagem e programação para achar os principais erros: o problema estava na <b>má conexão entre os fios</b>. Corrigido, o projeto rodou corretamente."],img:["6ac13d32"]},
- {n:15,d:"20/09/2026",h:"13h00 – 17h00",who:[0,1],txt:["As responsáveis pela parte estrutural e estética iniciaram as bases da <b>maquete</b>, depois continuaram o processo e fizeram os ajustes finais."],img:["6aba7988"]},
- {n:16,d:"21/09/2026",h:"10h50 – 11h40",who:ALL,txt:["Foco na correção da programação. Testamos o código recém-revisado: o funcionamento estava estável, com pequenos ajustes pendentes no buzzer e na organização da fiação na protoboard."]},
- {n:17,d:"23/09/2026",h:"08h00 – 09h40",who:ALL,txt:["Com o auxílio do professor, descobrimos que o erro estava na <b>polarização do buzzer</b> e no seu pino digital. Corrigido, tudo funcionou como previsto — projeto pronto para a soldagem e para o dimensionamento dentro da caixa."]},
- {n:18,d:"24/09/2026",h:"16h40 – 17h00",who:ALL,txt:["Dimensionamos a estrutura funcional do circuito: como encaixar o Arduino, os componentes e a fiação. Medimos com régua a distância dos sensores até a maquete e começamos a preparar os slides e as falas de cada membro."]},
- {n:19,d:"25/09/2026",h:"14h10 – 15h20",who:ALL,txt:["Dividimos as tarefas: metade pintou a caixa, o restante cuidou da soldagem e da ordem das fiações. No fim da aula, a nossa belíssima foto de grupo:"],img:["6abc64d4"]},
- {n:20,d:"28/09/2026",h:"10h00 – 10h50",who:ALL,txt:["Seguimos organizando a apresentação individual de cada membro nos slides, pesquisando e aprimorando o repertório do projeto."]},
- {n:21,d:"29/09/2026",h:"Manhã 08h00 – 11h40 · Tarde 13h20 – 14h10",who:ALL,txt:["Dia com grande carga horária dedicada ao PROJETE. Soldamos primeiro os componentes externos — sensores de temperatura, umidade e captação do vento — e depois parte das fiações internas, organizando tudo da melhor forma possível."],img:["6abdb449","6abdb456","6abdb467"]},
- {n:22,d:"30/09/2026",h:"08h00 – 09h40",who:ALL,txt:["Finalizamos a soldagem dos componentes e ligações na placa. Testamos e <b>aprovamos o funcionamento do Aeris</b>: tudo o que havia sido planejado na programação e na montagem funcionou."],img:["6abdb3bf"],vid:"6abdb398"},
- {n:23,d:"01/10/2026",h:"16h10 – 17h00",who:ALL,pivot:"Foco em queimadas",txt:["Atualizamos a programação para centralizar a captação de <b>indicadores de queimadas</b>. Antes o Aeris era amplo em condições climáticas, mas desviado do foco fundamental: o risco de incêndios em áreas propícias. Depois da mudança, ele passou a operar adaptado a essas condições."],img:["6ac1449f"]},
- {n:24,d:"02/10/2026",h:"Manhã 09h40 – 11h40 · Tarde a partir de 13h40",who:ALL,txt:["Grande parte do dia dedicada ao PROJETE: finalizamos o Aeris e estudamos para a banca de avaliação e para o dia oficial da exposição.","Ajustamos algumas ligações mal conectadas e o Aeris voltou a funcionar. Depois da banca, testamos de novo e concluímos que o projeto está coerente com o objetivo. Abaixo, o <b>funcionamento completo e final</b>:"],img:["6ac1489f","6ac14fb1"],vid:"6ac14f3d"},
- {n:25,d:"07/10/2026",h:"08h00 – 11h40",who:ALL,txt:["Na última reunião encerramos os preparativos para a exposição. Recebemos nossa bancada e organizamos visualmente a apresentação do Aeris, além de revisar a compreensão total do protótipo.","Levaremos conosco os conhecimentos e habilidades adquiridos nesse processo — e a esperança de trabalharmos juntos novamente."],img:["6ac6fc3e","6ac6fc63"]},
-];
-
-const COMPS = [
-  ["6a9626ff","Arduino Uno","Processamento de todo o sistema."],
-  ["6a96270a","Anemômetro","Captação de dados externos pela ação do vento."],
-  ["6a962768","Sensor DHT22","Temperatura e umidade do ambiente."],
-  ["6a962823","Sensor FC-28","Umidade do solo e suas condições."],
-  ["6a9626db","Display 20x4 + I2C","Mostra temperatura, umidade e status de alerta."],
-  ["6a9627e0","LED RGB","Indicação visual do estado de alerta."],
-  ["6a962742","Buzzer","Alerta sonoro, pensado também para deficientes visuais."],
-  ["6a962729","Botão","Liga e desliga o funcionamento da estação."],
-  ["6a962803","Placa perfurada","Base da montagem do circuito."],
-  ["6a9627c2","Jumpers","Ligações entre os componentes."],
-  ["6ac13ae7","Fonte 9V","Alimenta o Arduino e, por consequência, o circuito."],
-];
-
-/* render team */
-document.getElementById('team').innerHTML = TEAM.map(m=>`
-  <div class="member panel reveal"><div class="avatar" style="background:linear-gradient(135deg,${m.c},#2a0f0a)">${m.s}</div>
-  <h3>${m.n}</h3><p>${m.r}</p></div>`).join('');
-
-/* render components */
-document.getElementById('comps').innerHTML = COMPS.map(([id,t,d])=>`
-  <div class="comp panel reveal"><div class="img"><img loading="lazy" src="${A(id)}" alt="${t}"></div><h3>${t}</h3><p>${d}</p></div>`).join('');
-
-/* render timeline */
-const tl = document.getElementById('timeline'), jr = document.getElementById('journey');
-let html = '';
-E.forEach(e=>{
-  const ph = PHASES.find(p=>p.from===e.n);
-  if(ph) html += `<div class="phase-head reveal" id="fase-${ph.from}"><div class="k">${ph.k}</div><h3>${ph.t}</h3><p>${ph.d}</p></div>`;
-  const who = e.who.map(i=>`<span title="${TEAM[i].n}" style="background:${TEAM[i].c}">${TEAM[i].s}</span>`).join('');
-  html += `<article class="entry${e.pivot?' pivot':''}" id="encontro-${e.n}">
-    <div class="dot">${e.n}</div>
-    <div class="panel">
-      <div class="meta"><span class="num">${e.n}º Encontro</span><span>📅 ${e.d}</span>${e.h?`<span>⏱ ${e.h}</span>`:''}${e.pivot?`<span class="badge">${e.pivot}</span>`:''}<span class="who">${who}</span></div>
-      <div class="txt">${e.txt.map(t=>`<p>${t}</p>`).join('')}</div>
-      ${e.list?`<ul>${e.list.map(([a,b])=>`<li><em>${a}</em> — ${b}</li>`).join('')}</ul>`:''}
-      ${e.after?`<div class="txt" style="margin-top:10px"><p>${e.after}</p></div>`:''}
-      ${e.links?`<div class="links">${e.links.map(([t,u])=>`<a class="chip" target="_blank" rel="noopener" href="${u}">${t}</a>`).join('')}</div>`:''}
-      ${(e.img||e.vid)?`<div class="media">${(e.img||[]).map(id=>`<img loading="lazy" src="${A(id)}" alt="Registro do ${e.n}º encontro" data-lb>`).join('')}${e.vid?`<video controls preload="metadata" playsinline src="${V(e.vid)}#t=0.5"></video>`:''}</div>`:''}
-    </div></article>`;
-});
-tl.innerHTML = html;
-jr.innerHTML = PHASES.map(p=>`<button class="phase-chip" data-to="fase-${p.from}"><b>${p.k}</b> · ${p.t}</button>`).join('');
-jr.addEventListener('click',ev=>{const b=ev.target.closest('.phase-chip');if(b)document.getElementById(b.dataset.to).scrollIntoView({behavior:'smooth',block:'start'})});
-
-/* reveal + counters */
-let pending = [...document.querySelectorAll('.reveal,.entry')];
-function show(el){
-  el.classList.add('in');
-  const n = el.querySelector('[data-count]');
-  if(n){const to=+n.dataset.count,t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/1200);n.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
-}
-let ticking=false;
-function checkReveal(){
-  ticking=false;
-  const h=innerHeight;
-  pending = pending.filter(el=>{const r=el.getBoundingClientRect();if(r.top<h*.92&&r.bottom>0){show(el);return false}if(r.bottom<=0){el.classList.add('in');return false}return true});
-}
-const onScroll=()=>{if(!ticking){ticking=true;requestAnimationFrame(checkReveal)}};
-addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll); checkReveal();
-setTimeout(checkReveal,300);
-
-/* active phase chip */
-const phaseIO = new IntersectionObserver(es=>es.forEach(en=>{
-  if(en.isIntersecting){jr.querySelectorAll('.phase-chip').forEach(c=>c.classList.toggle('on',c.dataset.to===en.target.id))}
-}),{rootMargin:'-40% 0px -55% 0px'});
-document.querySelectorAll('.phase-head').forEach(h=>phaseIO.observe(h));
-
-/* lightbox */
-const lb = document.getElementById('lb');
-document.addEventListener('click',ev=>{
-  const img = ev.target.closest('img[data-lb]');
-  if(img){lb.querySelector('img').src=img.src;lb.querySelector('img').alt=img.alt;lb.classList.add('on')}
-  else if(ev.target.closest('#lb')) lb.classList.remove('on');
-});
-const qrFull = document.getElementById('qrFull'), qrFab = document.getElementById('qrFab');
-document.querySelectorAll('[data-qr]').forEach(b=>b.addEventListener('click',()=>qrFull.classList.add('on')));
-qrFull.addEventListener('click',()=>qrFull.classList.remove('on'));
-addEventListener('keydown',e=>{
-  if(e.key==='Escape'){lb.classList.remove('on');qrFull.classList.remove('on')}
-  if((e.key==='q'||e.key==='Q')&&!e.ctrlKey&&!e.metaKey) qrFull.classList.toggle('on');
-});
-addEventListener('scroll',()=>qrFab.classList.toggle('show',scrollY>innerHeight*.7),{passive:true});
-if(location.hash==='#qr') qrFull.classList.add('on');
-
-/* nav */
-const nav = document.getElementById('nav'), mb = document.getElementById('menuBtn');
-mb.addEventListener('click',()=>{const o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'✕':'☰';if(o)nav.classList.add('solid')});
-document.getElementById('menu').addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');mb.textContent='☰'}});
+// nav
+const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40),{passive:true});
-</script>
+document.getElementById('yr').textContent=new Date().getFullYear();
 
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module">
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+// reveal + counters
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');
+  e.target.querySelectorAll('[data-count]').forEach(el=>{const t=+el.dataset.count,d=+(el.dataset.dec||0),t0=performance.now();
+    (function f(n){const k=Math.min((n-t0)/1400,1),v=t*(1-Math.pow(1-k,3));el.textContent=v.toFixed(d).replace('.',',');if(k<1)requestAnimationFrame(f)})(t0)});
+  io.unobserve(e.target)}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-const canvas = document.getElementById('scene');
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mobile = innerWidth < 760;
-const coarse = matchMedia('(pointer: coarse)').matches;
-const renderer = new THREE.WebGLRenderer({canvas, antialias:!mobile, powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.5:2));
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = .95;
-renderer.shadowMap.enabled = !mobile;
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0b0706);
-scene.fog = new THREE.FogExp2(0x0b0706, 0.035);
-const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-camera.position.set(0, 3.4, 10);
-
-/* ---------- controls: drag to orbit, wheel/pinch to zoom, auto-rotate ---------- */
-const controls = new OrbitControls(camera, canvas);
-controls.target.set(0, .7, 0);
-controls.enableDamping = true; controls.dampingFactor = .06;
-controls.enablePan = false;
-controls.minDistance = 4; controls.maxDistance = 16;
-controls.minPolarAngle = .25; controls.maxPolarAngle = 1.62;
-controls.autoRotate = true; controls.autoRotateSpeed = reduce ? .6 : 2.2;
-controls.rotateSpeed = .7; controls.zoomSpeed = .8;
-if (coarse) { controls.enableZoom = false; canvas.style.touchAction = 'pan-y'; } // horizontal swipe rotates, vertical swipe scrolls the page
-let idleTimer;
-controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idleTimer); document.body.classList.add('grabbing'); });
-controls.addEventListener('end', () => { document.body.classList.remove('grabbing'); idleTimer = setTimeout(() => controls.autoRotate = true, 3000); });
-controls.update();
-
-/* ---------- lights ---------- */
-scene.add(new THREE.HemisphereLight(0xffd2b0, 0x1a0805, 0.45));
-const key = new THREE.DirectionalLight(0xfff0e0, 1.6); key.position.set(4,7,5); key.castShadow = true; key.shadow.mapSize.set(1024,1024); scene.add(key);
-const fireLights = [];
-for (let i=0;i<4;i++){ const l = new THREE.PointLight(0xff6a20, 10, 9, 1.6); const a=i/4*Math.PI*2; l.position.set(Math.cos(a)*2.6, .2, Math.sin(a)*2.6); scene.add(l); fireLights.push(l); }
-const under = new THREE.PointLight(0xff3c00, 20, 8); under.position.set(0,-.4,0); scene.add(under);
-
-/* ---------- station ---------- */
-const world = new THREE.Group(); scene.add(world);
-const station = new THREE.Group(); world.add(station);
-const mat = (c,o={}) => new THREE.MeshStandardMaterial({color:c, roughness:.55, metalness:.05, ...o});
-
-const body = new THREE.Mesh(new THREE.BoxGeometry(2.4,1.6,1.6), mat(0xb8321f,{roughness:.8}));
-body.castShadow = body.receiveShadow = true; station.add(body);
-const lid = new THREE.Mesh(new THREE.BoxGeometry(2.5,.08,1.7), mat(0x9a2716,{roughness:.8})); lid.position.y=.84; lid.castShadow=true; station.add(lid);
-
-const lcdCanvas = document.createElement('canvas'); lcdCanvas.width=512; lcdCanvas.height=200;
-const lctx = lcdCanvas.getContext('2d');
-const lcdTex = new THREE.CanvasTexture(lcdCanvas); lcdTex.colorSpace = THREE.SRGBColorSpace;
-const bezel = new THREE.Mesh(new THREE.BoxGeometry(1.5,.62,.06), mat(0x111111)); bezel.position.set(0,.22,.81); station.add(bezel);
-const lcd = new THREE.Mesh(new THREE.PlaneGeometry(1.36,.5), new THREE.MeshBasicMaterial({map:lcdTex, toneMapped:false, color:0xb8c8ff})); lcd.position.set(0,.22,.842); station.add(lcd);
-
-const btn = new THREE.Mesh(new THREE.CylinderGeometry(.08,.08,.08,24), mat(0x222222)); btn.rotation.x=Math.PI/2; btn.position.set(-.5,-.4,.82); station.add(btn);
-const ledMat = new THREE.MeshStandardMaterial({color:0xff2a10, emissive:0xff2a10, emissiveIntensity:2});
-const led = new THREE.Mesh(new THREE.SphereGeometry(.06,16,16), ledMat); led.position.set(-.2,-.4,.83); station.add(led);
-const buzz = new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.1,32), mat(0x161616)); buzz.rotation.x=Math.PI/2; buzz.position.set(.5,-.4,.83); station.add(buzz);
-
-const dht = new THREE.Group();
-dht.add(new THREE.Mesh(new THREE.BoxGeometry(.06,.5,.38), mat(0xeeeeea,{roughness:.4})));
-for(let r=0;r<5;r++)for(let c=0;c<3;c++){const h=new THREE.Mesh(new THREE.BoxGeometry(.02,.05,.07),mat(0x333333));h.position.set(.035,.18-r*.09,-.1+c*.1);dht.add(h)}
-dht.position.set(1.23,-.15,.2); station.add(dht);
-const logoTex = new THREE.TextureLoader().load('assets/aeris/6ac13c05.webp'); logoTex.colorSpace = THREE.SRGBColorSpace;
-const logo = new THREE.Mesh(new THREE.CircleGeometry(.42,48), new THREE.MeshStandardMaterial({map:logoTex, roughness:.6}));
-logo.rotation.y = -Math.PI/2; logo.position.set(-1.205,.1,0); station.add(logo);
-
-const mast = new THREE.Mesh(new THREE.CylinderGeometry(.06,.08,1.3,20), mat(0xe8e8e4,{roughness:.35})); mast.position.y=1.5; mast.castShadow=true; station.add(mast);
-const anemo = new THREE.Group(); anemo.position.y=2.2; station.add(anemo);
-anemo.add(new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,.16,24), mat(0xf2f2ee,{roughness:.3})));
-const cupGeo = new THREE.SphereGeometry(.22,32,16,0,Math.PI*2,0,Math.PI/2);
-for(let i=0;i<3;i++){
-  const arm = new THREE.Group(); arm.rotation.y = i*Math.PI*2/3;
-  const rod = new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.8,8), mat(0xf2f2ee)); rod.rotation.z=Math.PI/2; rod.position.x=.4; arm.add(rod);
-  const cup = new THREE.Mesh(cupGeo, mat(0xf5f5f0,{side:THREE.DoubleSide,roughness:.3})); cup.position.x=.82; cup.rotation.x=Math.PI/2; cup.castShadow=true; arm.add(cup);
-  anemo.add(arm);
-}
-const probe = new THREE.Group();
-[-.07,.07].forEach(x=>{const p=new THREE.Mesh(new THREE.BoxGeometry(.05,.7,.015),mat(0xc9c9c9,{metalness:.8,roughness:.25}));p.position.set(x,0,0);probe.add(p)});
-probe.position.set(.9,-1.15,.6); station.add(probe);
-
-/* scorched ground with glowing embers bed */
-const groundTex = (()=>{const c=document.createElement('canvas');c.width=c.height=512;const g=c.getContext('2d');
-  const gr=g.createRadialGradient(256,256,0,256,256,256);gr.addColorStop(0,'#2a1a12');gr.addColorStop(.72,'#160c08');gr.addColorStop(.86,'#ff5a1f');gr.addColorStop(.9,'#7a1a06');gr.addColorStop(1,'#0b0706');
-  g.fillStyle=gr;g.fillRect(0,0,512,512);
-  for(let i=0;i<900;i++){const a=Math.random()*6.283,r=200+Math.random()*60;g.fillStyle=`rgba(255,${120+Math.random()*120|0},40,${Math.random()*.8})`;g.fillRect(256+Math.cos(a)*r,256+Math.sin(a)*r,2,2)}
-  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t})();
-const ground = new THREE.Mesh(new THREE.CircleGeometry(4.3,96), new THREE.MeshStandardMaterial({map:groundTex, emissiveMap:groundTex, emissive:0xffffff, emissiveIntensity:.18, roughness:1}));
-ground.rotation.x=-Math.PI/2; ground.position.y=-.8; ground.receiveShadow=true; world.add(ground);
-
-/* ---------- flames: noise-driven billboard shader, instanced around a ring ---------- */
-const NOISE = `
-vec2 hash(vec2 p){p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));return -1.+2.*fract(sin(p)*43758.5453);}
-float noise(vec2 p){const float K1=.366025404;const float K2=.211324865;vec2 i=floor(p+(p.x+p.y)*K1);vec2 a=p-i+(i.x+i.y)*K2;vec2 o=(a.x>a.y)?vec2(1.,0.):vec2(0.,1.);vec2 b=a-o+K2;vec2 c=a-1.+2.*K2;vec3 h=max(.5-vec3(dot(a,a),dot(b,b),dot(c,c)),0.);vec3 n=h*h*h*h*vec3(dot(a,hash(i)),dot(b,hash(i+o)),dot(c,hash(i+1.)));return dot(n,vec3(70.));}
-float fbm(vec2 p){float f=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){f+=a*noise(p);p=m*p;a*=.5;}return f;}`;
-const flameMat = new THREE.ShaderMaterial({
-  uniforms:{uTime:{value:0}, uHeat:{value:1}},
-  transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.DoubleSide,
-  vertexShader:`
-    attribute float aSeed; varying vec2 vUv; varying float vSeed;
-    void main(){
-      vUv=uv; vSeed=aSeed;
-      vec4 c = modelMatrix * instanceMatrix * vec4(0.,0.,0.,1.);
-      float sx = length(instanceMatrix[0].xyz), sy = length(instanceMatrix[1].xyz);
-      vec3 right = normalize(vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]));
-      vec3 wp = c.xyz + right*position.x*sx + vec3(0.,1.,0.)*position.y*sy;
-      gl_Position = projectionMatrix * viewMatrix * vec4(wp,1.);
-    }`,
-  fragmentShader:`
-    uniform float uTime; uniform float uHeat; varying vec2 vUv; varying float vSeed;
-    ${NOISE}
-    void main(){
-      vec2 p = vec2((vUv.x-.5)*2., vUv.y);
-      float t = uTime*(1.4+vSeed*.6);
-      float n  = fbm(vec2(p.x*1.4+vSeed*13., p.y*1.8 - t)*1.9);
-      float n2 = fbm(vec2(p.x*3.2-vSeed*7., p.y*3.5 - t*1.7)*1.3);
-      float width = mix(.95, .04, pow(p.y, .75));
-      float x = p.x + n*.85*p.y + sin(t*1.3+vSeed*20.)*.08*p.y;
-      float body = 1. - abs(x)/width;
-      body *= smoothstep(1.02, .2, p.y + n2*.55);
-      body *= smoothstep(0., .1, p.y);
-      float I = smoothstep(.08, .75, body*1.25*uHeat + n2*.12);
-      vec3 col = mix(vec3(.45,.02,0.), vec3(.95,.2,0.), smoothstep(.0,.35,I));
-      col = mix(col, vec3(1.,.48,.03), smoothstep(.35,.7,I));
-      col = mix(col, vec3(1.,.8,.35), smoothstep(.82,1.,I));
-      col *= .8;
-      gl_FragColor = vec4(col, pow(I,1.5)*.5);
-    }`
+// filters
+document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;document.querySelectorAll('#grid .card').forEach(c=>c.classList.toggle('hide',f!=='all'&&!c.dataset.c.split(' ').includes(f)));
 });
-const NF = mobile ? 18 : 30;
-const flameGeo = new THREE.PlaneGeometry(1,1); flameGeo.translate(0,.5,0);
-const seeds = new Float32Array(NF);
-const flames = new THREE.InstancedMesh(flameGeo, flameMat, NF);
-const dummy = new THREE.Object3D();
-const flameBase = [];
-for(let i=0;i<NF;i++){
-  const a = i/NF*Math.PI*2 + Math.random()*.1, r = 3.05 + Math.random()*.5;
-  const h = .6 + Math.random()*.8, w = .5 + Math.random()*.35;
-  dummy.position.set(Math.cos(a)*r, -.82, Math.sin(a)*r); dummy.scale.set(w,h,1); dummy.updateMatrix();
-  flames.setMatrixAt(i, dummy.matrix); seeds[i]=Math.random(); flameBase.push({a,r,h,w});
-}
-flameGeo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(seeds,1));
-flames.frustumCulled = false; world.add(flames);
 
-/* small licking flames on the box edges (the station is "at risk") */
-const NS = 0;
-const smallSeeds = new Float32Array(NS);
-const smallGeo = flameGeo.clone(); const small = new THREE.InstancedMesh(smallGeo, flameMat, NS);
-for(let i=0;i<NS;i++){ const a=Math.random()*6.283; dummy.position.set(Math.cos(a)*1.9, -.82, Math.sin(a)*1.5); dummy.scale.set(.4,.4+Math.random()*.45,1); dummy.updateMatrix(); small.setMatrixAt(i,dummy.matrix); smallSeeds[i]=Math.random(); }
-smallGeo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(smallSeeds,1));
-small.frustumCulled=false; world.add(small);
-
-/* ---------- embers & sparks: per-particle size, color by age, turbulence ---------- */
-const N = mobile ? 400 : 1100;
-const pos = new Float32Array(N*3), vel = new Float32Array(N*3), age = new Float32Array(N), life = new Float32Array(N), size = new Float32Array(N);
-const rnd = (a,b)=>a+Math.random()*(b-a);
-function spawn(i, initial){
-  const fromFire = Math.random() < .7;
-  if(fromFire){ const a=rnd(0,6.283), r=rnd(2.9,3.7); pos[i*3]=Math.cos(a)*r; pos[i*3+1]=rnd(-.8,.6); pos[i*3+2]=Math.sin(a)*r; vel[i*3]=rnd(-.3,.3); vel[i*3+1]=rnd(1.2,3.2); vel[i*3+2]=rnd(-.3,.3); life[i]=rnd(1.5,4); size[i]=rnd(.6,2.2); }
-  else { pos[i*3]=rnd(-16,16); pos[i*3+1]=rnd(-7,-2); pos[i*3+2]=rnd(-12,4); vel[i*3]=rnd(-.1,.3); vel[i*3+1]=rnd(.5,1.3); vel[i*3+2]=0; life[i]=rnd(6,14); size[i]=rnd(.5,1.6); }
-  age[i] = initial ? Math.random()*life[i] : 0;
-  if(initial){ pos[i*3]+=vel[i*3]*age[i]; pos[i*3+1]+=vel[i*3+1]*age[i]; pos[i*3+2]+=vel[i*3+2]*age[i]; }
-}
-for(let i=0;i<N;i++) spawn(i,true);
-const eg = new THREE.BufferGeometry();
-eg.setAttribute('position', new THREE.BufferAttribute(pos,3));
-const ageAttr = new THREE.BufferAttribute(new Float32Array(N),1); eg.setAttribute('aAge', ageAttr);
-eg.setAttribute('aSize', new THREE.BufferAttribute(size,1));
-const emberMat = new THREE.ShaderMaterial({
-  uniforms:{uPR:{value:renderer.getPixelRatio()}, uTime:{value:0}},
-  transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
-  vertexShader:`attribute float aAge; attribute float aSize; uniform float uPR; uniform float uTime; varying float vAge; varying float vTw;
-    void main(){ vAge=aAge; vec4 mv=modelViewMatrix*vec4(position,1.); vTw=.65+.35*sin(uTime*12.+position.x*7.+position.y*3.);
-      gl_PointSize = aSize*uPR*(1.-aAge*.6)*(26./-mv.z)*2.2; gl_Position=projectionMatrix*mv; }`,
-  fragmentShader:`varying float vAge; varying float vTw;
-    void main(){ float d=length(gl_PointCoord-.5); if(d>.5) discard; float core=smoothstep(.5,.0,d); core=pow(core,1.8);
-      vec3 col=mix(vec3(1.,.95,.7), vec3(1.,.45,.08), smoothstep(0.,.35,vAge)); col=mix(col, vec3(.7,.08,.02), smoothstep(.35,1.,vAge));
-      float a = core*(1.-smoothstep(.7,1.,vAge))*vTw; gl_FragColor=vec4(col, a*.6); }`
-});
-const embers = new THREE.Points(eg, emberMat); embers.frustumCulled=false; world.add(embers);
-
-/* ---------- LCD ---------- */
-let tempV=31.4, humV=34, windV=12;
-function drawLCD(t){
-  tempV = 31.4 + Math.sin(t*.4)*1.6; humV = 33 + Math.cos(t*.3)*4; windV = 12+Math.sin(t*1.3)*4;
-  const risk = humV < 35 ? 'ALTO' : 'MEDIO';
-  lctx.fillStyle='#1d4fd8'; lctx.fillRect(0,0,512,200);
-  lctx.fillStyle='rgba(255,255,255,.06)'; for(let x=0;x<512;x+=6)lctx.fillRect(x,0,1,200);
-  lctx.fillStyle='#dfe9ff'; lctx.font='bold 34px monospace'; lctx.fillText('AERIS 1106',16,40);
-  lctx.font='30px monospace';
-  lctx.fillText(`T:${tempV.toFixed(1)}C  U:${humV.toFixed(0)}%`,16,86);
-  lctx.fillText(`VENTO:${windV.toFixed(1)}km/h`,16,128);
-  lctx.fillStyle = Math.floor(t*2)%2 ? '#ffd0c0' : '#ffffff';
-  lctx.fillText(`RISCO: ${risk}`,16,172);
-  lcdTex.needsUpdate = true;
-}
-
-/* ---------- post-processing (bloom) on desktop ---------- */
-let composer = null, bloom;
-if(!mobile){
-  composer = new EffectComposer(renderer);
-  composer.addPass(new RenderPass(scene, camera));
-  bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .6, .45, .8);
-  composer.addPass(bloom);
-  composer.addPass(new OutputPass());
-}
-
-/* ---------- layout: shift the view so the station sits to the right (desktop) or top (mobile) ---------- */
-function resize(){
-  const w=innerWidth, h=innerHeight;
-  renderer.setSize(w,h,false); camera.aspect=w/h;
-  if(w>860) camera.setViewOffset(w,h,-w*.2,0,w,h);
-  else camera.setViewOffset(w,h,0,h*.2,w,h);
-  camera.updateProjectionMatrix();
-  world.scale.setScalar(w>860 ? 1 : Math.min(.85, w/470));
-  if(composer){ composer.setSize(w,h); }
-}
-addEventListener('resize',resize); resize();
-
-const clock = new THREE.Clock();
-let lastLcd = -1;
-function tick(){
-  const dt = Math.min(clock.getDelta(),.05), t = clock.elapsedTime, sp = reduce ? .25 : 1;
-  const prog = Math.min(1, scrollY / innerHeight);
-  const deep = scrollY / Math.max(1, document.body.scrollHeight - innerHeight);
-
-  // after the hero, the station rises out of the way (along the orbit axis, so orbiting stays centered)
-  world.position.y = THREE.MathUtils.lerp(world.position.y, prog*(mobile?6:3.2), .08);
-  station.rotation.y = deep*Math.PI*2;
-  station.position.y = Math.sin(t*.8)*.05;
-  controls.enabled = prog < .6;
-
-  anemo.rotation.y += dt * (2.2 + windV*.25) * sp;
-  const blink = (Math.sin(t*5)+1)/2; ledMat.emissiveIntensity = .6 + blink*3;
-
-  // fire: breathing heat + flicker
-  const heat = 1 + Math.sin(t*1.7)*.08 + Math.sin(t*4.3)*.05;
-  flameMat.uniforms.uTime.value = t*sp; flameMat.uniforms.uHeat.value = heat;
-  emberMat.uniforms.uTime.value = t;
-  fireLights.forEach((l,i)=>{ l.intensity = 5 + 3*Math.abs(Math.sin(t*(5.1+i)+i*2.)) + 1.5*Math.sin(t*13.7+i); });
-  under.intensity = 3 + Math.sin(t*9.3);
-  if(bloom) bloom.strength = .35 + Math.sin(t*2.3)*.05;
-
-  if(t-lastLcd>.25){ drawLCD(t); lastLcd=t; }
-
-  const wind = windV*.02;
-  for(let i=0;i<N;i++){
-    age[i] += dt*sp;
-    if(age[i] >= life[i]) { spawn(i,false); }
-    const k=i*3, y=pos[k+1];
-    vel[k]   += (Math.sin(y*1.3 + t*1.7 + i) * .9 + wind) * dt;
-    vel[k+2] += Math.cos(y*1.1 + t*1.3 + i*.7) * .9 * dt;
-    vel[k]*=.985; vel[k+2]*=.985;
-    pos[k]+=vel[k]*dt*sp; pos[k+1]+=vel[k+1]*dt*sp; pos[k+2]+=vel[k+2]*dt*sp;
-    ageAttr.array[i] = age[i]/life[i];
-  }
-  eg.attributes.position.needsUpdate = true; ageAttr.needsUpdate = true;
-
-  controls.update(dt);
-  composer ? composer.render() : renderer.render(scene,camera);
-  requestAnimationFrame(tick);
-}
-drawLCD(0); tick();
+// hero: NACA 2412 airfoil with animated streamlines
+(()=>{const cv=document.getElementById('flow'),ctx=cv.getContext('2d');let W,H,dpr,P=[],cx,cy,ch,aoa=-.07;
+const m=.02,p=.4,t=.12;
+const yt=x=>5*t*(.2969*Math.sqrt(x)-.126*x-.3516*x*x+.2843*x**3-.1015*x**4);
+const yc=x=>x<p?m/p/p*(2*p*x-x*x):m/(1-p)**2*((1-2*p)+2*p*x-x*x);
+function size(){dpr=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  ch=Math.min(W*.62,820);cx=(W-ch)/2-ch*.04;cy=H-Math.max(95,ch*.18);P=[];const n=Math.round(H/9);for(let i=0;i<n;i++)P.push(seed({},true))}
+function seed(o,rand){o.x=rand?Math.random()*W:-20-Math.random()*80;o.y0=Math.random()*H;o.tr=[];o.v=1.4+Math.random()*1.2;return o}
+function field(x,y0){// streamline displacement around airfoil (visual approximation)
+  const u=(x-cx)/ch,d=(y0-cy)/ch,s=Math.sign(d)||1,dist=Math.abs(d);
+  const env=u<-.3||u>1.4?0:Math.exp(-1.2*((u-.3)/.55)**2);
+  const uc=Math.min(Math.max(u,0),1);const bump=(s<0?yt(uc)+yc(uc):yt(uc)-yc(uc))*1.15+ .05*Math.max(0,-d);
+  const push=s*bump*Math.exp(-dist*5)*env*ch*1.9;const down=(u>.9?(u-.9)*.06:0)*ch*Math.exp(-dist*3);
+  return y0-push+down-(aoa*(u-.5)*ch*.12*Math.exp(-dist*4)*env)}
+function draw(){ctx.clearRect(0,0,W,H);
+  // grid ticks
+  ctx.strokeStyle='rgba(120,170,220,.10)';ctx.lineWidth=1;
+  for(const o of P){o.x+=o.v*(1+.6*Math.exp(-6*((o.x-cx)/ch-.25)**2)*Math.exp(-Math.abs(o.y0-cy)/ch*6));
+    const y=field(o.x,o.y0);o.tr.push([o.x,y]);if(o.tr.length>26)o.tr.shift();
+    if(o.x>W+40)seed(o,false);
+    const near=Math.exp(-Math.abs(o.y0-cy)/ch*4);
+    ctx.beginPath();o.tr.forEach(([a,b],i)=>i?ctx.lineTo(a,b):ctx.moveTo(a,b));
+    ctx.strokeStyle=`rgba(63,208,255,${.12+.4*near})`;ctx.stroke()}
+  // airfoil
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(-aoa);ctx.beginPath();
+  for(let i=0;i<=80;i++){const x=(1-Math.cos(Math.PI*i/80))/2;ctx.lineTo(x*ch,-(yc(x)+yt(x))*ch)}
+  for(let i=80;i>=0;i--){const x=(1-Math.cos(Math.PI*i/80))/2;ctx.lineTo(x*ch,-(yc(x)-yt(x))*ch)}
+  ctx.closePath();const g=ctx.createLinearGradient(0,-ch*.1,0,ch*.05);g.addColorStop(0,'rgba(255,176,32,.16)');g.addColorStop(1,'rgba(255,176,32,.03)');
+  ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='rgba(255,176,32,.75)';ctx.lineWidth=1.4;ctx.stroke();
+  ctx.setLineDash([4,5]);ctx.strokeStyle='rgba(255,176,32,.4)';ctx.beginPath();
+  for(let i=0;i<=40;i++){const x=i/40;ctx.lineTo(x*ch,-yc(x)*ch)}ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-ch*.08,0);ctx.lineTo(ch*1.08,0);ctx.strokeStyle='rgba(120,170,220,.25)';ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='rgba(147,163,184,.7)';ctx.font='11px JetBrains Mono, monospace';
+  ctx.fillText('NACA 2412',ch*.02,ch*.11);ctx.fillText('c = 1.000',ch*.86,ch*.11);
+  ctx.fillStyle='rgba(255,176,32,.9)';ctx.fillText('α = 4.0°',ch*.42,ch*.11);
+  ctx.restore();
+  if(!reduce)requestAnimationFrame(draw)}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+addEventListener('resize',size);size();if(reduce){for(let k=0;k<60;k++){P.forEach(o=>{o.x+=o.v*3;o.tr.push([o.x,field(o.x,o.y0)])})}}draw();
+})();
 </script>
 </body>
 </html>
