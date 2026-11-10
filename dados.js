@@ -21,7 +21,7 @@ window.DADOS = {
       { rotulo: "Técnico",    valor: "Telecomunicações · ETE FMC" },
       { rotulo: "Residência", valor: "Microeletrônica · CI Expert" }
     ],
-    chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: do modelo matemático ao firmware que voa.",
+    chamada: "Modelo, controlo e programo coisas que voam: de **nanodrones** a **foguetes**, passando pelo **hardware** que comanda cada um.",
     resumo: "Comecei pela eletrônica. Fiz o técnico em Telecomunicações na ETE FMC, em Santa Rita do Sapucaí, onde recebi o prêmio de melhor desempenho acadêmico da turma de 2024 e integrei a eletrônica de um CubeSat que voou num balão estratosférico. Na UNIFEI, em Engenharia Mecânica Aeronáutica, levei essa base para a dinâmica de voo e o controle: identifiquei a dinâmica de quadrirrotores com redes neurais, trabalhei no controle de formação de nanodrones, cuidei da telemetria e do GNC de um foguete universitário e projetei em RTL parte de um processador.",
     // auto: "publicacoes" conta sozinho
     fatos: [
