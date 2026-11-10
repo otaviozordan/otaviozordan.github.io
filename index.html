@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="cockpit">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Otávio Zordan · Engenharia Aeronáutica</title>
-<meta name="description" content="Otávio Zordan Alves — Engenharia Mecânica Aeronáutica (UNIFEI). Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital.">
+<meta name="description" content="Otávio Zordan Alves — Engenharia Mecânica Aeronáutica (UNIFEI) e técnico em Telecomunicações (ETE FMC). Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital.">
 <meta property="og:title" content="Otávio Zordan Alves · Engenharia Aeronáutica">
-<meta property="og:description" content="Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital. UNIFEI · GEMEC · LSA · PET Mecânica.">
+<meta property="og:description" content="Dinâmica de voo, controle, GNC, sistemas embarcados e hardware digital. UNIFEI · ETE FMC · GEMEC · LSA.">
 <meta property="og:image" content="assets/otavio.jpg">
 <meta name="theme-color" content="#05080d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2305080d'/%3E%3Cpath d='M4 18 Q16 9 28 15 Q16 17 4 18Z' fill='%23ffb020'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link id="fonte" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/estilo.css">
 <!-- Todo o conteúdo do site fica em dados.js -->
 <script src="dados.js"></script>
+<script>try{var t=new URLSearchParams(location.search).get('tema')||localStorage.getItem('tema');if(t)document.documentElement.dataset.tema=t}catch(e){}</script>
 </head>
 <body>
 
@@ -24,13 +25,11 @@
     <a class="brand" href="#top">OZA<b>/</b>AERO</a>
     <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><i></i></button>
     <ul id="menu">
-      <li><a href="#sobre"><span>01</span> Sobre</a></li>
+      <li><a href="#trajetoria"><span>01</span> Trajetória</a></li>
       <li><a href="#pesquisa"><span>02</span> Pesquisa</a></li>
-      <li><a href="#portfolio"><span>03</span> Portfólio</a></li>
-      <li><a href="#academico"><span>04</span> Acadêmico</a></li>
-      <li><a href="#profissional"><span>05</span> Profissional</a></li>
-      <li><a href="#competencias"><span>06</span> Competências</a></li>
-      <li><a href="#contato"><span>07</span> Contato</a></li>
+      <li><a href="#projetos"><span>03</span> Projetos</a></li>
+      <li><a href="#competencias"><span>04</span> Competências</a></li>
+      <li><a href="#contato"><span>05</span> Contato</a></li>
     </ul>
   </div>
 </nav>
@@ -43,7 +42,7 @@
       <div class="role" id="h-titulo"></div>
       <p class="lead" id="h-chamada"></p>
       <div class="cta">
-        <a class="btn pri" href="#portfolio">Ver portfólio →</a>
+        <a class="btn pri" href="#trajetoria">Ver trajetória →</a>
         <a class="btn sec" href="#pesquisa">Publicações</a>
         <a class="btn sec" href="#contato">Contato</a>
       </div>
@@ -59,118 +58,57 @@
 </header>
 
 <main>
-<section id="sobre">
+<section id="resumo" class="tight">
   <div class="wrap">
-    <div class="sh reveal"><span class="num">01 /</span><h2>Sobre</h2><span class="rule"></span></div>
-    <div class="about">
-      <div class="reveal" id="sobre-texto"></div>
-      <div class="panel focus reveal"><span class="kicker">Vetor de interesse</span><ul id="interesses"></ul></div>
-    </div>
-    <div class="stats reveal" id="numeros"></div>
-    <div class="groups" id="grupos"></div>
+    <p class="resumo reveal" id="resumo-texto"></p>
+    <div class="fatos reveal" id="fatos"></div>
+  </div>
+</section>
+
+<section id="trajetoria">
+  <div class="wrap">
+    <div class="sh reveal"><span class="num">01 /</span><h2>Trajetória</h2><span class="rule"></span></div>
+    <p class="sub reveal">Da escola técnica à engenharia aeronáutica, com as trilhas acadêmica e profissional lado a lado.</p>
+    <div id="traj"></div>
   </div>
 </section>
 
 <section id="pesquisa">
   <div class="wrap">
-    <div class="sh reveal"><span class="num">02 /</span><h2>Pesquisa &amp; Publicações</h2><span class="rule"></span></div>
+    <div class="sh reveal"><span class="num">02 /</span><h2>Pesquisa</h2><span class="rule"></span></div>
     <p class="sub reveal">Dinâmica e controle de veículos aéreos não tripulados: identificação de sistemas, redes neurais, controle de formação e controle robusto.</p>
     <div class="pubs" id="pubs"></div>
+    <div class="groups" id="grupos"></div>
     <div class="links-row reveal" id="perfis"></div>
   </div>
 </section>
 
-<section id="portfolio">
+<section id="projetos">
   <div class="wrap">
-    <div class="sh reveal"><span class="num">03 /</span><h2>Portfólio</h2><span class="rule"></span></div>
-    <p class="sub reveal">Projetos de voo, controle, hardware e software, da sonda estratosférica ao processador em silício.</p>
-    <div class="filters reveal" id="filtros"></div>
+    <div class="sh reveal"><span class="num">03 /</span><h2>Projetos em destaque</h2><span class="rule"></span></div>
     <div class="grid" id="grid"></div>
-  </div>
-</section>
-
-<section id="academico">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">04 /</span><h2>Trilha acadêmica</h2><span class="rule"></span></div>
-    <p class="sub reveal">Formação, pesquisa, equipes de competição e ensino, separados por instituição.</p>
-    <div class="tabs reveal" id="abas" role="tablist"></div>
-    <div id="aba-conteudo"></div>
-
-    <div class="panel rocket reveal" id="foguete">
-      <div>
-        <span class="kicker">Foguetemodelismo · GNC</span>
-        <h3 id="fg-equipe"></h3>
-        <p id="fg-texto"></p>
-        <div class="ranks" id="fg-cargos"></div>
-        <div id="fg-link"></div>
-      </div>
-      <div class="rk" id="rk">
-        <svg viewBox="0 0 300 440" role="img" aria-label="Desenho técnico de um foguete com marcações de CG e CP">
-          <defs>
-            <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".25" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff5a1f" stop-opacity=".55"/><stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/></linearGradient>
-            <linearGradient id="bd" x1="0" x2="1"><stop offset="0" stop-color="#1a2638"/><stop offset=".45" stop-color="#2a3a52"/><stop offset="1" stop-color="#121b28"/></linearGradient>
-          </defs>
-          <g stroke="rgba(120,170,220,.35)" fill="none">
-            <path d="M58 20V350M52 20h12M52 350h12"/>
-            <path d="M102 372V384M138 372V384M102 378h36"/>
-          </g>
-          <text x="40" y="190" transform="rotate(-90 40 190)" text-anchor="middle">COMPRIMENTO · L</text>
-          <text x="117" y="398">Ø</text>
-          <g class="body" id="rk-body">
-            <g id="smoke"></g>
-            <path class="flame" d="M106 352 Q120 450 134 352Z" fill="url(#fl)"/>
-            <path class="flame" d="M112 352 Q120 400 128 352Z" fill="#fff6d8" opacity=".85"/>
-            <path d="M120 20 C132 40,138 68,138 90 L102 90 C102 68,108 40,120 20Z" fill="url(#bd)" stroke="#ffb020" stroke-width="1.3"/>
-            <rect x="102" y="90" width="36" height="240" fill="url(#bd)" stroke="#3fd0ff" stroke-width="1.2"/>
-            <g stroke="rgba(63,208,255,.5)" stroke-width="1"><path d="M102 132h36M102 172h36M102 236h36"/></g>
-            <rect x="108" y="180" width="24" height="44" rx="2" fill="none" stroke="#ffb020" stroke-width="1.2" stroke-dasharray="3 2"/>
-            <path d="M102 282 L76 330 L76 346 L102 330Z" fill="url(#bd)" stroke="#3fd0ff" stroke-width="1.2"/>
-            <path d="M138 282 L164 330 L164 346 L138 330Z" fill="url(#bd)" stroke="#3fd0ff" stroke-width="1.2"/>
-            <path d="M120 296V346" stroke="#3fd0ff" stroke-width="2"/>
-            <path d="M110 330 L130 330 L134 350 L106 350Z" fill="#0d141e" stroke="#93a3b8" stroke-width="1.2"/>
-            <g transform="translate(120 202)"><circle r="7" fill="#05080d" stroke="#e6edf5" stroke-width="1.2"/><path d="M0 0V-7A7 7 0 0 1 7 0Z M0 0V7A7 7 0 0 1 -7 0Z" fill="#e6edf5"/></g>
-            <g transform="translate(120 262)"><circle r="7" fill="#05080d" stroke="#3fd0ff" stroke-width="1.4"/><circle r="2.2" fill="#3fd0ff"/></g>
-            <g stroke="rgba(147,163,184,.55)" fill="none"><path d="M134 60h44M138 112h40M132 202h46M127 262h51M152 304h26M86 202h14"/></g>
-            <text x="182" y="63">Coifa</text>
-            <text x="182" y="115">Recuperação</text>
-            <text class="lbl" x="182" y="199">Baia GNC</text>
-            <text x="182" y="211">IMU · GNSS · OBC</text>
-            <text x="182" y="259">CP</text>
-            <text x="182" y="271" style="fill:var(--dim)">margem estática</text>
-            <text x="182" y="307">Empenas</text>
-            <text x="82" y="205" text-anchor="end">CG</text>
-          </g>
-        </svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="profissional">
-  <div class="wrap">
-    <div class="sh reveal"><span class="num">05 /</span><h2>Trilha profissional</h2><span class="rule"></span></div>
-    <p class="sub reveal">Experiência na indústria: estágios em engenharia de sistemas e desenvolvimento.</p>
-    <div class="tl" id="prof"></div>
+    <div class="links-row reveal"><a class="chip" href="https://github.com/otaviozordan" target="_blank" rel="noopener">Mais projetos no GitHub ↗</a></div>
   </div>
 </section>
 
 <section id="competencias">
   <div class="wrap">
-    <div class="sh reveal"><span class="num">06 /</span><h2>Competências</h2><span class="rule"></span></div>
+    <div class="sh reveal"><span class="num">04 /</span><h2>Competências</h2><span class="rule"></span></div>
     <div class="skills" id="skills"></div>
     <div class="two">
-      <div class="panel list reveal"><h3>Certificações selecionadas</h3><div id="certs"></div></div>
       <div class="panel list reveal"><h3>Prêmios</h3><div id="premios"></div></div>
+      <div class="panel list reveal"><h3>Idiomas</h3><div id="idiomas"></div>
+        <details class="cursos"><summary>Cursos e certificações</summary><div id="certs"></div></details></div>
     </div>
   </div>
 </section>
 
 <section id="contato">
   <div class="wrap">
-    <div class="sh reveal"><span class="num">07 /</span><h2>Contato</h2><span class="rule"></span></div>
+    <div class="sh reveal"><span class="num">05 /</span><h2>Contato</h2><span class="rule"></span></div>
     <div class="panel contact reveal">
       <div>
-        <h2>Vamos construir algo que <span style="color:var(--amber)">voa</span>.</h2>
+        <h2>Vamos construir algo que <span class="ac">voa</span>.</h2>
         <p class="sub" id="ct-chamada"></p>
       </div>
       <div class="clinks" id="ct-links"></div>
@@ -180,6 +118,55 @@
 </main>
 
 <footer><div class="wrap"><span>© <span id="yr">2026</span> <span id="ft-nome"></span></span><span>Itajubá · MG · 22°25′S 45°27′W</span></div></footer>
+
+<!-- Seletor de identidade visual (prévia) -->
+<div class="temas" id="temas" aria-label="Identidade visual"></div>
+
+<template id="tpl-foguete">
+  <div class="panel rocket reveal">
+    <div>
+      <span class="kicker">Foguetemodelismo</span>
+      <h3 class="fg-equipe"></h3>
+      <p class="fg-texto"></p>
+      <div class="ranks fg-cargos"></div>
+      <div class="fg-link"></div>
+    </div>
+    <div class="rk">
+      <svg viewBox="0 0 300 440" role="img" aria-label="Desenho técnico de um foguete com marcações de CG e CP">
+        <defs>
+          <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".25" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff5a1f" stop-opacity=".55"/><stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/></linearGradient>
+        </defs>
+        <g class="rk-dim"><path d="M58 20V350M52 20h12M52 350h12"/><path d="M102 372V384M138 372V384M102 378h36"/></g>
+        <text x="40" y="190" transform="rotate(-90 40 190)" text-anchor="middle">COMPRIMENTO · L</text>
+        <text x="117" y="398">Ø</text>
+        <g class="rk-body">
+          <g class="smoke"></g>
+          <path class="flame" d="M106 352 Q120 450 134 352Z" fill="url(#fl)"/>
+          <path class="flame" d="M112 352 Q120 400 128 352Z" fill="#fff6d8" opacity=".85"/>
+          <path class="rk-nose" d="M120 20 C132 40,138 68,138 90 L102 90 C102 68,108 40,120 20Z"/>
+          <rect class="rk-hull" x="102" y="90" width="36" height="240"/>
+          <path class="rk-seam" d="M102 132h36M102 172h36M102 236h36"/>
+          <rect class="rk-bay" x="108" y="180" width="24" height="44" rx="2"/>
+          <path class="rk-hull" d="M102 282 L76 330 L76 346 L102 330Z"/>
+          <path class="rk-hull" d="M138 282 L164 330 L164 346 L138 330Z"/>
+          <path class="rk-fin" d="M120 296V346"/>
+          <path class="rk-noz" d="M110 330 L130 330 L134 350 L106 350Z"/>
+          <g transform="translate(120 202)"><circle class="rk-cg" r="7"/><path class="rk-cgf" d="M0 0V-7A7 7 0 0 1 7 0Z M0 0V7A7 7 0 0 1 -7 0Z"/></g>
+          <g transform="translate(120 262)"><circle class="rk-cp" r="7"/><circle class="rk-cpd" r="2.2"/></g>
+          <path class="rk-lead" d="M134 60h44M138 112h40M132 202h46M127 262h51M152 304h26M86 202h14"/>
+          <text x="182" y="63">Coifa</text>
+          <text x="182" y="115">Recuperação</text>
+          <text class="lbl" x="182" y="199">Baia GNC</text>
+          <text x="182" y="211">IMU · GNSS · OBC</text>
+          <text x="182" y="259">CP</text>
+          <text class="dim" x="182" y="271">margem estática</text>
+          <text x="182" y="307">Empenas</text>
+          <text x="82" y="205" text-anchor="end">CG</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</template>
 
 <script src="assets/app.js"></script>
 </body>

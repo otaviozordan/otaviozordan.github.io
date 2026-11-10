@@ -2,11 +2,10 @@
    DADOS DO SITE — edite só este arquivo para atualizar o portfólio.
    ---------------------------------------------------------------------
    • Texto entre **asteriscos duplos** vira negrito.
-   • Para adicionar algo, copie um bloco { ... } parecido, cole logo
-     abaixo e troque o conteúdo. Não esqueça a vírgula entre os blocos.
-   • Listas mais recentes primeiro (o site não reordena, exceto as
-     publicações, que são ordenadas por ano automaticamente).
-   • Números de "Publicações" e "Prêmios" são contados automaticamente.
+   • Para adicionar algo, copie um bloco { ... } parecido, cole ao lado
+     e troque o conteúdo. Não esqueça a vírgula entre os blocos.
+   • Trajetória: itens em ordem cronológica (mais antigo primeiro).
+   • Contadores de publicações e prêmios são automáticos.
    ===================================================================== */
 
 window.DADOS = {
@@ -16,81 +15,129 @@ window.DADOS = {
     nome: "Otávio Zordan Alves",
     titulo: "Engenharia Mecânica Aeronáutica · GNC · Sistemas Embarcados",
     foto: "assets/otavio.jpg",
-    chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: identificação e controle de drones com redes neurais e controle robusto, GNC de foguetes e projeto digital até o RTL. Do modelo matemático ao firmware que voa.",
+    chamada: "Engenharia na fronteira entre **dinâmica de voo**, **controle** e **hardware**: do modelo matemático ao firmware que voa.",
+    resumo: "Formação em Engenharia Mecânica Aeronáutica pela **UNIFEI** e técnico em Telecomunicações pela **ETE FMC**. Pesquisa em dinâmica e controle de drones, GNC de foguetes, microeletrônica e engenharia de sistemas.",
     ficha: [
       { rotulo: "Base",   valor: "Itajubá · MG" },
       { rotulo: "Curso",  valor: "Eng. Aeronáutica" },
       { rotulo: "Grupos", valor: "GEMEC · LSA · PET" },
       { rotulo: "Equipe", valor: "Beyond Aerospace" }
     ],
-    sobre: [
-      "Formação em **Engenharia Mecânica Aeronáutica na Universidade Federal de Itajubá (UNIFEI)** e técnico em Telecomunicações pela **ETE FMC**, a primeira escola técnica de eletrônica da América Latina, onde recebi o **Prêmio de Melhor Desempenho Acadêmico** da turma de 2024.",
-      "Pesquisei dinâmica e controle de veículos aéreos não tripulados no **PET Engenharia Mecânica**, no **GEMEC** e no **LSA**. Na equipe de foguetemodelismo **Beyond Aerospace Department**, atuei em P&D, liderei o subsistema de telecomunicações e trabalhei no subsistema de Navegação, Guiamento e Controle.",
-      "Fui **Residente de Pesquisa em Graduação no CI Expert** (MCTI · Softex · UNIFEI), em microeletrônica, com foco em síntese RTL e descrição de hardware."
-    ],
-    interesses: [
-      "Dinâmica de voo, modelagem e simulação",
-      "Controle robusto, clássico e de formação",
-      "Estimação de estados e filtragem de Kalman",
-      "Identificação de sistemas com redes neurais",
-      "GNC de foguetes e determinação de atitude",
-      "Software embarcado, FPGA e RTL",
-      "Engenharia de sistemas e certificação (DO-254, MIL-STD)"
-    ],
-    // auto: "publicacoes", "premios" ou "projetos" conta sozinho; senão use valor
-    numeros: [
-      { auto: "projetos", rotulo: "Projetos no portfólio" },
-      { auto: "publicacoes", rotulo: "Publicações" },
-      { auto: "premios", rotulo: "Prêmios e distinções" },
-      { valor: 35, sufixo: "+", rotulo: "Alunos instruídos" }
+    // Fatos rápidos logo abaixo do topo. auto: "publicacoes" | "premios"
+    fatos: [
+      { rotulo: "Formação",       valor: "Eng. Mecânica Aeronáutica", sub: "UNIFEI · Itajubá" },
+      { rotulo: "Técnico",        valor: "Telecomunicações",          sub: "ETE FMC · melhor desempenho 2024" },
+      { rotulo: "Pesquisa",       auto: "publicacoes", sufixo: " publicações", sub: "Dinâmica e controle de VANTs" },
+      { rotulo: "Reconhecimento", auto: "premios",     sufixo: " prêmios",     sub: "OBSAT · PROJETE · Inovação" }
     ]
+  },
+
+  /* ---------------------------- TRAJETÓRIA ----------------------------
+     Cada fase tem duas trilhas: academico e profissional.
+     premio: (opcional) aparece com estrela.                              */
+  trajetoria: [
+    {
+      fase: "01",
+      instituicao: "ETE FMC",
+      nomeCompleto: "Escola Técnica de Eletrônica Francisco Moreira da Costa",
+      curso: "Técnico em Telecomunicações",
+      periodo: "2021 — 2024",
+      local: "Santa Rita do Sapucaí · MG",
+      site: "https://www.etefmc.com.br/",
+      resumo: "A primeira escola técnica de eletrônica da América Latina, no Vale da Eletrônica. Base em eletrônica analógica e digital, sistemas digitais, redes e telecomunicações, com projetos premiados desde o primeiro ano.",
+      destaques: ["Melhor Desempenho Acadêmico 2024", "Campeão regional OBSAT", "~1.300 horas-aula"],
+      academico: [
+        { quando: "2021", titulo: "Ajuste Dinâmico de Faróis Automotivos", local: "PROJETE 2021",
+          texto: "Líder da equipe e programador de um sistema embarcado que corrige automaticamente o facho dos faróis.",
+          premio: "Campeão Automação · Prêmio Municipal de Inovação" },
+        { quando: "mar — dez 2022", titulo: "Monitor de Laboratório", local: "ETE FMC",
+          texto: "Aulas de apoio em Algoritmos, Sistemas Digitais, Eletrônica Analógica e Eletricidade." },
+        { quando: "2022 — 2023", titulo: "ARduck — realidade aumentada para eletrônica", local: "PROJETE",
+          texto: "Ecossistema de ensino com realidade aumentada, laboratório conectado, app e painel web. Embarcados, backend e DevOps.",
+          premio: "Campeão Utilidade e Melhor apresentação em inglês (2022) · Melhor projeto de Telecom (2023)" },
+        { quando: "2023", titulo: "SolarEyes — CubeSat estratosférico", local: "Olimpíada Brasileira de Satélites (OBSAT-MCTI)",
+          texto: "Integração de OBC, EPS e telecom de uma sonda com carga útil de radiação gama, validada em voo de balão estratosférico.",
+          premio: "Campeão regional OBSAT 2023" },
+        { quando: "2024", titulo: "Prêmio de Melhor Desempenho Acadêmico", local: "Turma de 2024",
+          texto: "Maior honraria da escola, concedida a um único formando entre todos os cursos técnicos.",
+          premio: "Melhor formando da turma" }
+      ],
+      profissional: [
+        { quando: "dez 2021 — jan 2022", titulo: "Estagiário · Desenvolvimento de Software", local: "ChamaInbox Brasil",
+          texto: "Backend de APIs e serviços em Python e Flask, com integração a bancos de dados." },
+        { quando: "jan — fev 2023", titulo: "Estagiário · Desenvolvimento", local: "CEDEN ETE FMC",
+          texto: "Sistema completo de monitoramento e controle industrial via RS-485 (firmware, driver e app desktop), adotado no curso de Automação da ETE FMC." },
+        { quando: "jan — mar 2024", titulo: "Estagiário · Desenvolvimento de Soluções", local: "ChamaInbox Brasil · Remoto",
+          texto: "Backend em Python: APIs, otimização de desempenho e integração com bancos de dados." }
+      ]
+    },
+    {
+      fase: "02",
+      instituicao: "UNIFEI",
+      nomeCompleto: "Universidade Federal de Itajubá",
+      curso: "Engenharia Mecânica Aeronáutica",
+      periodo: "Ingresso em 2024",
+      local: "Itajubá · MG",
+      site: "https://unifei.edu.br/",
+      resumo: "Dinâmica de voo, controle e sistemas embarcados aplicados a drones, foguetes e hardware digital, com pesquisa no PET, GEMEC e LSA e artigos no COBEM e no CONEM.",
+      destaques: ["GEMEC · LSA · PET", "Beyond Aerospace", "CI Expert", "COBEM 2025 · CONEM 2026"],
+      academico: [
+        { quando: "mar — dez 2024", titulo: "Membro de P&D · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
+          texto: "Divisão de pesquisa e desenvolvimento da equipe de foguetes da universidade." },
+        { quando: "jan — dez 2025", titulo: "Líder de Telecomunicações · Beyond Aerospace", local: "Equipe de foguetemodelismo",
+          texto: "Liderou telemetria e radiocomunicação: RF, integração de SDR, enlace com a estação de solo e dados de bordo em tempo real." },
+        { quando: "jun 2025", titulo: "Pesquisador de Graduação · PET Engenharia Mecânica", local: "PET Mecânica UNIFEI",
+          texto: "Controle de formação de nanodrones com controle robusto e identificação de quadrirrotores com redes neurais; artigos no COBEM 2025 e CONEM 2026." },
+        { quando: "out — dez 2025", titulo: "Instrutor de Curso de Extensão", local: "PET Mecânica UNIFEI",
+          texto: "Curso de 16 h de Python para engenharia (NumPy, Pandas, SciPy, SymPy) com mais de 35 alunos." },
+        { quando: "jan — out 2026", titulo: "Subsistema de GNC · Beyond Aerospace", local: "Equipe de foguetemodelismo",
+          texto: "Fusão de sensores, estimação de estados, determinação de atitude e controle em tempo real com RTOS." },
+        { quando: "mar 2026 — mar 2027", titulo: "Residente de Pesquisa · CI Expert", local: "Microeletrônica · MCTI · Softex · UNIFEI",
+          texto: "Síntese RTL e descrição de hardware; trilha de RTL Design de um processador multiciclo. Certificado em Síntese RTL (Purple Certification)." },
+        { quando: "out 2026", titulo: "Pesquisador de Graduação · GEMEC", local: "Grupo de Estudos em Mecânica Experimental e Computacional",
+          texto: "Pesquisa em dinâmica de voo e controle de veículos aéreos não tripulados." }
+      ],
+      profissional: [
+        { quando: "jan 2026", titulo: "Estagiário · Engenharia de Sistemas", local: "Modirum | Gespi",
+          texto: "Cadernos de teste e protocolos de ensaio para um projeto estratégico; estudos de certificação MIL-STD-810, MIL-STD-901, RS101 e DO-254; ferramenta em Python para inteligência de mercado em defesa." }
+      ],
+      foguete: true   // mostra o bloco do foguete nesta fase
+    }
+  ],
+
+  /* ----------------------------- FOGUETE ------------------------------ */
+  foguete: {
+    equipe: "Beyond Aerospace Department",
+    texto: "Na equipe de foguetemodelismo da UNIFEI, passei por P&D, liderei o subsistema de **Telecomunicações** e trabalhei no subsistema de **Navegação, Guiamento e Controle**.",
+    cargos: [
+      { ano: "2024", cargo: "Membro de P&D" },
+      { ano: "2025", cargo: "Líder de Telecomunicações" },
+      { ano: "2026", cargo: "Subsistema de GNC" }
+    ],
+    url: ""   // site/Instagram da equipe (opcional)
   },
 
   /* --------------------- GRUPOS E LABORATÓRIOS ------------------------ */
   grupos: [
-    {
-      sigla: "GEMEC",
-      nome: "Grupo de Estudos em Mecânica Experimental e Computacional",
+    { sigla: "GEMEC", nome: "Grupo de Estudos em Mecânica Experimental e Computacional",
       descricao: "Mecânica estrutural, vibrações, otimização, IA aplicada e leis de controle para aeronaves.",
-      logo: "assets/gemec.png",
-      url: "https://gemec.unifei.edu.br/membro/otavio-zordan-alves/",
-      site: "https://gemec.unifei.edu.br/"
-    },
-    {
-      sigla: "LSA",
-      nome: "Laboratório de Sistemas Aeronáuticos",
+      logo: "assets/gemec.png", url: "https://gemec.unifei.edu.br/membro/otavio-zordan-alves/", site: "https://gemec.unifei.edu.br/" },
+    { sigla: "LSA", nome: "Laboratório de Sistemas Aeronáuticos",
       descricao: "Dinâmica de voo, controle não linear e tolerância a falhas de veículos aéreos não tripulados.",
-      logo: "assets/lsa.png",
-      url: "https://lsa.unifei.edu.br/",
-      site: "https://lsa.unifei.edu.br/"
-    }
+      logo: "assets/lsa.png", url: "https://lsa.unifei.edu.br/", site: "https://lsa.unifei.edu.br/" }
   ],
 
   /* --------------------------- PUBLICAÇÕES ----------------------------
      tipo: "Congresso", "Periódico", "Capítulo", "Resumo", "Pôster"...    */
   publicacoes: [
-    {
-      ano: 2026,
-      tipo: "Congresso",
-      titulo: "Formation Control of Nanodrones Using Robust Controller",
+    { ano: 2026, tipo: "Congresso", titulo: "Formation Control of Nanodrones Using Robust Controller",
       autores: "**O. Zordan Alves**, J. I. Urzúa Ciolina, A. Ramos, O. A. Olanrewaju, Y. Diaz",
-      evento: "XIII Congresso Nacional de Engenharia Mecânica (CONEM 2026)",
-      sigla: "CONEM 2026",
-      editora: "ABCM",
-      nota: "Apresentado pelo autor",
-      doi: "10.26678/abcm.conem2026.con26-0895"
-    },
-    {
-      ano: 2025,
-      tipo: "Congresso",
-      titulo: "Quadrotor Dynamics Identification Using Neural Networks",
+      evento: "XIII Congresso Nacional de Engenharia Mecânica (CONEM 2026)", sigla: "CONEM 2026", editora: "ABCM",
+      nota: "Apresentado pelo autor", doi: "10.26678/abcm.conem2026.con26-0895" },
+    { ano: 2025, tipo: "Congresso", titulo: "Quadrotor Dynamics Identification Using Neural Networks",
       autores: "**O. Zordan Alves**, G. de Paula Pinheiro, Y. Diaz",
-      evento: "28th International Congress of Mechanical Engineering (COBEM 2025)",
-      sigla: "COBEM 2025",
-      editora: "ABCM",
-      nota: "Apresentado pelo autor",
-      doi: "10.26678/abcm.cobem2025.cob2025-1161"
-    }
+      evento: "28th International Congress of Mechanical Engineering (COBEM 2025)", sigla: "COBEM 2025", editora: "ABCM",
+      nota: "Apresentado pelo autor", doi: "10.26678/abcm.cobem2025.cob2025-1161" }
   ],
   perfisAcademicos: [
     { rotulo: "Currículo Lattes", url: "http://lattes.cnpq.br/9155564516628230" },
@@ -99,179 +146,61 @@ window.DADOS = {
     { rotulo: "LSA",              url: "https://lsa.unifei.edu.br/" }
   ],
 
-  /* ----------------------- CARREIRA ACADÊMICA ------------------------- */
-  academico: [
-    {
-      id: "unifei",
-      aba: "UNIFEI",
-      instituicao: "Universidade Federal de Itajubá",
-      curso: "Bacharelado em Engenharia Mecânica Aeronáutica",
-      periodo: "Ingresso em 2024",
-      site: "https://unifei.edu.br/",
-      destaques: ["GEMEC · LSA", "PET Engenharia Mecânica", "Beyond Aerospace", "CI Expert"],
-      itens: [
-        { quando: "out 2026", titulo: "Pesquisador de Graduação · GEMEC", local: "Grupo de Estudos em Mecânica Experimental e Computacional",
-          pontos: ["Pesquisa em dinâmica de voo e controle de veículos aéreos não tripulados."] },
-        { quando: "mar 2026 — mar 2027", titulo: "Residente de Pesquisa em Graduação · CI Expert", local: "Residência em Microeletrônica · MCTI · Softex · UNIFEI",
-          pontos: ["Síntese RTL e linguagens de descrição de hardware; trilha de RTL Design do processador multiciclo.", "Certificado na trilha de Síntese RTL da Purple Certification Brazil."] },
-        { quando: "jan — out 2026", titulo: "Subsistema de GNC · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
-          pontos: ["Fusão de sensores, estimação de estados, determinação de atitude, projeto de controle e implementação de controle em tempo real com RTOS."] },
-        { quando: "out — dez 2025", titulo: "Instrutor de Curso de Extensão · PET Engenharia Mecânica", local: "PET Engenharia Mecânica UNIFEI",
-          pontos: ["Curso de 16 h de Python para estudantes de Engenharia Aeronáutica e Mecânica, voltado a simulações e análise de dados.", "Currículo próprio: NumPy, Pandas, SciPy e SymPy.", "Mais de 35 alunos orientados em exercícios e projetos práticos."] },
-        { quando: "jun 2025", titulo: "Pesquisador de Graduação · PET Engenharia Mecânica", local: "PET Engenharia Mecânica UNIFEI",
-          pontos: ["Controle de formação de nanodrones com controle robusto (CONEM 2026).", "Identificação da dinâmica de quadrirrotores com redes neurais (COBEM 2025).", "Posicionamento e rastreamento de trajetória com controle clássico e filtragem de Kalman."] },
-        { quando: "jan — dez 2025", titulo: "Líder do Subsistema de Telecomunicações · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
-          pontos: ["Liderou telemetria e radiocomunicação: sistemas de RF, integração de SDR, enlace com a estação de solo e transmissão de dados de bordo em tempo real."] },
-        { quando: "mar — dez 2024", titulo: "Membro de P&D · Beyond Aerospace Department", local: "Equipe de foguetemodelismo",
-          pontos: ["Divisão de pesquisa e desenvolvimento da equipe."] }
-      ]
-    },
-    {
-      id: "ete",
-      aba: "ETE FMC",
-      instituicao: "Escola Técnica de Eletrônica Francisco Moreira da Costa",
-      curso: "Técnico em Telecomunicações",
-      periodo: "2021 — 2024",
-      site: "https://www.etefmc.com.br/",
-      destaques: ["Melhor Desempenho Acadêmico 2024", "~1.300 horas-aula", "Santa Rita do Sapucaí"],
-      itens: [
-        { quando: "2024", titulo: "Prêmio de Melhor Desempenho Acadêmico", local: "Turma de 2024",
-          pontos: ["Maior honraria da escola, concedida a um único formando entre todos os cursos técnicos."] },
-        { quando: "2023", titulo: "SolarEyes — CubeSat estratosférico", local: "Olimpíada Brasileira de Satélites (OBSAT-MCTI)",
-          pontos: ["Integração de OBC, EPS e telecomunicações; carga útil de radiação gama com fotodiodos PIN.", "Campeão regional da OBSAT 2023."] },
-        { quando: "2022 — 2023", titulo: "ARduck — Realidade aumentada para eletrônica", local: "PROJETE",
-          pontos: ["Embarcados, backend, integrações e DevOps (Flask e Docker).", "Campeão Utilidade e Melhor apresentação em inglês (2022); melhor projeto de Telecom (2023)."] },
-        { quando: "mar — dez 2022", titulo: "Monitor de Laboratório", local: "ETE FMC",
-          pontos: ["Aulas de apoio em Algoritmos, Sistemas Digitais, Eletrônica Analógica e Eletricidade."] },
-        { quando: "2021", titulo: "Ajuste Dinâmico de Faróis Automotivos", local: "PROJETE 2021",
-          pontos: ["Líder da equipe e programador; campeão em Automação e Prêmio Municipal de Inovação."] },
-        { quando: "2021 — 2023", titulo: "Cursos de curta duração · Inatel", local: "Instituto Nacional de Telecomunicações",
-          pontos: ["Pequenos satélites, redes ópticas, IoT, Python e IA, VoIP, SDH, Flutter, Eagle e PCI, SolidWorks, CTF Telecom Challenge."] }
-      ]
-    }
-  ],
-
-  /* ---------------------- CARREIRA PROFISSIONAL ----------------------- */
-  profissional: [
-    { quando: "jan 2026", titulo: "Estagiário de Férias · Engenharia de Sistemas", local: "Modirum | Gespi · Santa Rita do Sapucaí",
-      pontos: ["Cadernos de teste e protocolos de ensaio para um projeto estratégico.",
-               "Ferramenta em Python com interface gráfica para mineração e análise de dados abertos sobre aquisições internacionais de Forças Armadas, apoiando inteligência de mercado.",
-               "Estudos de requisitos de certificação: MIL-STD-810, MIL-STD-901, RS101 e DO-254.",
-               "Detalhes do projeto omitidos por sigilo profissional."] },
-    { quando: "jan — mar 2024", titulo: "Estagiário de Férias · Desenvolvimento de Soluções", local: "ChamaInbox Brasil · Remoto",
-      pontos: ["Desenvolvimento backend em Python: APIs, novas funcionalidades, otimização de desempenho e integração com bancos de dados."] },
-    { quando: "jan — fev 2023", titulo: "Estagiário de Férias · Desenvolvimento", local: "CEDEN ETE FMC · Centro de Desenvolvimento e Negócios",
-      pontos: ["Software embarcado para controle e automação industrial: sistema completo de monitoramento e controle de equipamentos via RS-485, com driver de interface e aplicação desktop.",
-               "Solução adotada no curso de Controle e Automação Industrial da ETE FMC."] },
-    { quando: "dez 2021 — jan 2022", titulo: "Estagiário de Férias · Desenvolvimento de Software", local: "ChamaInbox Brasil · Santa Rita do Sapucaí",
-      pontos: ["Desenvolvimento backend de APIs e serviços em Python e Flask, com integração a bancos de dados."] }
-  ],
-
-  /* ----------------------------- FOGUETES ----------------------------- */
-  foguete: {
-    equipe: "Beyond Aerospace Department",
-    texto: "Na equipe de foguetemodelismo da UNIFEI, passei por P&D, liderei o subsistema de **Telecomunicações** (RF, SDR e enlace com a estação de solo) e trabalhei no subsistema de **Navegação, Guiamento e Controle**: fusão de sensores, estimação de estados, determinação de atitude e controle em tempo real com RTOS.",
-    cargos: [
-      { ano: "2026",   cargo: "Subsistema de GNC" },
-      { ano: "2025",   cargo: "Líder de Telecomunicações" },
-      { ano: "2024",   cargo: "Membro de P&D" }
-    ],
-    url: ""   // coloque aqui o site/Instagram da equipe, se quiser
-  },
-
   /* ----------------------------- PROJETOS -----------------------------
+     destaque: true aparece no site (recomendado: até 6).
      icone: formacao, sysid, foguete, cubesat, radar, chip, aerofolio,
-            altimetro, ar, rs485, farol, python  (ou deixe vazio)
-     imagem: caminho de uma foto (opcional, substitui o ícone)
-     origem: "UNIFEI", "ETE FMC", "Profissional" ou "Pessoal"          */
+            altimetro, ar, rs485, farol, python                           */
   projetos: [
-    { titulo: "Controle de formação de nanodrones", org: "PET Mecânica · GEMEC · LSA", ano: "2025–26", origem: "UNIFEI", icone: "formacao",
-      categorias: ["Voo & Controle"],
-      descricao: "Controle de formação de enxame de nanodrones com controladores robustos, além de posicionamento e rastreamento de trajetória com controle clássico e filtragem de Kalman.",
-      tags: ["Controle robusto", "Kalman", "MATLAB/Simulink"],
+    { destaque: true, titulo: "Controle de formação de nanodrones", org: "PET · GEMEC · LSA", ano: "2025–26", icone: "formacao",
+      descricao: "Enxame de nanodrones com controladores robustos, rastreamento de trajetória e filtragem de Kalman.",
       links: [{ rotulo: "Artigo CONEM 2026", url: "https://doi.org/10.26678/abcm.conem2026.con26-0895" }] },
-
-    { titulo: "Identificação da dinâmica de quadrirrotores", org: "PET Mecânica · GEMEC", ano: "2025", origem: "UNIFEI", icone: "sysid",
-      categorias: ["Voo & Controle"],
-      descricao: "Caracterização da dinâmica de voo de um quadrirrotor por redes neurais, unindo modelagem matemática, simulação e análise de dados de voo.",
-      tags: ["System ID", "Redes neurais", "Python"],
+    { destaque: true, titulo: "Identificação de quadrirrotores com redes neurais", org: "PET · GEMEC", ano: "2025", icone: "sysid",
+      descricao: "Caracterização da dinâmica de voo por redes neurais, unindo modelagem, simulação e dados de voo.",
       links: [{ rotulo: "Artigo COBEM 2025", url: "https://doi.org/10.26678/abcm.cobem2025.cob2025-1161" }] },
-
-    { titulo: "Foguete — Beyond Aerospace Department", org: "Foguetemodelismo · UNIFEI", ano: "2024–26", origem: "UNIFEI", icone: "foguete",
-      categorias: ["Voo & Controle", "Espaço"],
-      descricao: "GNC com fusão de sensores, estimação de estados, determinação de atitude e controle em tempo real com RTOS. Antes, liderança de telemetria: RF, SDR e enlace com a estação de solo.",
-      tags: ["GNC", "RTOS", "SDR", "Telemetria"], links: [] },
-
-    { titulo: "Interceptação de enxames", org: "Estudo · Python", ano: "2026", origem: "Pessoal", icone: "radar",
-      categorias: ["Voo & Controle", "Software"],
-      descricao: "Simulador para alocação de interceptadores contra enxames de aeronaves evasivas sob informação de radar: 29 métodos, 60 cenários com terreno real (Copernicus GLO-30) e geração automática das tabelas do artigo.",
-      tags: ["Simulação", "Otimização", "Defesa"],
-      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/estudo-interceptador" }] },
-
-    { titulo: "Processador multiciclo — CI Expert", org: "Residência em Microeletrônica", ano: "2026", origem: "UNIFEI", icone: "chip",
-      categorias: ["Hardware"],
-      descricao: "Processador multiciclo parametrizado de 3 estágios, do RTL ao sign-off. Responsável pela trilha de RTL Design em Verilog.",
-      tags: ["Verilog", "RTL", "Síntese", "FPGA"],
+    { destaque: true, titulo: "SolarEyes — CubeSat estratosférico", org: "OBSAT-MCTI · ETE FMC", ano: "2023", icone: "cubesat",
+      descricao: "Carga útil de radiação gama com fotodiodos PIN de baixo custo, validada em voo de balão estratosférico.",
+      links: [] },
+    { destaque: true, titulo: "Processador multiciclo — CI Expert", org: "Residência em Microeletrônica", ano: "2026", icone: "chip",
+      descricao: "Processador parametrizado de 3 estágios, do RTL ao sign-off; trilha de RTL Design em Verilog.",
       links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/ci-expert" }] },
+    { destaque: true, titulo: "Interceptação de enxames", org: "Estudo · Python", ano: "2026", icone: "radar",
+      descricao: "Simulador de alocação de interceptadores contra enxames evasivos sob radar: 29 métodos e 60 cenários com terreno real.",
+      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/estudo-interceptador" }] },
+    { destaque: true, titulo: "NACA Airfoil Plotter", org: "CS50 · Harvard", ano: "2024", icone: "aerofolio",
+      descricao: "Aplicação web que gera aerofólios NACA de 4 dígitos com distribuição de pressão e polares.",
+      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/NACA-Airfoil-Plotter" }] },
 
-    { titulo: "SolarEyes — CubeSat estratosférico", org: "OBSAT-MCTI", ano: "2023", origem: "ETE FMC", icone: "cubesat",
-      categorias: ["Espaço", "Hardware"],
-      descricao: "Sonda CubeSat com carga útil que detecta radiação gama com fotodiodos PIN de baixo custo. Integração de OBC, EPS e telecom; validada em voo de balão estratosférico, elevando o TRL do sensor.",
-      premio: "Campeão regional — Olimpíada Brasileira de Satélites 2023",
-      tags: ["OBC", "EPS", "Telecom", "Payload"], links: [] },
-
-    { titulo: "NACA Airfoil Plotter", org: "CS50 · Harvard · Flask", ano: "2024", origem: "Pessoal", icone: "aerofolio",
-      categorias: ["Software"],
-      descricao: "Aplicação web que gera aerofólios NACA de 4 dígitos com superfícies, linha média, espessura, distribuição de pressão e polares de sustentação e arrasto.",
-      tags: ["Aerodinâmica", "Flask", "Matplotlib"],
-      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/NACA-Airfoil-Plotter" }, { rotulo: "Vídeo", url: "https://youtu.be/ZzYQg_iRxVs" }] },
-
-    { titulo: "Altímetro", org: "Software livre · GPL-3.0", ano: "2026", origem: "Pessoal", icone: "altimetro",
-      categorias: ["Software"],
-      descricao: "Ferramenta multiplataforma que levanta métricas de grupos de pesquisa a partir do Currículo Lattes para relatórios, editais e avaliações CAPES.",
-      tags: ["Python", "Dados", "Desktop"],
+    // fora do site (mude destaque para true para exibir)
+    { destaque: false, titulo: "Altímetro", org: "Software livre · GPL-3.0", ano: "2026", icone: "altimetro",
+      descricao: "Métricas de grupos de pesquisa a partir do Currículo Lattes.",
       links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/altimetro-lattes" }] },
-
-    { titulo: "Ferramenta de inteligência de mercado em defesa", org: "Modirum | Gespi", ano: "2026", origem: "Profissional", icone: "radar",
-      categorias: ["Software"],
-      descricao: "Aplicação em Python com interface gráfica para mineração e análise de dados abertos sobre aquisições internacionais de Forças Armadas.",
-      tags: ["Python", "GUI", "Dados"], links: [] },
-
-    { titulo: "ARduck — Realidade aumentada para eletrônica", org: "PROJETE", ano: "2022–23", origem: "ETE FMC", icone: "ar",
-      categorias: ["Hardware", "Software"],
-      descricao: "Ecossistema de ensino com realidade aumentada, instrumentação de laboratório conectada, app móvel e painel web para professores, com microsserviços próprios.",
-      premio: "Campeão Utilidade e Melhor apresentação em inglês (2022) · Melhor projeto de Telecom (2023)",
-      tags: ["Flask", "Docker", "IoT", "AR"],
-      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/ARduck" }] },
-
-    { titulo: "Duck Protocol — rede industrial RS-485", org: "CEDEN ETE FMC", ano: "2023", origem: "Profissional", icone: "rs485",
-      categorias: ["Hardware", "Software"],
-      descricao: "Protocolo serial didático, firmware, driver e dashboard desktop para monitorar e controlar equipamentos industriais. Adotado no curso de Automação da ETE FMC.",
-      tags: ["Firmware", "RS-485", "C#", "Python"],
-      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/Duck-Protocol" }] },
-
-    { titulo: "Ajuste dinâmico de faróis automotivos", org: "PROJETE 2021", ano: "2021", origem: "ETE FMC", icone: "farol",
-      categorias: ["Hardware"],
-      descricao: "Sistema embarcado que corrige automaticamente o facho dos faróis do veículo. Líder da equipe e programador do firmware.",
-      premio: "Campeão Automação · Prêmio Municipal de Inovação",
-      tags: ["C++", "Embarcados", "Sensores"],
-      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/ProjETE-2021-1106" }] },
-
-    { titulo: "Curso de Python para engenharia", org: "Extensão · PET Mecânica", ano: "2025", origem: "UNIFEI", icone: "python",
-      categorias: ["Software"],
-      descricao: "Curso de 16 horas criado e ministrado para alunos de Engenharia Aeronáutica e Mecânica: NumPy, Pandas, SciPy e SymPy aplicados a simulação e análise de dados.",
-      tags: ["Ensino", "SciPy", "SymPy"], links: [] }
+    { destaque: false, titulo: "Duck Protocol — RS-485", org: "CEDEN ETE FMC", ano: "2023", icone: "rs485",
+      descricao: "Protocolo serial didático, firmware, driver e dashboard para redes industriais.",
+      links: [{ rotulo: "GitHub", url: "https://github.com/otaviozordan/Duck-Protocol" }] }
   ],
 
   /* -------------------------- COMPETÊNCIAS ---------------------------- */
   competencias: [
     { grupo: "Voo & Controle", itens: ["Dinâmica de voo", "Projeto de controle", "Controle robusto", "Filtro de Kalman", "System ID"] },
     { grupo: "Programação",    itens: ["Python", "C / C++", "MATLAB / Simulink", "Verilog · VHDL", "Git"] },
-    { grupo: "Hardware",       itens: ["Sistemas embarcados", "FPGA & RTL", "Eletrônica analógica/digital", "PCI (Eagle)", "Telecom & RF"] },
-    { grupo: "Engenharia",     itens: ["Engenharia de sistemas", "Elementos finitos", "SolidWorks", "DO-254 · MIL-STD", "Backend & DevOps"] }
+    { grupo: "Hardware",       itens: ["Sistemas embarcados", "FPGA & RTL", "Eletrônica analógica/digital", "PCI (Eagle)", "RF · SDR"] },
+    { grupo: "Engenharia",     itens: ["Engenharia de sistemas", "Elementos finitos", "SolidWorks", "DO-254 · MIL-STD", "RTOS"] }
   ],
   idiomas: "Português nativo · Inglês B1 · Francês B1",
 
+  premios: [
+    { titulo: "Melhor Desempenho Acadêmico — Turma 2024", org: "ETE FMC", ano: "2024" },
+    { titulo: "Campeão Regional — OBSAT-MCTI", org: "Sonda CubeSat SolarEyes", ano: "2023" },
+    { titulo: "Melhor projeto de Telecomunicações", org: "PROJETE 2023 · ARduck", ano: "2023" },
+    { titulo: "Campeão categoria Utilidade", org: "PROJETE 2022 · ARduck", ano: "2022" },
+    { titulo: "Melhor apresentação em inglês", org: "PROJETE 2022 · ARduck", ano: "2022" },
+    { titulo: "Participação destacada Custom Brasil", org: "PROJETE 2022", ano: "2022" },
+    { titulo: "Reconhecimento empreendedor CP2", org: "PROJETE 2022", ano: "2022" },
+    { titulo: "Prêmio Municipal de Inovação", org: "Santa Rita do Sapucaí", ano: "2021" },
+    { titulo: "Campeão categoria Automação", org: "PROJETE 2021", ano: "2021" }
+  ],
+
+  // Aparece recolhido em "Cursos e certificações"
   certificacoes: [
     { titulo: "Kalman Filter Boot Camp (and State Estimation)", org: "University of Colorado Boulder", ano: "2026" },
     { titulo: "Síntese RTL", org: "Purple Certification Brazil", ano: "2026" },
@@ -285,26 +214,14 @@ window.DADOS = {
     { titulo: "CS50 Introduction to Computer Science", org: "Harvard University", ano: "2024" }
   ],
 
-  premios: [
-    { titulo: "Melhor Desempenho Acadêmico — Turma 2024", org: "ETE FMC · maior honraria da escola", ano: "2024" },
-    { titulo: "Campeão Regional — OBSAT-MCTI", org: "Sonda CubeSat SolarEyes", ano: "2023" },
-    { titulo: "Melhor projeto de Telecomunicações", org: "PROJETE 2023 · ARduck", ano: "2023" },
-    { titulo: "Campeão categoria Utilidade", org: "PROJETE 2022 · ARduck", ano: "2022" },
-    { titulo: "Melhor apresentação em inglês", org: "PROJETE 2022 · ARduck", ano: "2022" },
-    { titulo: "Participação destacada Custom Brasil", org: "PROJETE 2022", ano: "2022" },
-    { titulo: "Reconhecimento empreendedor CP2", org: "PROJETE 2022", ano: "2022" },
-    { titulo: "Prêmio Municipal de Inovação", org: "Prefeitura de Santa Rita do Sapucaí", ano: "2021" },
-    { titulo: "Campeão categoria Automação", org: "PROJETE 2021 · Faróis dinâmicos", ano: "2021" }
-  ],
-
   /* ----------------------------- CONTATO ------------------------------ */
   contato: {
     chamada: "Pesquisa, colaborações e projetos em dinâmica de voo, GNC, sistemas embarcados e engenharia aeroespacial.",
     links: [
-      { rotulo: "E-mail",   texto: "otaviozordan@gmail.com",   url: "mailto:otaviozordan@gmail.com" },
-      { rotulo: "LinkedIn", texto: "in/otavio-zordan",         url: "https://www.linkedin.com/in/otavio-zordan" },
-      { rotulo: "GitHub",   texto: "github.com/otaviozordan",  url: "https://github.com/otaviozordan" },
-      { rotulo: "Lattes",   texto: "9155564516628230",         url: "http://lattes.cnpq.br/9155564516628230" }
+      { rotulo: "E-mail",   texto: "otaviozordan@gmail.com",  url: "mailto:otaviozordan@gmail.com" },
+      { rotulo: "LinkedIn", texto: "in/otavio-zordan",        url: "https://www.linkedin.com/in/otavio-zordan" },
+      { rotulo: "GitHub",   texto: "github.com/otaviozordan", url: "https://github.com/otaviozordan" },
+      { rotulo: "Lattes",   texto: "9155564516628230",        url: "http://lattes.cnpq.br/9155564516628230" }
     ]
   }
 };

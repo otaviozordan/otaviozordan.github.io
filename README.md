@@ -12,14 +12,15 @@ Todo o conteúdo fica em **[dados.js](dados.js)**. Na maioria das vezes não é 
 
 | Quero… | Onde em `dados.js` |
 | --- | --- |
-| Adicionar uma publicação (congresso, periódico, capítulo…) | `publicacoes` (ordenadas por ano sozinhas; `tipo` vira a etiqueta) |
-| Adicionar um projeto ao portfólio | `projetos` (os filtros saem de `categorias` e `origem`) |
-| Novo cargo/atividade na UNIFEI ou na ETE | `academico` → aba `unifei` ou `ete` → `itens` |
-| Novo estágio/emprego | `profissional` |
+| Novo cargo/atividade acadêmica | `trajetoria` → fase (ETE FMC ou UNIFEI) → `academico` |
+| Novo estágio/emprego | `trajetoria` → fase → `profissional` |
+| Nova fase (ex.: mestrado) | copie uma fase inteira em `trajetoria` |
+| Adicionar uma publicação | `publicacoes` (ordenadas por ano; `tipo` vira a etiqueta) |
+| Mostrar/ocultar um projeto | `projetos` → `destaque: true/false` |
 | Grupo ou laboratório (logo + link) | `grupos` (logo em `assets/`) |
 | Cargos na equipe de foguetes | `foguete.cargos` |
-| Prêmio, certificação, competência | `premios`, `certificacoes`, `competencias` |
-| Texto do topo, foto, "Sobre", números | `perfil` |
+| Prêmio, curso, competência | `premios`, `certificacoes` (aparecem recolhidas), `competencias` |
+| Texto do topo, foto, fatos rápidos | `perfil` |
 
 - `**texto**` fica em **negrito**.
 - Os contadores de publicações e prêmios são automáticos.
@@ -27,6 +28,10 @@ Todo o conteúdo fica em **[dados.js](dados.js)**. Na maioria das vezes não é 
 - Ícones prontos para projetos: `formacao`, `sysid`, `foguete`, `cubesat`, `radar`, `chip`, `aerofolio`, `altimetro`, `ar`, `rs485`, `farol`, `python`.
 
 Para ver localmente, basta abrir `index.html` no navegador.
+
+## Identidade visual
+
+Há 4 temas (`cockpit`, `prancheta`, `relatorio`, `estratosfera`), trocados pelo seletor na base da página ou por `?tema=nome` na URL. Para fixar um: mude `data-tema` no `<html>` do `index.html` e apague a linha `<div class="temas" ...>`.
 
 ## Estrutura
 
